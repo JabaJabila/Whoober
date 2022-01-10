@@ -33,7 +33,7 @@ namespace WhooberApp
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Reports.WebUI v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WhooberApp.WebUI v1"));
             }
 
             app.UseHttpsRedirection();
