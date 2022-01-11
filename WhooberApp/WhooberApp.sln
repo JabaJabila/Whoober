@@ -7,6 +7,8 @@ ProjectSection(SolutionItems) = preProject
 	.editorconfig = .editorconfig
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberCore", "WhooberCore\WhooberCore.csproj", "{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,5 +19,9 @@ Global
 		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
