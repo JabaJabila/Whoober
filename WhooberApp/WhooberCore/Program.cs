@@ -6,8 +6,7 @@ namespace WhooberCore
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World returns!");
-            Console.WriteLine("Hello World returns! #2");
+            Console.WriteLine("Hello World!");
         }
     }
 }
