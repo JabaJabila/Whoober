@@ -4,6 +4,7 @@ namespace WhooberCore.Domain.Entities
 {
     public class Passenger
     {
+        public Guid Id { get; private init; }
         public string Name { get; set; }
         public Rating Rating { get; private init; }
 

@@ -5,6 +5,7 @@ namespace WhooberCore.Domain.Entities
 {
     public class Trip
     {
+        public Guid Id { get; private init; }
         public Order Order { get; private init; }
         public Driver Driver { get; private init; }
         public Car Car { get; private init; }

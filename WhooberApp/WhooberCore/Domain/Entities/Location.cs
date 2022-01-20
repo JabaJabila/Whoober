@@ -4,6 +4,7 @@ namespace WhooberCore.Domain.Entities
 {
     public class Location
     {
+        public Guid Id { get; private init; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 

@@ -5,6 +5,7 @@ namespace WhooberCore.Domain.Entities
 {
     public class Car
     {
+        public Guid Id { get; private init; }
         public CarLevel Level { get; private init; }
         public string Model { get; private init; }
         public string Color { get; private init; }

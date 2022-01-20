@@ -6,8 +6,8 @@ namespace WhooberCore.Domain.Entities
 {
     public class Rating
     {
+        public Guid Id { get; private init; }
         private List<Rate> _rates;
-        
         public IReadOnlyCollection<Rate> Rates
         {
             get => _rates;

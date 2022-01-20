@@ -5,6 +5,7 @@ namespace WhooberCore.Domain.Entities
 {
     public class Driver
     {
+        public Guid Id { get; private init; }
         public string Name { get; private init; }
         public Rating Rating { get; private init; }
         public Car Car { get; set; }

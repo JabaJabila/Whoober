@@ -5,6 +5,7 @@ namespace WhooberCore.Domain.Entities
 {
     public class Rate
     {
+        public Guid Id { get; private init; }
         public int RateValue { get; private init; }
         public string Comment { get; private init; }
 
