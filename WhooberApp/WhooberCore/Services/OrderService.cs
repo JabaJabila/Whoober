@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.ServiceAbstractions;
 
@@ -6,30 +7,40 @@ namespace WhooberCore.Services
 {
     public class OrderService : IOrderService
     {
-        private ICostDeterminator _costDeterminator;
+        private readonly ICostDeterminer _costDeterminer;
 
         // List of orders to be approved or denied, removed from list after approval/denial
         private List<Order> _activeOrders;
 
-        public OrderService(ICostDeterminator costDeterminator)
+        public OrderService(ICostDeterminer costDeterminer)
         {
             _activeOrders = new List<Order>();
-            _costDeterminator = costDeterminator;
+            _costDeterminer = costDeterminer;
         }
 
         public decimal RequestTripCost(Order order)
         {
-            return _costDeterminator.DefineTripCost(order);
+            return _costDeterminer.DefineTripCost(order);
         }
 
         public void ApproveOrder(Order order)
         {
-            throw new System.NotImplementedException();
+            if (!_activeOrders.Remove(order))
+            {
+                throw new ArgumentException("Order not found", nameof(order));
+            }
+
+            // TODO approve order logic
         }
 
         public void DenyOrder(Order order)
         {
-            throw new System.NotImplementedException();
+            if (!_activeOrders.Remove(order))
+            {
+                throw new ArgumentException("Order not found", nameof(order));
+            }
+
+            // TODO deny order logic
         }
     }
 }
