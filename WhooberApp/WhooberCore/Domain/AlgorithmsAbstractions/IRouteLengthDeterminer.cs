@@ -1,6 +1,6 @@
 using WhooberCore.Domain.Entities;
 
-namespace WhooberCore.Domain.ServiceAbstractions
+namespace WhooberCore.Domain.AlgorithmsAbstractions
 {
     public interface IRouteLengthDeterminer
     {

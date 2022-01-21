@@ -1,6 +1,6 @@
 using System;
+using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
-using WhooberCore.Domain.ServiceAbstractions;
 
 namespace WhooberCore.Algorithms
 {

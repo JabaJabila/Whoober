@@ -1,6 +1,6 @@
 using WhooberCore.Domain.Entities;
 
-namespace WhooberCore.Domain.ServiceAbstractions
+namespace WhooberCore.Domain.AlgoritmsAbstractions
 {
     public interface IDriverFinder
     {

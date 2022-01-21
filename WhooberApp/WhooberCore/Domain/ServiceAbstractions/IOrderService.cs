@@ -4,7 +4,7 @@ namespace WhooberCore.Domain.ServiceAbstractions
 {
     public interface IOrderService
     {
-        decimal RequestTripCost(Order order);
+        decimal RequestTripCost(OrderRequest orderRequest);
         void ApproveOrder(Order order);
         void DenyOrder(Order order);
     }

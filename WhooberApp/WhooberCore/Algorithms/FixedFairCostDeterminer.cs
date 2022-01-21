@@ -1,5 +1,6 @@
+using WhooberCore.Domain.AlgorithmsAbstractions;
+using WhooberCore.Domain.AlgoritmsAbstractions;
 using WhooberCore.Domain.Entities;
-using WhooberCore.Domain.ServiceAbstractions;
 
 namespace WhooberCore.Algorithms
 {
@@ -13,9 +14,9 @@ namespace WhooberCore.Algorithms
             _routeLengthDeterminer = routeLengthDeterminer;
         }
 
-        public decimal DefineTripCost(Order order)
+        public decimal DefineTripCost(OrderRequest orderRequest)
         {
-            return _costPerDistanceUnit * (decimal)_routeLengthDeterminer.CountLength(order.Route) * (decimal)order.CarLevel;
+            return _costPerDistanceUnit * (decimal)_routeLengthDeterminer.CountLength(orderRequest.Route) * (decimal)orderRequest.CarLevel;
         }
     }
 }

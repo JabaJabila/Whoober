@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WhooberCore.Domain.AlgoritmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.ServiceAbstractions;
 
@@ -18,9 +19,9 @@ namespace WhooberCore.Services
             _costDeterminer = costDeterminer;
         }
 
-        public decimal RequestTripCost(Order order)
+        public decimal RequestTripCost(OrderRequest orderRequest)
         {
-            return _costDeterminer.DefineTripCost(order);
+            return _costDeterminer.DefineTripCost(orderRequest);
         }
 
         public void ApproveOrder(Order order)
