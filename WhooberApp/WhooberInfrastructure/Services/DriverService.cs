@@ -10,44 +10,46 @@ namespace WhooberInfrastructure.Services
 {
     public class DriverService : IDriverService
     {
-        private List<Driver> _drivers;
         private IServiceMediator _serviceMediator;
         private WhooberContext _whooberContext;
         public DriverService(WhooberContext whooberContext)
         {
             _whooberContext = whooberContext;
-            _drivers = new List<Driver>();
         }
 
         public void RegisterDriver(Driver driver)
         {
-            if (_drivers.Contains(driver))
-            {
-                throw new ArgumentException("Driver already registered", nameof(driver));
-            }
+            if (_whooberContext.Drivers.FirstOrDefault(x => x.PhoneNumber == driver.PhoneNumber) != null)
+            {            {
+                throw new ArgumentException("Driver with this phone number already registered", nameof(driver));
+            }}
 
-            _drivers.Add(driver);
+            _whooberContext.Drivers.Add(driver);
+            _whooberContext.SaveChanges();
         }
 
         public void SetDriverStateToWorking(Driver driver)
         {
             driver.State = DriverState.Driving;
+            _whooberContext.SaveChanges();
         }
 
         public void SetDriverStateToInactive(Driver driver)
         {
             driver.State = DriverState.Inactive;
+            _whooberContext.SaveChanges();
         }
 
         public void SetDriverStateToWaiting(Driver driver)
         {
             driver.State = DriverState.Waiting;
+            _whooberContext.SaveChanges();
         }
 
         public void AcceptOrder(Driver driver, Order order)
         {
+            // var trip = new Trip(order, driver, driver.Car);
             driver.State = DriverState.Driving;
-            var trip = new Trip(order, driver, driver.Car);
         }
 
         public void ChangeTripStateToAwaitDriver(Driver driver)
@@ -77,13 +79,7 @@ namespace WhooberInfrastructure.Services
 
         public IReadOnlyCollection<Driver> GetActiveDrivers()
         {
-            return _drivers.Where(x => x.State == DriverState.Waiting).ToList();
-        }
-
-        public IServiceMediator ServiceMediator
-        {
-            get;
-            set;
+            return _whooberContext.Drivers.Where(x => x.State == DriverState.Waiting).ToList();
         }
 
         public void SetServiceMediator(IServiceMediator mediator)

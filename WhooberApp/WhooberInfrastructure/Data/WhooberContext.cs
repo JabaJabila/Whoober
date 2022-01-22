@@ -18,6 +18,8 @@ namespace WhooberInfrastructure.Data
         public DbSet<Car> Cars { get; set; }
         public DbSet<Trip> Trips { get; }
 
+        public DbSet<Trip> Trips { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Passenger>().OwnsOne(p => p.SavedCard);
@@ -27,7 +29,7 @@ namespace WhooberInfrastructure.Data
             modelBuilder.Entity<Driver>().HasOne(d => d.Car);
             modelBuilder.Entity<Driver>().Property(d => d.State)
                 .HasConversion(new EnumToStringConverter<DriverState>());
-            
+
             modelBuilder.Entity<Passenger>().ToTable("Passengers");
             modelBuilder.Entity<Driver>().ToTable("Drivers");
             base.OnModelCreating(modelBuilder);
