@@ -1,8 +1,8 @@
 ﻿using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
-using WhooberCore.Domain.ServiceAbstractions;
+using WhooberCore.InfrastructureAbstractions;
 
-namespace WhooberCore.Services
+namespace WhooberInfrastructure.Services
 {
     public class OrderService : IOrderService
     {

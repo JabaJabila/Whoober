@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
-using WhooberCore.Domain.ServiceAbstractions;
+using WhooberCore.InfrastructureAbstractions;
 
-namespace WhooberCore.Services
+namespace WhooberInfrastructure.Services
 {
     public class TripService : ITripService
     {

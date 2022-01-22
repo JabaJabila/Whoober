@@ -1,4 +1,4 @@
-namespace WhooberCore.Domain.ServiceAbstractions
+namespace WhooberCore.InfrastructureAbstractions
 {
     public interface IBaseService
     {

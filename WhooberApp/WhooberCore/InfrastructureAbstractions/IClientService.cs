@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using WhooberCore.Domain.Entities;
 
-namespace WhooberCore.Domain.ServiceAbstractions
+namespace WhooberCore.InfrastructureAbstractions
 {
     public interface IClientService
     {

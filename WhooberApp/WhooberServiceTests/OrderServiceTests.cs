@@ -4,10 +4,10 @@ using WhooberCore.Builders;
 using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
-using WhooberCore.Domain.ServiceAbstractions;
-using WhooberCore.Services;
+using WhooberCore.InfrastructureAbstractions;
+using WhooberInfrastructure.Services;
 
-namespace WhooberCoreServiceTests
+namespace WhooberServiceTests
 {
     public class OrderServiceTests
     {

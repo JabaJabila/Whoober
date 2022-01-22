@@ -4,11 +4,11 @@ using WhooberCore.Builders;
 using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
-using WhooberCore.Domain.ServiceAbstractions;
+using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Payment;
-using WhooberCore.Services;
+using WhooberInfrastructure.Services;
 
-namespace WhooberCoreServiceTests
+namespace WhooberServiceTests
 {
     public class TripServiceTests
     {
