@@ -21,10 +21,11 @@ namespace WhooberCore.Services
             return _costDeterminer.DefineTripCost(orderRequest);
         }
 
-        public void ApproveOrder(Order order)
+        public Trip ApproveOrder(Order order)
         {
             // TODO approve order logic
             Driver driver = _driverFinder.FindDriver(order, _serviceMediator.GetActiveDrivers());
+            return _serviceMediator.ConfirmOrder(order, driver);
         }
     }
 }

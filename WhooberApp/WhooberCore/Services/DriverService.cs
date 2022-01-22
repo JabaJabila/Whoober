@@ -17,7 +17,7 @@ namespace WhooberCore.Services
 
         public void RegisterDriver(Driver driver)
         {
-            if (!_drivers.Contains(driver))
+            if (_drivers.Contains(driver))
             {
                 throw new ArgumentException("Driver already registered", nameof(driver));
             }

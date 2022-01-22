@@ -8,9 +8,21 @@ namespace WhooberCore.Services
     public class ServiceMediator : IServiceMediator
     {
         private readonly IDriverService _driverService;
+        private readonly ITripService _tripService;
+        public ServiceMediator(IDriverService driverService, ITripService tripService)
+        {
+            _driverService = driverService;
+            _tripService = tripService;
+        }
+
         public IReadOnlyCollection<Driver> GetActiveDrivers()
         {
             return _driverService.GetActiveDrivers();
+        }
+
+        public Trip ConfirmOrder(Order order, Driver driver)
+        {
+            return _tripService.CreateTrip(order, driver);
         }
     }
 }

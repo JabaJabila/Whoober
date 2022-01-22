@@ -12,17 +12,22 @@ namespace WhooberCoreServiceTests
     public class OrderServiceTests
     {
         private IOrderService _orderService;
+        private IDriverService _driverService;
+        private ITripService _tripService;
         [SetUp]
         public void SetUp()
         {
             ICostDeterminer costDeterminer = new FixedFairCostDeterminer(10, new EuclidRouteLengthCount());
             IDriverFinder driverFinder = new DriverFinder();
-            IServiceMediator serviceMediator = new ServiceMediator();
+            _driverService = new DriverService();
+            _driverService.RegisterDriver(new Driver("amogus"));
+            _tripService = new TripService();
+            IServiceMediator serviceMediator = new ServiceMediator(_driverService, _tripService);
             _orderService = new OrderService(costDeterminer, driverFinder, serviceMediator);
         }
 
         [Test]
-        public void TestCreateOrder()
+        public void TestCreateAndConfirmOrder()
         {
             var passenger = new Passenger("abobus");
             var builder = new OrderRequestBuilder();
@@ -33,7 +38,8 @@ namespace WhooberCoreServiceTests
             var request = builder.ToOrderRequest();
             decimal price = _orderService.RequestTripCost(builder.ToOrderRequest());
             var order = new Order(request, price);
-            // Assert.Pass(_orderService.ApproveOrder(order));
+            Trip trip = _orderService.ApproveOrder(order);
+            Assert.That(_tripService.GetTripState(trip) == TripState.OnTheWay);
         }
     }
 }
