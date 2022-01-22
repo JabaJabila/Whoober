@@ -1,6 +1,6 @@
 ﻿using System;
-using WhooberCore.Domain.Entities.PaymentAbstraction;
 using WhooberCore.Domain.Enums;
+using WhooberCore.Domain.PaymentAbstraction;
 
 namespace WhooberCore.Domain.Entities
 {

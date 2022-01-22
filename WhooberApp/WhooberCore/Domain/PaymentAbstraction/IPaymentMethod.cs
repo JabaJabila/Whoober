@@ -1,4 +1,4 @@
-﻿namespace WhooberCore.Domain.Entities.PaymentAbstraction
+﻿namespace WhooberCore.Domain.PaymentAbstraction
 {
     public interface IPaymentMethod
     {

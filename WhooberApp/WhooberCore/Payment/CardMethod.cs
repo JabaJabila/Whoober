@@ -1,7 +1,7 @@
 ﻿using System;
-using WhooberCore.Domain.Entities.PaymentAbstraction;
+using WhooberCore.Domain.PaymentAbstraction;
 
-namespace WhooberCore.Domain.Payment
+namespace WhooberCore.Payment
 {
     public class CardMethod : IPaymentMethod
     {

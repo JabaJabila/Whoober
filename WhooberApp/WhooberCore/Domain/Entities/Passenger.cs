@@ -1,5 +1,5 @@
 ﻿using System;
-using WhooberCore.Domain.Entities.PaymentAbstraction;
+using WhooberCore.Domain.PaymentAbstraction;
 
 namespace WhooberCore.Domain.Entities
 {
