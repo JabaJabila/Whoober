@@ -9,6 +9,7 @@ namespace WhooberCore.Services
     public class TripService : ITripService
     {
         private List<Trip> _activeTrips;
+        private IServiceMediator _serviceMediator;
         public TripService()
         {
             _activeTrips = new List<Trip>();
@@ -18,6 +19,7 @@ namespace WhooberCore.Services
         {
             var trip = new Trip(order, driver, driver.Car);
             _activeTrips.Add(trip);
+            trip.State = TripState.OnTheWay;
             return trip;
         }
 
@@ -38,6 +40,11 @@ namespace WhooberCore.Services
         public TripState GetTripState(Trip trip)
         {
             return !_activeTrips.Contains(trip) ? TripState.Finished : trip.State;
+        }
+
+        public void SetServiceMediator(IServiceMediator mediator)
+        {
+            _serviceMediator = mediator;
         }
     }
 }

@@ -3,7 +3,7 @@ using WhooberCore.Domain.Enums;
 
 namespace WhooberCore.Domain.ServiceAbstractions
 {
-    public interface ITripService
+    public interface ITripService : IBaseService
     {
         Trip CreateTrip(Order order, Driver driver);
         void ChangeTripState(Trip trip, TripState state);

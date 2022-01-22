@@ -10,6 +10,7 @@ namespace WhooberCore.Services
     public class DriverService : IDriverService
     {
         private List<Driver> _drivers;
+        private IServiceMediator _serviceMediator;
         public DriverService()
         {
             _drivers = new List<Driver>();
@@ -46,9 +47,19 @@ namespace WhooberCore.Services
             var trip = new Trip(order, driver, driver.Car);
         }
 
+        public bool ChangeTripState(TripState state)
+        {
+            throw new NotImplementedException();
+        }
+
         public IReadOnlyCollection<Driver> GetActiveDrivers()
         {
             return _drivers.Where(x => x.State == DriverState.Waiting).ToList();
+        }
+
+        public void SetServiceMediator(IServiceMediator mediator)
+        {
+            _serviceMediator = mediator;
         }
     }
 }

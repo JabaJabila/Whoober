@@ -17,13 +17,18 @@ namespace WhooberCoreServiceTests
         [SetUp]
         public void SetUp()
         {
-            ICostDeterminer costDeterminer = new FixedFairCostDeterminer(10, new EuclidRouteLengthCount());
-            IDriverFinder driverFinder = new DriverFinder();
+            ICostDeterminer costDeterminer = new FixedFairCostDeterminer(10, new EuclidDistanceCount());
+            IDriverFinder driverFinder = new DriverFinder(new EuclidDistanceCount());
             _driverService = new DriverService();
-            _driverService.RegisterDriver(new Driver("amogus"));
+            var driver = new Driver("amogus")
+            {
+                Car = new Car("kok", "red", "s228as", CarLevel.Economy),
+            };
+            _driverService.RegisterDriver(driver);
+            _driverService.SetDriverStateToWaiting(driver);
             _tripService = new TripService();
-            IServiceMediator serviceMediator = new ServiceMediator(_driverService, _tripService);
-            _orderService = new OrderService(costDeterminer, driverFinder, serviceMediator);
+            _orderService = new OrderService(costDeterminer, driverFinder);
+            IServiceMediator serviceMediator = new ServiceMediator(_driverService, _tripService, _orderService);
         }
 
         [Test]
@@ -34,7 +39,7 @@ namespace WhooberCoreServiceTests
             builder.SetPassenger(passenger)
                 .AddLocation(new Location(0, 0))
                 .AddLocation(new Location(1, 1))
-                .SetCarLevel(CarLevel.Business);
+                .SetCarLevel(CarLevel.Economy);
             var request = builder.ToOrderRequest();
             decimal price = _orderService.RequestTripCost(builder.ToOrderRequest());
             var order = new Order(request, price);
