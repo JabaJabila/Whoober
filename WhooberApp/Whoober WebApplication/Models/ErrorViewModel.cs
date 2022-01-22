@@ -1,5 +1,3 @@
-using System;
-
 namespace Whoober_WebApplication.Models
 {
     public class ErrorViewModel

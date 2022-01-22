@@ -16,6 +16,7 @@ namespace WhooberInfrastructure.Data
         public DbSet<Passenger> Passengers { get; set; }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Trip> Trips { get; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
