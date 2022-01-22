@@ -47,10 +47,29 @@ namespace WhooberCore.Services
             var trip = new Trip(order, driver, driver.Car);
         }
 
-        public void ChangeTripState(Driver driver, TripState state)
+        public void ChangeTripStateToAwaitDriver(Driver driver)
         {
-            Trip trip = _serviceMediator.FindActiveTripByDriver(driver); 
-            _serviceMediator.ChangeTripState(trip, state);
+            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
+            _serviceMediator.ChangeTripStateToAwaitDriver(trip);
+        }
+
+        public void ChangeTripStateToAwaitClient(Driver driver)
+        {
+            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
+            _serviceMediator.ChangeTripStateToAwaitClient(trip);
+        }
+
+        public void ChangeTripStateToOnTheWay(Driver driver)
+        {
+            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
+            _serviceMediator.ChangeTripStateToOnTheWay(trip);
+        }
+
+        public void ChangeTripStateToFinished(Driver driver)
+        {
+            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
+            _serviceMediator.ChangeTripStateToFinished(trip);
+            SetDriverStateToWaiting(driver);
         }
 
         public IReadOnlyCollection<Driver> GetActiveDrivers()

@@ -42,19 +42,23 @@ namespace WhooberCoreServiceTests
             decimal price = _orderService.RequestTripCost(builder.ToOrderRequest());
             var order = new Order(request, price);
             _testTrip = _orderService.ApproveOrder(order);
+            _driverService.AcceptOrder(_testDriver, order);
         }
 
         [Test]
         public void ChangeTripState()
         {
-            _driverService.ChangeTripState(_testDriver, TripState.AwaitClient);
-            Assert.That(_tripService.GetTripState(_testTrip) == TripState.AwaitClient);
+            _driverService.ChangeTripStateToAwaitClient(_testDriver);
+            Assert.AreEqual(_tripService.GetTripState(_testTrip), TripState.AwaitClient);
+            Assert.AreEqual(_testDriver.State, DriverState.Driving);
 
-            _driverService.ChangeTripState(_testDriver, TripState.OnTheWay);
-            Assert.That(_tripService.GetTripState(_testTrip) == TripState.OnTheWay);
+            _driverService.ChangeTripStateToOnTheWay(_testDriver);
+            Assert.AreEqual(_tripService.GetTripState(_testTrip), TripState.OnTheWay);
+            Assert.AreEqual(_testDriver.State, DriverState.Driving);
 
-            _driverService.ChangeTripState(_testDriver, TripState.FinishedUnpaid);
-            Assert.That(_tripService.GetTripState(_testTrip) == TripState.FinishedUnpaid);
+            _driverService.ChangeTripStateToFinished(_testDriver);
+            Assert.AreEqual(_tripService.GetTripState(_testTrip), TripState.FinishedUnpaid);
+            Assert.AreEqual(_testDriver.State, DriverState.Waiting);
         }
     }
 }

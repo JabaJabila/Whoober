@@ -23,18 +23,25 @@ namespace WhooberCore.Services
             return trip;
         }
 
-        public void ChangeTripState(Trip trip, TripState state)
+        public void ChangeTripStateToAwaitDriver(Trip trip)
         {
-            if (!_activeTrips.Contains(trip))
-            {
-                throw new ArgumentException("Trip is not found", nameof(trip));
-            }
+            trip.State = TripState.AwaitDriver;
+        }
 
-            trip.State = state;
-            if (state == TripState.FinishedUnpaid)
-            {
-                _activeTrips.Remove(trip);
-            }
+        public void ChangeTripStateToAwaitClient(Trip trip)
+        {
+            trip.State = TripState.AwaitClient;
+        }
+
+        public void ChangeTripStateToOnTheWay(Trip trip)
+        {
+            trip.State = TripState.OnTheWay;
+        }
+
+        public void ChangeTripStateToFinished(Trip trip)
+        {
+            // TODO
+            trip.State = TripState.FinishedUnpaid;
         }
 
         public TripState GetTripState(Trip trip)

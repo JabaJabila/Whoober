@@ -30,9 +30,24 @@ namespace WhooberCore.Services
             return _tripService.CreateTrip(order, driver);
         }
 
-        public void ChangeTripState(Trip trip, TripState state)
+        public void ChangeTripStateToAwaitDriver(Trip trip)
         {
-            _tripService.ChangeTripState(trip, state);
+            _tripService.ChangeTripStateToAwaitDriver(trip);
+        }
+
+        public void ChangeTripStateToAwaitClient(Trip trip)
+        {
+            _tripService.ChangeTripStateToAwaitClient(trip);
+        }
+
+        public void ChangeTripStateToOnTheWay(Trip trip)
+        {
+            _tripService.ChangeTripStateToOnTheWay(trip);
+        }
+
+        public void ChangeTripStateToFinished(Trip trip)
+        {
+            _tripService.ChangeTripStateToFinished(trip);
         }
 
         public Trip FindActiveTripByDriver(Driver driver)
