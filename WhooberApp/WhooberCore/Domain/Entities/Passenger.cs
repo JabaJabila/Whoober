@@ -1,5 +1,6 @@
 ﻿using System;
 using WhooberCore.Domain.PaymentAbstraction;
+using WhooberCore.Payment;
 
 namespace WhooberCore.Domain.Entities
 {
@@ -9,6 +10,7 @@ namespace WhooberCore.Domain.Entities
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             PhoneNumber = phoneNumber ?? throw new ArgumentNullException(nameof(phoneNumber));
+            PaymentMethod = new CashPayment();
             Rating = new Rating();
         }
 
@@ -19,7 +21,8 @@ namespace WhooberCore.Domain.Entities
         public Guid Id { get; private init; }
         public string Name { get; set; }
         public Rating Rating { get; private init; }
-        public IPaymentMethod PaymentMethod { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
+        public BaseCard SavedCard { get; set; }
         public string PhoneNumber { get; private set; }
     }
 }

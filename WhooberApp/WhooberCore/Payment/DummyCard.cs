@@ -3,24 +3,22 @@ using WhooberCore.Domain.PaymentAbstraction;
 
 namespace WhooberCore.Payment
 {
-    public class DummyCard : ICard
+    public class DummyCard : BaseCard
     {
         public DummyCard(string cardNumber)
-        {
-            CardNumber = cardNumber ?? throw new ArgumentNullException(nameof(cardNumber));
-        }
-
-        public string CardNumber { get; set; }
-
-        public void Pay(decimal sumToPay)
+            : base(cardNumber)
         {
         }
 
-        public void Receive(decimal sumToReceive)
+        public override void Pay(decimal sumToPay)
         {
         }
 
-        public bool HasEnoughMoney(decimal sumToPay)
+        public override void Receive(decimal sumToReceive)
+        {
+        }
+
+        public override bool HasEnoughMoney(decimal sumToPay)
         {
             return true;
         }
