@@ -31,7 +31,7 @@ namespace WhooberInfrastructure.Data
             modelBuilder.Entity<Driver>().OwnsOne(d => d.SavedCard);
             modelBuilder.Entity<Driver>().Ignore(d => d.PaymentMethod);
             modelBuilder.Entity<Driver>().HasOne(d => d.Car);
-            modelBuilder.Entity<Driver>().HasOne(d => d.Location);
+            modelBuilder.Entity<Driver>().OwnsOne(d => d.Location);
             modelBuilder.Entity<Driver>().HasOne(d => d.Rating);
             modelBuilder.Entity<Driver>().Property(d => d.State)
                 .HasConversion(new EnumToStringConverter<DriverState>());
