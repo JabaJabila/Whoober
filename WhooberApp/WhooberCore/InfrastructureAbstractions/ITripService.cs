@@ -1,3 +1,4 @@
+using System;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 
@@ -10,7 +11,7 @@ namespace WhooberCore.InfrastructureAbstractions
         void ChangeTripStateToAwaitClient(Trip trip);
         void ChangeTripStateToOnTheWay(Trip trip);
         void ChangeTripStateToFinished(Trip trip);
-        TripState GetTripState(Trip trip);
+        TripState GetTripStateById(Guid id);
         Trip GetActiveTripByDriver(Driver driver);
     }
 }

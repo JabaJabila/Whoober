@@ -16,6 +16,7 @@ namespace WhooberInfrastructure.Services
             _driverService = driverService;
             _driverService.SetServiceMediator(this);
             _tripService = tripService;
+            _tripService.SetServiceMediator(this);
             _orderService = orderService;
             _orderService.SetServiceMediator(this);
         }

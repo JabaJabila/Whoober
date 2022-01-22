@@ -14,6 +14,7 @@ namespace WhooberInfrastructure.Services
         {
             _whooberContext = whooberContext;
         }
+
         public void RegisterPassenger(Passenger passenger)
         {
             if (_whooberContext.Passengers.FirstOrDefault(x => x.PhoneNumber == passenger.PhoneNumber) != null)
@@ -29,6 +30,7 @@ namespace WhooberInfrastructure.Services
         {
             return _whooberContext.Trips.Where(x => x.Order.Passenger == passenger).ToList();
         }
+
         public Passenger FindPassengerById(Guid id)
         {
             return _whooberContext.Passengers.FirstOrDefault(x => x.Id == id);

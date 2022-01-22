@@ -20,9 +20,9 @@ namespace WhooberInfrastructure.Services
         public void RegisterDriver(Driver driver)
         {
             if (_whooberContext.Drivers.FirstOrDefault(x => x.PhoneNumber == driver.PhoneNumber) != null)
-            {            {
+            {
                 throw new ArgumentException("Driver with this phone number already registered", nameof(driver));
-            }}
+            }
 
             _whooberContext.Drivers.Add(driver);
             _whooberContext.SaveChanges();
@@ -48,7 +48,6 @@ namespace WhooberInfrastructure.Services
 
         public void AcceptOrder(Driver driver, Order order)
         {
-            // var trip = new Trip(order, driver, driver.Car);
             driver.State = DriverState.Driving;
         }
 

@@ -12,6 +12,7 @@ namespace WhooberInfrastructure.Data
         public WhooberContext(DbContextOptions<WhooberContext> options)
             : base(options)
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

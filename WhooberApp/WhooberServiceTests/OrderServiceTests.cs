@@ -19,7 +19,7 @@ namespace WhooberServiceTests
         [SetUp]
         public void SetUp()
         {
-            ICostDeterminer costDeterminer = new FixedFairCostDeterminer(10, new EuclidDistanceCount());
+            ICostDeterminer costDeterminer = new FixedFairCostDeterminer(new EuclidDistanceCount());
             IDriverFinder driverFinder = new DriverFinder(new EuclidDistanceCount());
             var options = new DbContextOptionsBuilder<WhooberContext>()
                 .UseInMemoryDatabase(databaseName: "Test")
@@ -50,7 +50,7 @@ namespace WhooberServiceTests
             decimal price = _orderService.RequestTripCost(builder.ToOrderRequest());
             var order = new Order(request, price);
             Trip trip = _orderService.ApproveOrder(order);
-            Assert.That(_tripService.GetTripState(trip) == TripState.AwaitDriver);
+            Assert.That(_tripService.GetTripStateById(trip.Id) == TripState.AwaitDriver);
         }
     }
 }

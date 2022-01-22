@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WhooberCore.Domain.Entities;
@@ -9,35 +10,37 @@ namespace WhooberInfrastructure.Services
 {
     public class TripService : ITripService
     {
-        private List<Trip> _activeTrips;
         private IServiceMediator _serviceMediator;
         private WhooberContext _whooberContext;
         public TripService(WhooberContext whooberContext)
         {
-            _activeTrips = new List<Trip>();
             _whooberContext = whooberContext;
         }
 
         public Trip CreateTrip(Order order, Driver driver)
         {
             var trip = new Trip(order, driver, driver.Car);
-            _activeTrips.Add(trip);
+            _whooberContext.Trips.Add(trip);
+            _whooberContext.SaveChanges();
             return trip;
         }
 
         public void ChangeTripStateToAwaitDriver(Trip trip)
         {
             trip.State = TripState.AwaitDriver;
+            _whooberContext.SaveChanges();
         }
 
         public void ChangeTripStateToAwaitClient(Trip trip)
         {
             trip.State = TripState.AwaitClient;
+            _whooberContext.SaveChanges();
         }
 
         public void ChangeTripStateToOnTheWay(Trip trip)
         {
             trip.State = TripState.OnTheWay;
+            _whooberContext.SaveChanges();
         }
 
         public void ChangeTripStateToFinished(Trip trip)
@@ -48,16 +51,19 @@ namespace WhooberInfrastructure.Services
             {
                 trip.State = TripState.FinishedPaid;
             }
+
+            _whooberContext.SaveChanges();
         }
 
-        public TripState GetTripState(Trip trip)
+        public TripState GetTripStateById(Guid id)
         {
-            return !_activeTrips.Contains(trip) ? TripState.FinishedUnpaid : trip.State;
+            Trip trip = _whooberContext.Trips.FirstOrDefault(x => x.Id == id) ?? throw new KeyNotFoundException();
+            return trip.State;
         }
 
         public Trip GetActiveTripByDriver(Driver driver)
         {
-            return _activeTrips.FirstOrDefault(x => x.Driver == driver);
+            return _whooberContext.Trips.FirstOrDefault(x => x.Driver == driver && x.State != TripState.FinishedPaid && x.State != TripState.FinishedUnpaid);
         }
 
         public void SetServiceMediator(IServiceMediator mediator)

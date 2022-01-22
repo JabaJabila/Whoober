@@ -7,7 +7,9 @@ namespace WhooberCore.Algorithms
     {
         private decimal _costPerDistanceUnit;
         private IDistanceDeterminer _distanceDeterminer;
-        public FixedFairCostDeterminer(decimal costPerDistanceUnit, IDistanceDeterminer distanceDeterminer)
+
+        // TODO
+        public FixedFairCostDeterminer(IDistanceDeterminer distanceDeterminer, decimal costPerDistanceUnit = 10)
         {
             _costPerDistanceUnit = costPerDistanceUnit;
             _distanceDeterminer = distanceDeterminer;
