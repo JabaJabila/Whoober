@@ -7,7 +7,6 @@ namespace WhooberCore.Domain.Entities
 {
     public class Route
     {
-        public Guid Id { get; private init; }
         private const int MinLocationsCount = 2;
         private List<Location> _locations;
 

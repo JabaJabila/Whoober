@@ -12,7 +12,6 @@ namespace WhooberCore.Domain.Entities
             CarLevel = carLevel;
         }
 
-        public Guid Id { get; private init; }
         public Passenger Passenger { get; private init; }
         public Route Route { get; private init; }
         public CarLevel CarLevel { get; private init; }
