@@ -2,14 +2,14 @@
 
 namespace WhooberCore.Payment
 {
-    public class CashPayment : IPaymentMethod
+    public class CashPayment : PaymentMethod
     {
-        public bool Pay(decimal sumToPay)
+        public override bool Pay(decimal sumToPay)
         {
             return true;
         }
 
-        public bool Receive(decimal sumToReceive)
+        public override bool Receive(decimal sumToReceive)
         {
             return true;
         }

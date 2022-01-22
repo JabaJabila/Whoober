@@ -3,16 +3,16 @@ using WhooberCore.Domain.PaymentAbstraction;
 
 namespace WhooberCore.Payment
 {
-    public class CardMethod : IPaymentMethod
+    public class CardMethod : PaymentMethod
     {
-        public CardMethod(ICard card)
+        public CardMethod(BaseCard card)
         {
             Card = card ?? throw new ArgumentNullException(nameof(card));
         }
 
-        public ICard Card { get; set; }
+        public BaseCard Card { get; set; }
 
-        public bool Pay(decimal sumToPay)
+        public override bool Pay(decimal sumToPay)
         {
             if (Card.HasEnoughMoney(sumToPay))
             {
@@ -25,7 +25,7 @@ namespace WhooberCore.Payment
             }
         }
 
-        public bool Receive(decimal sumToReceive)
+        public override bool Receive(decimal sumToReceive)
         {
             Card.Receive(sumToReceive);
             return true;

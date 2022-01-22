@@ -25,7 +25,7 @@ namespace WhooberServiceTests
             var options = new DbContextOptionsBuilder<WhooberContext>()
                 .UseInMemoryDatabase(databaseName: "Test")
                 .Options;
-            var context = new TestingDbContext(options);
+            var context = new WhooberContext(options);
             ICostDeterminer costDeterminer = new FixedFairCostDeterminer(10, new EuclidDistanceCount());
             IDriverFinder driverFinder = new DriverFinder(new EuclidDistanceCount());
             _driverService = new DriverService(context);
