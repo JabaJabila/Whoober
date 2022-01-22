@@ -11,15 +11,6 @@ namespace WhooberCore.Domain.Entities
         private const int MinLocationsCount = 2;
         private List<Location> _locations;
 
-        public IReadOnlyCollection<Location> Locations
-        {
-            get => _locations;
-            set => _locations = value.ToList();
-        }
-
-        public Location Start => Locations.FirstOrDefault();
-        public Location Finish => Locations.LastOrDefault();
-
         public Route(List<Location> locations)
         {
             if (locations == null) throw new ArgumentNullException(nameof(locations));
@@ -32,5 +23,14 @@ namespace WhooberCore.Domain.Entities
         private Route()
         {
         }
+
+        public IReadOnlyCollection<Location> Locations
+        {
+            get => _locations;
+            set => _locations = value.ToList();
+        }
+
+        public Location Start => Locations.FirstOrDefault();
+        public Location Finish => Locations.LastOrDefault();
     }
 }

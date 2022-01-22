@@ -5,14 +5,6 @@ namespace WhooberCore.Domain.Entities
 {
     public class Trip
     {
-        public Guid Id { get; private init; }
-        public Order Order { get; private init; }
-        public Driver Driver { get; private init; }
-        public Car Car { get; private init; }
-        public DateTime? StartTime { get; set; }
-        public DateTime? FinishTime { get; set; }
-        public TripState State { get; set; }
-
         public Trip(Order order, Driver driver, Car car)
         {
             Order = order ?? throw new ArgumentNullException(nameof(order));
@@ -24,5 +16,13 @@ namespace WhooberCore.Domain.Entities
         private Trip()
         {
         }
+
+        public Guid Id { get; private init; }
+        public Order Order { get; private init; }
+        public Driver Driver { get; private init; }
+        public Car Car { get; private init; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? FinishTime { get; set; }
+        public TripState State { get; set; }
     }
 }

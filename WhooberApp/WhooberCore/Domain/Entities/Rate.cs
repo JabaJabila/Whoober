@@ -5,10 +5,6 @@ namespace WhooberCore.Domain.Entities
 {
     public class Rate
     {
-        public Guid Id { get; private init; }
-        public int RateValue { get; private init; }
-        public string Comment { get; private init; }
-
         public Rate(int rateValue, string comment)
         {
             if (rateValue is > 5 or < 1) throw new RatingException("Rate value must be in range 1..5");
@@ -19,5 +15,9 @@ namespace WhooberCore.Domain.Entities
         private Rate()
         {
         }
+
+        public Guid Id { get; private init; }
+        public int RateValue { get; private init; }
+        public string Comment { get; private init; }
     }
 }

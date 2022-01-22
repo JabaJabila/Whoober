@@ -6,13 +6,6 @@ namespace WhooberCore.Domain.Entities
 {
     public class Order
     {
-        public Guid Id { get; private init; }
-        public Passenger Passenger { get; private init; }
-        public Route Route { get; private init; }
-        public CarLevel CarLevel { get; private init; }
-        public decimal Price{ get; private init; }
-        public OrderState State { get; set; }
-
         public Order(OrderRequest orderRequest, decimal price)
         {
             Passenger = orderRequest.Passenger;
@@ -38,5 +31,12 @@ namespace WhooberCore.Domain.Entities
         private Order()
         {
         }
+
+        public Guid Id { get; private init; }
+        public Passenger Passenger { get; private init; }
+        public Route Route { get; private init; }
+        public CarLevel CarLevel { get; private init; }
+        public decimal Price{ get; private init; }
+        public OrderState State { get; set; }
     }
 }

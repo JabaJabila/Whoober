@@ -4,10 +4,6 @@ namespace WhooberCore.Domain.Entities
 {
     public class Passenger
     {
-        public Guid Id { get; private init; }
-        public string Name { get; set; }
-        public Rating Rating { get; private init; }
-
         public Passenger(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -17,5 +13,9 @@ namespace WhooberCore.Domain.Entities
         private Passenger()
         {
         }
+
+        public Guid Id { get; private init; }
+        public string Name { get; set; }
+        public Rating Rating { get; private init; }
     }
 }

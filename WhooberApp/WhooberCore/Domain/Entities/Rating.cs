@@ -6,17 +6,7 @@ namespace WhooberCore.Domain.Entities
 {
     public class Rating
     {
-        public Guid Id { get; private init; }
         private List<Rate> _rates;
-        public IReadOnlyCollection<Rate> Rates
-        {
-            get => _rates;
-            private init => _rates = value.ToList();
-        }
-
-        public double AverageScore => CountScores == 0 ? 0 : SumScores / CountScores;
-        private int SumScores { get; set; }
-        private int CountScores => _rates.Count;
 
         public Rating()
         {
@@ -29,5 +19,16 @@ namespace WhooberCore.Domain.Entities
             SumScores += rate.RateValue;
             _rates.Add(rate);
         }
+
+        public Guid Id { get; private init; }
+        public IReadOnlyCollection<Rate> Rates
+        {
+            get => _rates;
+            private init => _rates = value.ToList();
+        }
+
+        public double AverageScore => CountScores == 0 ? 0 : SumScores / CountScores;
+        private int SumScores { get; set; }
+        private int CountScores => _rates.Count;
     }
 }
