@@ -8,5 +8,7 @@ namespace WhooberCore.Domain.ServiceAbstractions
     {
         IReadOnlyCollection<Driver> GetActiveDriversByCarLevel(CarLevel carLevel);
         Trip ConfirmOrder(Order order, Driver driver);
+        void ChangeTripState(Trip trip, TripState state);
+        Trip FindActiveTripByDriver(Driver driver);
     }
 }

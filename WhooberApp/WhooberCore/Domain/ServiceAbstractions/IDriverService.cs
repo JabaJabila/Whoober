@@ -11,7 +11,7 @@ namespace WhooberCore.Domain.ServiceAbstractions
         void SetDriverStateToInactive(Driver driver);
         void SetDriverStateToWaiting(Driver driver);
         void AcceptOrder(Driver driver, Order order);
-        bool ChangeTripState(TripState state);
+        void ChangeTripState(Driver driver, TripState state);
         IReadOnlyCollection<Driver> GetActiveDrivers();
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.ServiceAbstractions;
@@ -29,6 +28,16 @@ namespace WhooberCore.Services
         public Trip ConfirmOrder(Order order, Driver driver)
         {
             return _tripService.CreateTrip(order, driver);
+        }
+
+        public void ChangeTripState(Trip trip, TripState state)
+        {
+            _tripService.ChangeTripState(trip, state);
+        }
+
+        public Trip FindActiveTripByDriver(Driver driver)
+        {
+            return _tripService.GetActiveTripByDriver(driver);
         }
     }
 }

@@ -5,7 +5,7 @@
         AwaitDriver,
         AwaitClient,
         OnTheWay,
-        Finished,
         FinishedUnpaid,
+        FinishedPaid,
     }
 }

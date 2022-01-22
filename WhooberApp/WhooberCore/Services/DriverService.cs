@@ -47,9 +47,10 @@ namespace WhooberCore.Services
             var trip = new Trip(order, driver, driver.Car);
         }
 
-        public bool ChangeTripState(TripState state)
+        public void ChangeTripState(Driver driver, TripState state)
         {
-            throw new NotImplementedException();
+            Trip trip = _serviceMediator.FindActiveTripByDriver(driver); 
+            _serviceMediator.ChangeTripState(trip, state);
         }
 
         public IReadOnlyCollection<Driver> GetActiveDrivers()

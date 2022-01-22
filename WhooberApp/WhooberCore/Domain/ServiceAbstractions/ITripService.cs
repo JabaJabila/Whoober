@@ -8,5 +8,6 @@ namespace WhooberCore.Domain.ServiceAbstractions
         Trip CreateTrip(Order order, Driver driver);
         void ChangeTripState(Trip trip, TripState state);
         TripState GetTripState(Trip trip);
+        Trip GetActiveTripByDriver(Driver driver);
     }
 }

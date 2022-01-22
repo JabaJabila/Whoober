@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.ServiceAbstractions;
@@ -19,7 +20,6 @@ namespace WhooberCore.Services
         {
             var trip = new Trip(order, driver, driver.Car);
             _activeTrips.Add(trip);
-            trip.State = TripState.OnTheWay;
             return trip;
         }
 
@@ -31,7 +31,7 @@ namespace WhooberCore.Services
             }
 
             trip.State = state;
-            if (state == TripState.Finished)
+            if (state == TripState.FinishedUnpaid)
             {
                 _activeTrips.Remove(trip);
             }
@@ -39,7 +39,12 @@ namespace WhooberCore.Services
 
         public TripState GetTripState(Trip trip)
         {
-            return !_activeTrips.Contains(trip) ? TripState.Finished : trip.State;
+            return !_activeTrips.Contains(trip) ? TripState.FinishedUnpaid : trip.State;
+        }
+
+        public Trip GetActiveTripByDriver(Driver driver)
+        {
+            return _activeTrips.FirstOrDefault(x => x.Driver == driver);
         }
 
         public void SetServiceMediator(IServiceMediator mediator)
