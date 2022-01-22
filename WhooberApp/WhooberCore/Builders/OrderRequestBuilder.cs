@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 
-namespace WhooberCore.Domain.Builders
+namespace WhooberCore.Builders
 {
     public class OrderRequestBuilder
     {

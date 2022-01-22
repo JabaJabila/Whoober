@@ -1,0 +1,22 @@
+﻿@startuml
+actor Client
+
+usecase Server
+usecase ClientApp
+usecase RouteRequestBuilder
+usecase OrderService
+usecase ICostDeterminer
+usecase IClientNotifier
+
+Client --> ClientApp : "run app"
+ClientApp -up-> Client
+
+ClientApp -> RouteRequestBuilder : "create path and choose taxi type"
+RouteRequestBuilder -up-> Server : "request to make order"
+Server -right-> OrderService : ""
+OrderService -right-> ICostDeterminer : "estimate price"
+ICostDeterminer -left-> OrderService : "return price"
+OrderService -down-> IClientNotifier : "return price of trip"
+IClientNotifier -up-> ClientApp : "show price" 
+
+@enduml
