@@ -39,7 +39,7 @@ namespace WhooberCoreServiceTests
             builder.SetPassenger(passenger)
                 .AddLocation(new Location(0, 0))
                 .AddLocation(new Location(1, 1))
-                .SetCarLevel(CarLevel.Business);
+                .SetCarLevel(CarLevel.Economy);
             var request = builder.ToOrderRequest();
             decimal price = _orderService.RequestTripCost(builder.ToOrderRequest());
             var order = new Order(request, price);

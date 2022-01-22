@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
+using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.ServiceAbstractions;
 
 namespace WhooberCore.Services
@@ -15,9 +17,9 @@ namespace WhooberCore.Services
             _tripService = tripService;
         }
 
-        public IReadOnlyCollection<Driver> GetActiveDrivers()
+        public IReadOnlyCollection<Driver> GetActiveDriversByCarLevel(CarLevel carLevel)
         {
-            return _driverService.GetActiveDrivers();
+            return _driverService.GetActiveDrivers().Where(x => x.Car.Level == carLevel).ToList();
         }
 
         public Trip ConfirmOrder(Order order, Driver driver)
