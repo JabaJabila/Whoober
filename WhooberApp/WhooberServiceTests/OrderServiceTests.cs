@@ -16,6 +16,7 @@ namespace WhooberServiceTests
         private IOrderService _orderService;
         private IDriverService _driverService;
         private ITripService _tripService;
+        private IClientService _clientService;
         [SetUp]
         public void SetUp()
         {
@@ -34,6 +35,7 @@ namespace WhooberServiceTests
             _driverService.SetDriverStateToWaiting(driver);
             _tripService = new TripService(context);
             _orderService = new OrderService(costDeterminer, driverFinder, context);
+            _clientService = new ClientService(context);
             IServiceMediator serviceMediator = new ServiceMediator(_driverService, _tripService, _orderService);
         }
 
@@ -41,6 +43,7 @@ namespace WhooberServiceTests
         public void TestCreateAndConfirmOrder()
         {
             var passenger = new Passenger("abobus", "88005553535");
+            _clientService.RegisterPassenger(passenger);
             var builder = new OrderRequestBuilder();
             builder.SetPassenger(passenger)
                 .AddLocation(new Location(0, 0))

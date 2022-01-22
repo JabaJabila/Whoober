@@ -33,7 +33,7 @@ namespace WhooberServiceTests
         {
             var passenger = new Passenger("pAssnger", "89996661488");
             _clientService.RegisterPassenger(passenger);
-            Assert.AreEqual(_clientService.FindPassengerById(passenger.Id), 0);
+            Assert.AreEqual(_clientService.GetTripHistory(_clientService.FindPassengerById(passenger.Id)).Count, 0);
         }
     }
 }
