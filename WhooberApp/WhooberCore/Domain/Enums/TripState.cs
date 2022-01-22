@@ -6,5 +6,6 @@
         AwaitClient,
         OnTheWay,
         Finished,
+        FinishedUnpaid,
     }
 }
