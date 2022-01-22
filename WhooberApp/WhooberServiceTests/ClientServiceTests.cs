@@ -13,11 +13,8 @@ namespace WhooberServiceTests
         [SetUp]
         public void SetUp()
         {
-            DbContextOptions<WhooberContext> options = new DbContextOptionsBuilder<WhooberContext>()
-                .UseInMemoryDatabase(databaseName: "Test")
-                .Options;
-            var context = new WhooberContext(options);
-            _clientService = new ClientService(context);
+            var initialization = new TestsInitialization();
+            _clientService = initialization.ClientService;
         }
 
         [Test]

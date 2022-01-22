@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
+using WhooberCore.Domain.PaymentAbstraction;
 using WhooberCore.InfrastructureAbstractions;
 
 namespace WhooberInfrastructure.Services
@@ -11,7 +12,8 @@ namespace WhooberInfrastructure.Services
         private readonly IDriverService _driverService;
         private readonly ITripService _tripService;
         private readonly IOrderService _orderService;
-        public ServiceMediator(IDriverService driverService, ITripService tripService, IOrderService orderService)
+        private readonly IPaymentConfirmationService _paymentConfirmationService;
+        public ServiceMediator(IDriverService driverService, ITripService tripService, IOrderService orderService, IPaymentConfirmationService paymentConfirmationService)
         {
             _driverService = driverService;
             _driverService.SetServiceMediator(this);
@@ -19,6 +21,8 @@ namespace WhooberInfrastructure.Services
             _tripService.SetServiceMediator(this);
             _orderService = orderService;
             _orderService.SetServiceMediator(this);
+            _paymentConfirmationService = paymentConfirmationService;
+            _paymentConfirmationService.SetServiceMediator(this);
         }
 
         public IReadOnlyCollection<Driver> GetActiveDriversByCarLevel(CarLevel carLevel)
@@ -54,6 +58,11 @@ namespace WhooberInfrastructure.Services
         public Trip FindActiveTripByDriver(Driver driver)
         {
             return _tripService.GetActiveTripByDriver(driver);
+        }
+
+        public bool ConfirmPayment(PaymentMethod method, Trip trip)
+        {
+            return _paymentConfirmationService.ConfirmPayment(method, trip.Order.Price);
         }
     }
 }

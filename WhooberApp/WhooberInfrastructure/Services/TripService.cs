@@ -45,9 +45,8 @@ namespace WhooberInfrastructure.Services
 
         public void ChangeTripStateToFinished(Trip trip)
         {
-            // TODO
             trip.State = TripState.FinishedUnpaid;
-            if (trip.Order.Passenger.PaymentMethod.Pay(trip.Order.Price))
+            if (_serviceMediator.ConfirmPayment(trip.Order.Passenger.PaymentMethod, trip))
             {
                 trip.State = TripState.FinishedPaid;
             }

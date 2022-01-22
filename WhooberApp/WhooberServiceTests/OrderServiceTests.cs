@@ -20,23 +20,17 @@ namespace WhooberServiceTests
         [SetUp]
         public void SetUp()
         {
-            ICostDeterminer costDeterminer = new FixedFairCostDeterminer(new EuclidDistanceCount());
-            IDriverFinder driverFinder = new DriverFinder(new EuclidDistanceCount());
-            var options = new DbContextOptionsBuilder<WhooberContext>()
-                .UseInMemoryDatabase(databaseName: "Test")
-                .Options;
-            var context = new WhooberContext(options);
-            _driverService = new DriverService(new WhooberContext(options));
+            var initialization = new TestsInitialization();
             var driver = new Driver("amogus", "88005553535")
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
+            _driverService = initialization.DriverService;
             _driverService.RegisterDriver(driver);
             _driverService.SetDriverStateToWaiting(driver);
-            _tripService = new TripService(context);
-            _orderService = new OrderService(costDeterminer, driverFinder, context);
-            _clientService = new ClientService(context);
-            IServiceMediator serviceMediator = new ServiceMediator(_driverService, _tripService, _orderService);
+            _tripService = initialization.TripService;
+            _orderService = initialization.OrderService;
+            _clientService = initialization.ClientService;
         }
 
         [Test]

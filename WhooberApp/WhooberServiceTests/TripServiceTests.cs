@@ -22,22 +22,16 @@ namespace WhooberServiceTests
         [SetUp]
         public void SetUp()
         {
-            var options = new DbContextOptionsBuilder<WhooberContext>()
-                .UseInMemoryDatabase(databaseName: "Test")
-                .Options;
-            var context = new WhooberContext(options);
-            ICostDeterminer costDeterminer = new FixedFairCostDeterminer(new EuclidDistanceCount());
-            IDriverFinder driverFinder = new DriverFinder(new EuclidDistanceCount());
-            _driverService = new DriverService(context);
+            var initialization = new TestsInitialization();
+            _driverService = initialization.DriverService;
             _testDriver = new Driver("amogus", "88005553535")
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
             _driverService.RegisterDriver(_testDriver);
             _driverService.SetDriverStateToWaiting(_testDriver);
-            _tripService = new TripService(context);
-            _orderService = new OrderService(costDeterminer, driverFinder, context);
-            IServiceMediator serviceMediator = new ServiceMediator(_driverService, _tripService, _orderService);
+            _tripService = initialization.TripService;
+            _orderService = initialization.OrderService;
 
             var passenger = new Passenger("abobus", "88005553535");
             passenger.PaymentMethod = new CardMethod(new DummyCard("2286661488"));
@@ -65,7 +59,7 @@ namespace WhooberServiceTests
             Assert.AreEqual(_testDriver.State, DriverState.Driving);
 
             _driverService.ChangeTripStateToFinished(_testDriver);
-            Assert.AreEqual(_tripService.GetTripStateById(_testTrip.Id), TripState.FinishedPaid);
+            Assert.AreEqual(_tripService.GetTripStateById(_testTrip.Id), TripState.FinishedUnpaid);
             Assert.AreEqual(_testDriver.State, DriverState.Waiting);
         }
     }

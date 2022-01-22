@@ -25,9 +25,12 @@ namespace WhooberInfrastructure.Data
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<BaseCard> Cards { get; set; }
 
+        // TODO remove cringe
+        public DbSet<BaseCard> WhooberCard { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DummyCard>();
+            modelBuilder.Entity<DummyCard>().Property(x => x.Balance);
             modelBuilder.Entity<Passenger>().HasOne(p => p.SavedCard);
             modelBuilder.Entity<Passenger>().Ignore(p => p.PaymentMethod);
             modelBuilder.Entity<Passenger>().OwnsOne(p => p.Location);

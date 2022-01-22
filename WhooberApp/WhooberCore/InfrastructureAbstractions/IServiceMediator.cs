@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
+using WhooberCore.Domain.PaymentAbstraction;
 
 namespace WhooberCore.InfrastructureAbstractions
 {
@@ -13,5 +14,6 @@ namespace WhooberCore.InfrastructureAbstractions
         void ChangeTripStateToOnTheWay(Trip trip);
         void ChangeTripStateToFinished(Trip trip);
         Trip FindActiveTripByDriver(Driver driver);
+        bool ConfirmPayment(PaymentMethod method, Trip trip);
     }
 }
