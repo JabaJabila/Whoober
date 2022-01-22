@@ -25,7 +25,7 @@ namespace WhooberServiceTests
         {
             var passenger = new Passenger("pAssnger", "89996661488");
             _clientService.RegisterPassenger(passenger);
-            Assert.AreEqual(_clientService.FindPassengerById(passenger.Id), passenger);
+            Assert.AreNotEqual(_clientService.FindPassengerById(passenger.Id), null);
         }
 
         [Test]
