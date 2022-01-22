@@ -6,6 +6,11 @@ namespace WhooberCore.Services
 {
     public class DriverService : IDriverService
     {
+        public Driver RegisterDriver(Driver driver)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void SetDriverStateToWorking(Driver driver)
         {
             driver.State = DriverState.Driving;
