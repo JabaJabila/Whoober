@@ -5,7 +5,7 @@ namespace WhooberCore.Domain.ServiceAbstractions
 {
     public interface IClientService
     {
-        Passenger RegisterPassenger(Passenger passenger);
+        void RegisterPassenger(Passenger passenger);
         IReadOnlyCollection<Trip> GetTripHistory(Passenger passenger);
     }
 }

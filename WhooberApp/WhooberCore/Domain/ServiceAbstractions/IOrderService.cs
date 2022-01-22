@@ -6,6 +6,5 @@ namespace WhooberCore.Domain.ServiceAbstractions
     {
         decimal RequestTripCost(OrderRequest orderRequest);
         void ApproveOrder(Order order);
-        void DenyOrder(Order order);
     }
 }
