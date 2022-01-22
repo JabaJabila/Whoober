@@ -21,7 +21,10 @@ namespace WhooberCore.Services
 
         public decimal RequestTripCost(OrderRequest orderRequest)
         {
-            return _costDeterminer.DefineTripCost(orderRequest);
+            // TODO
+            decimal cost = _costDeterminer.DefineTripCost(orderRequest);
+            _activeOrders.Add(new Order(orderRequest, cost));
+            return cost;
         }
 
         public void ApproveOrder(Order order)

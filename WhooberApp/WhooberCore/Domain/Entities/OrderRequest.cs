@@ -7,8 +7,8 @@ namespace WhooberCore.Domain.Entities
     {
         public OrderRequest(Passenger passenger, Route route, CarLevel carLevel)
         {
-            Passenger = passenger;
-            Route = route;
+            Passenger = passenger ?? throw new ArgumentNullException(nameof(passenger));
+            Route = route ?? throw new ArgumentNullException(nameof(route));
             CarLevel = carLevel;
         }
 
