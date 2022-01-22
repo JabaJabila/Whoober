@@ -24,7 +24,7 @@ namespace WhooberServiceTests
             var options = new DbContextOptionsBuilder<WhooberContext>()
                 .UseInMemoryDatabase(databaseName: "Test")
                 .Options;
-            var context = new TestingDbContext(options);
+            var context = new WhooberContext(options);
             _driverService = new DriverService(new WhooberContext(options));
             var driver = new Driver("amogus", "88005553535")
             {

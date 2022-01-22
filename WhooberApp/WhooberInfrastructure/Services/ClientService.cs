@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using WhooberCore.Domain.Entities;
 using WhooberCore.InfrastructureAbstractions;
@@ -20,6 +21,10 @@ namespace WhooberInfrastructure.Services
         public IReadOnlyCollection<Trip> GetTripHistory(Passenger passenger)
         {
             throw new System.NotImplementedException();
+        }
+        public Passenger FindPassengerById(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
