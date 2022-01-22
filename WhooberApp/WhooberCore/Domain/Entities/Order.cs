@@ -36,7 +36,7 @@ namespace WhooberCore.Domain.Entities
         public Passenger Passenger { get; private init; }
         public Route Route { get; private init; }
         public CarLevel CarLevel { get; private init; }
-        public decimal Price{ get; private init; }
+        public decimal Price { get; private init; }
         public OrderState State { get; set; }
     }
 }

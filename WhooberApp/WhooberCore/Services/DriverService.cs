@@ -77,6 +77,12 @@ namespace WhooberCore.Services
             return _drivers.Where(x => x.State == DriverState.Waiting).ToList();
         }
 
+        public IServiceMediator ServiceMediator
+        {
+            get;
+            set;
+        }
+
         public void SetServiceMediator(IServiceMediator mediator)
         {
             _serviceMediator = mediator;

@@ -42,6 +42,10 @@ namespace WhooberCore.Services
         {
             // TODO
             trip.State = TripState.FinishedUnpaid;
+            if (trip.Order.Passenger.PaymentMethod.Pay(trip.Order.Price))
+            {
+                trip.State = TripState.FinishedPaid;
+            }
         }
 
         public TripState GetTripState(Trip trip)

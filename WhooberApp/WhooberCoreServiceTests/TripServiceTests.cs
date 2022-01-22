@@ -5,6 +5,7 @@ using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.ServiceAbstractions;
+using WhooberCore.Payment;
 using WhooberCore.Services;
 
 namespace WhooberCoreServiceTests
@@ -33,6 +34,7 @@ namespace WhooberCoreServiceTests
             IServiceMediator serviceMediator = new ServiceMediator(_driverService, _tripService, _orderService);
 
             var passenger = new Passenger("abobus", "88005553535");
+            passenger.PaymentMethod = new CardMethod(new DummyCard("2286661488"));
             var builder = new OrderRequestBuilder();
             builder.SetPassenger(passenger)
                 .AddLocation(new Location(0, 0))
@@ -57,7 +59,7 @@ namespace WhooberCoreServiceTests
             Assert.AreEqual(_testDriver.State, DriverState.Driving);
 
             _driverService.ChangeTripStateToFinished(_testDriver);
-            Assert.AreEqual(_tripService.GetTripState(_testTrip), TripState.FinishedUnpaid);
+            Assert.AreEqual(_tripService.GetTripState(_testTrip), TripState.FinishedPaid);
             Assert.AreEqual(_testDriver.State, DriverState.Waiting);
         }
     }
