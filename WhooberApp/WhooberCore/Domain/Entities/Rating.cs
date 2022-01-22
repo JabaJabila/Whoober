@@ -18,6 +18,7 @@ namespace WhooberCore.Domain.Entities
             if (rate == null) throw new ArgumentNullException(nameof(rate));
             SumScores += rate.RateValue;
             _rates.Add(rate);
+            rate.FromRating = this;
         }
 
         public Guid Id { get; private init; }

@@ -36,6 +36,25 @@ namespace WhooberInfrastructure.Data
             modelBuilder.Entity<Driver>().Property(d => d.State)
                 .HasConversion(new EnumToStringConverter<DriverState>());
 
+            modelBuilder.Entity<Route>().Ignore(r => r.Locations);
+
+            modelBuilder.Entity<Order>().HasOne(o => o.Route);
+            modelBuilder.Entity<Order>().HasOne(o => o.Passenger);
+            modelBuilder.Entity<Order>().Property(o => o.State)
+                .HasConversion(new EnumToStringConverter<OrderState>());
+            modelBuilder.Entity<Order>().Property(o => o.CarLevel)
+                .HasConversion(new EnumToStringConverter<CarLevel>());
+
+            modelBuilder.Entity<Trip>().HasOne(t => t.Order);
+            modelBuilder.Entity<Trip>().HasOne(t => t.Car);
+            modelBuilder.Entity<Trip>().HasOne(t => t.Driver);
+            modelBuilder.Entity<Trip>().Property(t => t.State)
+                .HasConversion(new EnumToStringConverter<TripState>());
+
+            modelBuilder.Entity<Rating>().HasMany(r => r.Rates)
+                .WithOne(r => r.FromRating);
+            modelBuilder.Entity<Rating>().Ignore(r => r.AverageScore);
+
             modelBuilder.Entity<Passenger>().ToTable("Passengers");
             modelBuilder.Entity<Driver>().ToTable("Drivers");
             modelBuilder.Entity<Car>().ToTable("Cars");
