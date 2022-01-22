@@ -21,6 +21,7 @@ namespace WhooberCore.Domain.Entities
         public Guid Id { get; private init; }
         public string Name { get; set; }
         public Rating Rating { get; private init; }
+        public Location Location { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public BaseCard SavedCard { get; set; }
         public string PhoneNumber { get; private set; }
