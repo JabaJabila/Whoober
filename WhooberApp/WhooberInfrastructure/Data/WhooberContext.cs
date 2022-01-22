@@ -36,7 +36,9 @@ namespace WhooberInfrastructure.Data
             modelBuilder.Entity<Driver>().Property(d => d.State)
                 .HasConversion(new EnumToStringConverter<DriverState>());
 
-            modelBuilder.Entity<Order>().OwnsOne(o => o.Route).Ignore(r => r.Locations);
+            modelBuilder.Entity<Order>().OwnsOne(
+                o => o.Route,
+                r => r.Ignore(route => route.Locations));
             modelBuilder.Entity<Order>().HasOne(o => o.Passenger);
             modelBuilder.Entity<Order>().Property(o => o.State)
                 .HasConversion(new EnumToStringConverter<OrderState>());
