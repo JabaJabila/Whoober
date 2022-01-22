@@ -8,12 +8,11 @@ namespace WhooberCore.Services
     {
         private readonly ICostDeterminer _costDeterminer;
         private readonly IDriverFinder _driverFinder;
-        private readonly IServiceMediator _serviceMediator;
-        public OrderService(ICostDeterminer costDeterminer, IDriverFinder driverFinder, IServiceMediator serviceMediator)
+        private IServiceMediator _serviceMediator;
+        public OrderService(ICostDeterminer costDeterminer, IDriverFinder driverFinder)
         {
             _costDeterminer = costDeterminer;
             _driverFinder = driverFinder;
-            _serviceMediator = serviceMediator;
         }
 
         public decimal RequestTripCost(OrderRequest orderRequest)
@@ -26,6 +25,11 @@ namespace WhooberCore.Services
             // TODO approve order logic
             Driver driver = _driverFinder.FindDriver(order, _serviceMediator.GetActiveDriversByCarLevel(order.CarLevel));
             return _serviceMediator.ConfirmOrder(order, driver);
+        }
+
+        public void SetServiceMediator(IServiceMediator mediator)
+        {
+            _serviceMediator = mediator;
         }
     }
 }

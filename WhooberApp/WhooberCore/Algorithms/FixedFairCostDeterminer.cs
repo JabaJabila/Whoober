@@ -6,16 +6,16 @@ namespace WhooberCore.Algorithms
     public class FixedFairCostDeterminer : ICostDeterminer
     {
         private decimal _costPerDistanceUnit;
-        private IRouteLengthDeterminer _routeLengthDeterminer;
-        public FixedFairCostDeterminer(decimal costPerDistanceUnit, IRouteLengthDeterminer routeLengthDeterminer)
+        private IDistanceDeterminer _distanceDeterminer;
+        public FixedFairCostDeterminer(decimal costPerDistanceUnit, IDistanceDeterminer distanceDeterminer)
         {
             _costPerDistanceUnit = costPerDistanceUnit;
-            _routeLengthDeterminer = routeLengthDeterminer;
+            _distanceDeterminer = distanceDeterminer;
         }
 
         public decimal DefineTripCost(OrderRequest orderRequest)
         {
-            return _costPerDistanceUnit * (decimal)_routeLengthDeterminer.CountLength(orderRequest.Route) * (decimal)(1 + orderRequest.CarLevel);
+            return _costPerDistanceUnit * (decimal)_distanceDeterminer.CountLength(orderRequest.Route) * (decimal)(1 + orderRequest.CarLevel);
         }
     }
 }

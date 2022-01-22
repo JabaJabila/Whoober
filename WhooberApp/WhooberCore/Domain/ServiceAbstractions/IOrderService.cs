@@ -2,7 +2,7 @@
 
 namespace WhooberCore.Domain.ServiceAbstractions
 {
-    public interface IOrderService
+    public interface IOrderService : IBaseService
     {
         decimal RequestTripCost(OrderRequest orderRequest);
         Trip ApproveOrder(Order order);

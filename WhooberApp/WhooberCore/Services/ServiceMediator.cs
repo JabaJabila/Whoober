@@ -11,10 +11,14 @@ namespace WhooberCore.Services
     {
         private readonly IDriverService _driverService;
         private readonly ITripService _tripService;
-        public ServiceMediator(IDriverService driverService, ITripService tripService)
+        private readonly IOrderService _orderService;
+        public ServiceMediator(IDriverService driverService, ITripService tripService, IOrderService orderService)
         {
             _driverService = driverService;
+            _driverService.SetServiceMediator(this);
             _tripService = tripService;
+            _orderService = orderService;
+            _orderService.SetServiceMediator(this);
         }
 
         public IReadOnlyCollection<Driver> GetActiveDriversByCarLevel(CarLevel carLevel)
