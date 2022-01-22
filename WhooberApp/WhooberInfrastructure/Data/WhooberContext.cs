@@ -38,7 +38,7 @@ namespace WhooberInfrastructure.Data
 
             modelBuilder.Entity<Route>().Ignore(r => r.Locations);
 
-            modelBuilder.Entity<Order>().HasOne(o => o.Route);
+            modelBuilder.Entity<Order>().OwnsOne(o => o.Route);
             modelBuilder.Entity<Order>().HasOne(o => o.Passenger);
             modelBuilder.Entity<Order>().Property(o => o.State)
                 .HasConversion(new EnumToStringConverter<OrderState>());
