@@ -20,7 +20,7 @@ namespace WhooberCoreServiceTests
             ICostDeterminer costDeterminer = new FixedFairCostDeterminer(10, new EuclidDistanceCount());
             IDriverFinder driverFinder = new DriverFinder(new EuclidDistanceCount());
             _driverService = new DriverService();
-            var driver = new Driver("amogus")
+            var driver = new Driver("amogus", "88005553535")
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
@@ -34,7 +34,7 @@ namespace WhooberCoreServiceTests
         [Test]
         public void TestCreateAndConfirmOrder()
         {
-            var passenger = new Passenger("abobus");
+            var passenger = new Passenger("abobus", "88005553535");
             var builder = new OrderRequestBuilder();
             builder.SetPassenger(passenger)
                 .AddLocation(new Location(0, 0))
