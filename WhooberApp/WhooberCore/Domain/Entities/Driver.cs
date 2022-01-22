@@ -1,6 +1,7 @@
 ﻿using System;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.PaymentAbstraction;
+using WhooberCore.Payment;
 
 namespace WhooberCore.Domain.Entities
 {
@@ -11,6 +12,7 @@ namespace WhooberCore.Domain.Entities
             Name = name ?? throw new ArgumentNullException(nameof(name));
             PhoneNumber = phoneNumber ?? throw new ArgumentNullException(nameof(phoneNumber));
             Rating = new Rating();
+            PaymentMethod = new CashPayment();
             State = DriverState.Inactive;
         }
 
@@ -24,7 +26,8 @@ namespace WhooberCore.Domain.Entities
         public Car Car { get; set; }
         public Location Location { get; set; }
         public DriverState State { get; set; }
-        public IPaymentMethod PaymentMethod { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
+        public BaseCard SavedCard { get; set; }
         public string PhoneNumber { get; private set; }
     }
 }
