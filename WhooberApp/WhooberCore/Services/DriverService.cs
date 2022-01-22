@@ -1,4 +1,5 @@
 using WhooberCore.Domain.Entities;
+using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.ServiceAbstractions;
 
 namespace WhooberCore.Services
@@ -7,17 +8,17 @@ namespace WhooberCore.Services
     {
         public void SetDriverStateToWorking(Driver driver)
         {
-            throw new System.NotImplementedException();
+            driver.State = DriverState.Driving;
         }
 
         public void SetDriverStateToInactive(Driver driver)
         {
-            throw new System.NotImplementedException();
+            driver.State = DriverState.Inactive;
         }
 
         public void SetDriverStateToWaiting(Driver driver)
         {
-            throw new System.NotImplementedException();
+            driver.State = DriverState.Waiting;
         }
     }
 }

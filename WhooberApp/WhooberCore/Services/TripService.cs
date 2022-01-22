@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using WhooberCore.Domain.Entities;
+using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.ServiceAbstractions;
 
 namespace WhooberCore.Services
@@ -7,12 +9,13 @@ namespace WhooberCore.Services
     {
         public Trip CreateTrip(Order order, Driver driver)
         {
-            throw new System.NotImplementedException();
+            var trip = new Trip(order, driver, driver.Car);
+            return trip;
         }
 
-        public void ChangeTripState(Trip trip)
+        public void ChangeTripState(Trip trip, TripState state)
         {
-            throw new System.NotImplementedException();
+            trip.State = state;
         }
     }
 }
