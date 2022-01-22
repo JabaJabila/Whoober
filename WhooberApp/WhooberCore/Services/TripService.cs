@@ -18,6 +18,7 @@ namespace WhooberCore.Services
         {
             var trip = new Trip(order, driver, driver.Car);
             _activeTrips.Add(trip);
+            trip.State = TripState.OnTheWay;
             return trip;
         }
 

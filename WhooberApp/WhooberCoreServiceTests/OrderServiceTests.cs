@@ -20,7 +20,12 @@ namespace WhooberCoreServiceTests
             ICostDeterminer costDeterminer = new FixedFairCostDeterminer(10, new EuclidRouteLengthCount());
             IDriverFinder driverFinder = new DriverFinder();
             _driverService = new DriverService();
-            _driverService.RegisterDriver(new Driver("amogus"));
+            var driver = new Driver("amogus")
+            {
+                Car = new Car("kok", "red", "s228as", CarLevel.Economy),
+            };
+            _driverService.RegisterDriver(driver);
+            _driverService.SetDriverStateToWaiting(driver);
             _tripService = new TripService();
             IServiceMediator serviceMediator = new ServiceMediator(_driverService, _tripService);
             _orderService = new OrderService(costDeterminer, driverFinder, serviceMediator);
