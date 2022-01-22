@@ -1,6 +1,7 @@
 ﻿using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.InfrastructureAbstractions;
+using WhooberInfrastructure.Data;
 
 namespace WhooberInfrastructure.Services
 {
@@ -9,10 +10,12 @@ namespace WhooberInfrastructure.Services
         private readonly ICostDeterminer _costDeterminer;
         private readonly IDriverFinder _driverFinder;
         private IServiceMediator _serviceMediator;
-        public OrderService(ICostDeterminer costDeterminer, IDriverFinder driverFinder)
+        private WhooberContext _whooberContext;
+        public OrderService(ICostDeterminer costDeterminer, IDriverFinder driverFinder, WhooberContext whooberContext)
         {
             _costDeterminer = costDeterminer;
             _driverFinder = driverFinder;
+            _whooberContext = whooberContext;
         }
 
         public decimal RequestTripCost(OrderRequest orderRequest)

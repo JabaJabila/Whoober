@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using WhooberCore.Algorithms;
 using WhooberCore.Builders;
@@ -6,6 +7,7 @@ using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Payment;
+using WhooberInfrastructure.Data;
 using WhooberInfrastructure.Services;
 
 namespace WhooberServiceTests
@@ -20,17 +22,21 @@ namespace WhooberServiceTests
         [SetUp]
         public void SetUp()
         {
+            var options = new DbContextOptionsBuilder<WhooberContext>()
+                .UseInMemoryDatabase(databaseName: "Test")
+                .Options;
+            var context = new TestingDbContext(options);
             ICostDeterminer costDeterminer = new FixedFairCostDeterminer(10, new EuclidDistanceCount());
             IDriverFinder driverFinder = new DriverFinder(new EuclidDistanceCount());
-            _driverService = new DriverService();
+            _driverService = new DriverService(context);
             _testDriver = new Driver("amogus", "88005553535")
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
             _driverService.RegisterDriver(_testDriver);
             _driverService.SetDriverStateToWaiting(_testDriver);
-            _tripService = new TripService();
-            _orderService = new OrderService(costDeterminer, driverFinder);
+            _tripService = new TripService(context);
+            _orderService = new OrderService(costDeterminer, driverFinder, context);
             IServiceMediator serviceMediator = new ServiceMediator(_driverService, _tripService, _orderService);
 
             var passenger = new Passenger("abobus", "88005553535");

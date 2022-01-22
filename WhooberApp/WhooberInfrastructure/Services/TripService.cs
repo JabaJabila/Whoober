@@ -3,6 +3,7 @@ using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.InfrastructureAbstractions;
+using WhooberInfrastructure.Data;
 
 namespace WhooberInfrastructure.Services
 {
@@ -10,9 +11,11 @@ namespace WhooberInfrastructure.Services
     {
         private List<Trip> _activeTrips;
         private IServiceMediator _serviceMediator;
-        public TripService()
+        private WhooberContext _whooberContext;
+        public TripService(WhooberContext whooberContext)
         {
             _activeTrips = new List<Trip>();
+            _whooberContext = whooberContext;
         }
 
         public Trip CreateTrip(Order order, Driver driver)

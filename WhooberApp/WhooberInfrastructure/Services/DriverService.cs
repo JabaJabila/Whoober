@@ -4,6 +4,7 @@ using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.InfrastructureAbstractions;
+using WhooberInfrastructure.Data;
 
 namespace WhooberInfrastructure.Services
 {
@@ -11,8 +12,10 @@ namespace WhooberInfrastructure.Services
     {
         private List<Driver> _drivers;
         private IServiceMediator _serviceMediator;
-        public DriverService()
+        private WhooberContext _whooberContext;
+        public DriverService(WhooberContext whooberContext)
         {
+            _whooberContext = whooberContext;
             _drivers = new List<Driver>();
         }
 
