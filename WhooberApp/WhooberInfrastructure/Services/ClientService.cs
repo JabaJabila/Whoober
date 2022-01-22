@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
@@ -15,16 +16,22 @@ namespace WhooberInfrastructure.Services
         }
         public void RegisterPassenger(Passenger passenger)
         {
-            throw new System.NotImplementedException();
+            if (_whooberContext.Passengers.FirstOrDefault(x => x.PhoneNumber == passenger.PhoneNumber) != null)
+            {
+                throw new ArgumentException("Client with this phone number already registered", nameof(passenger));
+            }
+
+            _whooberContext.Passengers.Add(passenger);
+            _whooberContext.SaveChanges();
         }
 
         public IReadOnlyCollection<Trip> GetTripHistory(Passenger passenger)
         {
-            throw new System.NotImplementedException();
+            return _whooberContext.Trips.Where(x => x.Order.Passenger == passenger).ToList();
         }
         public Passenger FindPassengerById(Guid id)
         {
-            throw new NotImplementedException();
+            return _whooberContext.Passengers.FirstOrDefault(x => x.Id == id);
         }
     }
 }
