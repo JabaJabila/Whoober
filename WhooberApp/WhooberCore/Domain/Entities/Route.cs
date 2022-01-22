@@ -23,7 +23,7 @@ namespace WhooberCore.Domain.Entities
         public Route(List<Location> locations)
         {
             if (locations == null) throw new ArgumentNullException(nameof(locations));
-            if (locations.Count <= MinLocationsCount)
+            if (locations.Count < MinLocationsCount)
                 throw new TripException($"Impossible to create route with less than {MinLocationsCount} stops");
 
             _locations = locations;

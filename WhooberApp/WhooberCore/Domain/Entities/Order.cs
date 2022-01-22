@@ -6,23 +6,22 @@ namespace WhooberCore.Domain.Entities
 {
     public class Order
     {
-        private decimal _price;
         public Guid Id { get; private init; }
         public Passenger Passenger { get; private init; }
         public Route Route { get; private init; }
         public CarLevel CarLevel { get; private init; }
-        public decimal Price
-        {
-            get => _price;
-            set
-            {
-                if (value < 0)
-                    throw new TripException("Price for order can't be < 0");
-                _price = value;
-            }
-        }
-
+        public decimal Price{ get; private init; }
         public OrderState State { get; set; }
+
+        public Order(OrderRequest orderRequest, decimal price)
+        {
+            Passenger = orderRequest.Passenger;
+            Route = orderRequest.Route;
+            CarLevel = orderRequest.CarLevel;
+            if (price < 0)
+                throw new TripException("Price for order can't be < 0");
+            Price = price;
+        }
 
         public Order(Passenger passenger, Route route, CarLevel carLevel, decimal price)
         {
@@ -32,7 +31,7 @@ namespace WhooberCore.Domain.Entities
             if (price < 0)
                 throw new TripException("Price for order can't be < 0");
 
-            _price = price;
+            Price = price;
             State = OrderState.AwaitApprove;
         }
 
