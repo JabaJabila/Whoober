@@ -9,6 +9,7 @@ namespace WhooberCore.Domain.PaymentAbstraction
             CardNumber = number ?? throw new ArgumentNullException(nameof(number));
         }
 
+        public Guid Id { get; private init; }
         public string CardNumber { get; private init; }
 
         public abstract void Pay(decimal sumToPay);

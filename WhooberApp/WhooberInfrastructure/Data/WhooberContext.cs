@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
+using WhooberCore.Domain.PaymentAbstraction;
+using WhooberCore.Payment;
 
 namespace WhooberInfrastructure.Data
 {
@@ -20,15 +22,17 @@ namespace WhooberInfrastructure.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Rate> Rates { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<BaseCard> Cards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Passenger>().OwnsOne(p => p.SavedCard);
+            modelBuilder.Entity<DummyCard>();
+            modelBuilder.Entity<Passenger>().HasOne(p => p.SavedCard);
             modelBuilder.Entity<Passenger>().Ignore(p => p.PaymentMethod);
             modelBuilder.Entity<Passenger>().OwnsOne(p => p.Location);
             modelBuilder.Entity<Passenger>().HasOne(p => p.Rating);
 
-            modelBuilder.Entity<Driver>().OwnsOne(d => d.SavedCard);
+            modelBuilder.Entity<Driver>().HasOne(d => d.SavedCard);
             modelBuilder.Entity<Driver>().Ignore(d => d.PaymentMethod);
             modelBuilder.Entity<Driver>().HasOne(d => d.Car);
             modelBuilder.Entity<Driver>().OwnsOne(d => d.Location);
@@ -62,6 +66,7 @@ namespace WhooberInfrastructure.Data
             modelBuilder.Entity<Order>().ToTable("Orders");
             modelBuilder.Entity<Rate>().ToTable("Rates");
             modelBuilder.Entity<Rating>().ToTable("Ratings");
+            modelBuilder.Entity<BaseCard>().ToTable("Cards");
             base.OnModelCreating(modelBuilder);
         }
     }
