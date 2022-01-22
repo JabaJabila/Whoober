@@ -63,7 +63,9 @@ namespace WhooberInfrastructure.Services
 
         public Trip GetActiveTripByDriver(Driver driver)
         {
-            return _whooberContext.Trips.FirstOrDefault(x => x.Driver == driver && x.State != TripState.FinishedPaid && x.State != TripState.FinishedUnpaid);
+            return _whooberContext.Trips
+                .FirstOrDefault(x => x.DriverId == driver.Id && x.State
+                    != TripState.FinishedPaid && x.State != TripState.FinishedUnpaid);
         }
 
         public void SetServiceMediator(IServiceMediator mediator)

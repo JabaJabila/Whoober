@@ -51,8 +51,6 @@ namespace WhooberInfrastructure.Data
                 .HasConversion(new EnumToStringConverter<CarLevel>());
 
             modelBuilder.Entity<Trip>().HasOne(t => t.Order);
-            modelBuilder.Entity<Trip>().HasOne(t => t.Car);
-            modelBuilder.Entity<Trip>().HasOne(t => t.Driver);
             modelBuilder.Entity<Trip>().Property(t => t.State)
                 .HasConversion(new EnumToStringConverter<TripState>());
 

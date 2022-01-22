@@ -8,8 +8,16 @@ namespace WhooberCore.Domain.Entities
         public Trip(Order order, Driver driver, Car car)
         {
             Order = order ?? throw new ArgumentNullException(nameof(order));
-            Driver = driver ?? throw new ArgumentNullException(nameof(driver));
-            Car = car ?? throw new ArgumentNullException(nameof(car));
+
+            if (driver == null)
+                throw new ArgumentNullException(nameof(driver));
+
+            DriverId = driver.Id;
+
+            if (car == null)
+                throw new ArgumentNullException(nameof(car));
+
+            CarId = car.Id;
             State = TripState.AwaitDriver;
         }
 
@@ -19,8 +27,8 @@ namespace WhooberCore.Domain.Entities
 
         public Guid Id { get; private init; }
         public Order Order { get; private init; }
-        public Driver Driver { get; private init; }
-        public Car Car { get; private init; }
+        public Guid DriverId { get; private init; }
+        public Guid CarId { get; private init; }
         public DateTime? StartTime { get; set; }
         public DateTime? FinishTime { get; set; }
         public TripState State { get; set; }
