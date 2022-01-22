@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WhooberCore.Domain.AlgoritmsAbstractions;
+using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.ServiceAbstractions;
 

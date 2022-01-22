@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using WhooberCore.Algorithms;
 using WhooberCore.Builders;
-using WhooberCore.Domain.AlgoritmsAbstractions;
+using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.ServiceAbstractions;

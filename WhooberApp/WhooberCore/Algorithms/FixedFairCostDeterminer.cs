@@ -1,5 +1,4 @@
 using WhooberCore.Domain.AlgorithmsAbstractions;
-using WhooberCore.Domain.AlgoritmsAbstractions;
 using WhooberCore.Domain.Entities;
 
 namespace WhooberCore.Algorithms
