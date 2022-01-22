@@ -16,7 +16,9 @@ namespace WhooberCoreServiceTests
         public void SetUp()
         {
             ICostDeterminer costDeterminer = new FixedFairCostDeterminer(10, new EuclidRouteLengthCount());
-            _orderService = new OrderService(costDeterminer);
+            IDriverFinder driverFinder = new DriverFinder();
+            IServiceMediator serviceMediator = new ServiceMediator();
+            _orderService = new OrderService(costDeterminer, driverFinder, serviceMediator);
         }
 
         [Test]
@@ -28,9 +30,10 @@ namespace WhooberCoreServiceTests
                 .AddLocation(new Location(0, 0))
                 .AddLocation(new Location(1, 1))
                 .SetCarLevel(CarLevel.Business);
+            var request = builder.ToOrderRequest();
             decimal price = _orderService.RequestTripCost(builder.ToOrderRequest());
-
-            // Assert.That(_orderService.DenyOrder());
+            var order = new Order(request, price);
+            // Assert.Pass(_orderService.ApproveOrder(order));
         }
     }
 }
