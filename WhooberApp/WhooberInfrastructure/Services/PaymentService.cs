@@ -14,8 +14,10 @@ namespace WhooberInfrastructure.Services
         public PaymentService(WhooberContext context)
         {
             _context = context;
+
+            // TODO generate admin card
             BaseCard whooberCard = _context.Cards.FirstOrDefault();
-            if (whooberCard == null)
+            if (whooberCard is null)
             {
                 // TODO remove more cringe
                 whooberCard = new DummyCard("0000000000000000");

@@ -25,7 +25,6 @@ namespace WhooberInfrastructure.Services
 
         public Trip ApproveOrder(Order order)
         {
-            // TODO approve order logic
             Driver driver = _driverFinder.FindDriver(order, _serviceMediator.GetActiveDriversByCarLevel(order.CarLevel));
             return _serviceMediator.ConfirmOrder(order, driver);
         }
