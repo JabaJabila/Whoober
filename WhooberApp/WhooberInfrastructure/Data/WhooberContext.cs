@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.PaymentAbstraction;
+using WhooberCore.Dto;
 using WhooberCore.Payment;
 
 namespace WhooberInfrastructure.Data
@@ -12,7 +13,6 @@ namespace WhooberInfrastructure.Data
         public WhooberContext(DbContextOptions<WhooberContext> options)
             : base(options)
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -27,6 +27,8 @@ namespace WhooberInfrastructure.Data
 
         // TODO remove cringe
         public DbSet<BaseCard> WhooberCard { get; set; }
+
+        public DbSet<ClientDto> Accounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -69,6 +71,7 @@ namespace WhooberInfrastructure.Data
             modelBuilder.Entity<Rate>().ToTable("Rates");
             modelBuilder.Entity<Rating>().ToTable("Ratings");
             modelBuilder.Entity<BaseCard>().ToTable("Cards");
+
             base.OnModelCreating(modelBuilder);
         }
     }

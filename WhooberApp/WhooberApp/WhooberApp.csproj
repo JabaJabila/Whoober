@@ -24,4 +24,10 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="WhooberCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\WhooberCoreServiceTests\bin\Debug\net5.0\WhooberCore.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

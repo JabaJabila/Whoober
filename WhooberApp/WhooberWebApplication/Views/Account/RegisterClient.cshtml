@@ -1,0 +1,26 @@
+@model WhooberCore.Models.RegisterModel
+
+<h2>RegisterClient</h2>
+<form asp-action="RegisterClient" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+         <div>
+             <label asp-for="Name">Name</label><br />
+             <input type="text" asp-for=Name />
+             <span asp-validation-for="Name" />
+             </div>
+        <div>
+            <label asp-for="PhoneNumber">Phone number</label><br/>
+            <input type="text" asp-for="PhoneNumber"/>
+            <span asp-validation-for="PhoneNumber"/>
+        </div>
+        <div>
+            <label asp-for="Password">Password</label><br/>
+            <input asp-for="Password"/>
+            <span asp-validation-for="Password"/>
+        </div>
+        <div>
+            <input type="submit" value="Register"/>
+        </div>
+    </div>
+</form>
