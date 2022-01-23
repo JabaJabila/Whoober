@@ -19,8 +19,9 @@ namespace WhooberInfrastructure.Services
             BaseCard whooberCard = _context.Cards.FirstOrDefault();
             if (whooberCard is null)
             {
-                whooberCard = new DummyCard("0000000000000");
-                _context.Cards.Add(whooberCard);
+                // TODO remove more cringe
+                whooberCard = new DummyCard("0000000000000000");
+                _context.WhooberCard.Add(whooberCard);
                 _context.SaveChanges();
             }
 
