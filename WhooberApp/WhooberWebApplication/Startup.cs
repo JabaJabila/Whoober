@@ -40,7 +40,7 @@ namespace Whoober_WebApplication
                 .AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Whhober.Server", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Whoober.Server", Version = "v1" });
             });
             services.AddScoped<IPassengerGenerator, SimplePassengerGenerator>();
             services.AddScoped<IDriverGenerator, SimpleDriverGenerator>();
@@ -61,7 +61,7 @@ namespace Whoober_WebApplication
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Reports.Server v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Whoober.Server v1"));
             }
 
             app.UseHttpsRedirection();
