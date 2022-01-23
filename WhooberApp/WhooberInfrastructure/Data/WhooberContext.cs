@@ -13,6 +13,7 @@ namespace WhooberInfrastructure.Data
         public WhooberContext(DbContextOptions<WhooberContext> options)
             : base(options)
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -28,11 +29,11 @@ namespace WhooberInfrastructure.Data
         // TODO remove cringe
         public DbSet<BaseCard> WhooberCard { get; set; }
 
-        public DbSet<ClientDto> Accounts { get; set; }
+        public DbSet<AccountInfoDto> Accounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DummyCard>().Property(x => x.Balance);
+            modelBuilder.Entity<DummyCard>();
             modelBuilder.Entity<Passenger>().HasOne(p => p.SavedCard);
             modelBuilder.Entity<Passenger>().Ignore(p => p.PaymentMethod);
             modelBuilder.Entity<Passenger>().OwnsOne(p => p.Location);

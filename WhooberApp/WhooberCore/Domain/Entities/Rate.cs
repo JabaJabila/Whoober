@@ -1,5 +1,5 @@
 ﻿using System;
-using WhooberCore.Domain.Tools;
+using WhooberCore.Domain.Exceptions;
 
 namespace WhooberCore.Domain.Entities
 {

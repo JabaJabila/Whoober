@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WhooberCore.Domain.Tools;
+using WhooberCore.Domain.Exceptions;
 
 namespace WhooberCore.Domain.Entities
 {

@@ -1,9 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using WhooberCore.Domain.Entities;
+using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
-using WhooberInfrastructure.Data;
-using WhooberInfrastructure.Services;
 
 namespace WhooberServiceTests
 {
@@ -20,16 +18,26 @@ namespace WhooberServiceTests
         [Test]
         public void TestRegisterAndFindClient()
         {
-            var passenger = new Passenger("pAssnger", "89996661488");
-            _clientService.RegisterPassenger(passenger);
+            var dto = new AccountInfoDto()
+            {
+                PhoneNumber = "89996661488",
+                Password = "123",
+            };
+            var passenger = new Passenger("pAssnger", dto.PhoneNumber);
+            _clientService.RegisterPassenger(passenger, dto);
             Assert.AreNotEqual(_clientService.FindPassengerById(passenger.Id), null);
         }
 
         [Test]
         public void TestGetTripHistory()
         {
-            var passenger = new Passenger("pAssnger", "89996661488");
-            _clientService.RegisterPassenger(passenger);
+            var dto = new AccountInfoDto()
+            {
+                PhoneNumber = "89996661487",
+                Password = "123",
+            };
+            var passenger = new Passenger("pAssnger", dto.PhoneNumber);
+            _clientService.RegisterPassenger(passenger, dto);
             Assert.AreEqual(_clientService.GetTripHistory(_clientService.FindPassengerById(passenger.Id)).Count, 0);
         }
     }

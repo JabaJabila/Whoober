@@ -17,7 +17,8 @@ namespace WhooberCore.Algorithms
 
         public decimal DefineTripCost(OrderRequest orderRequest)
         {
-            return _costPerDistanceUnit * (decimal)_distanceDeterminer.CountLength(orderRequest.Route) * (decimal)(1 + orderRequest.CarLevel);
+            return _costPerDistanceUnit *
+                   (decimal)_distanceDeterminer.CountLength(orderRequest.Route) * (decimal)(1 + orderRequest.CarLevel);
         }
     }
 }

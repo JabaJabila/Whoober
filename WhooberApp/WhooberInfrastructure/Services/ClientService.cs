@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WhooberCore.Domain.Entities;
+using WhooberCore.Domain.Exceptions;
+using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
 
@@ -9,20 +11,20 @@ namespace WhooberInfrastructure.Services
 {
     public class ClientService : IClientService
     {
-        private WhooberContext _whooberContext;
+        private readonly WhooberContext _whooberContext;
         public ClientService(WhooberContext whooberContext)
         {
             _whooberContext = whooberContext;
         }
 
-        public void RegisterPassenger(Passenger passenger)
+        public void RegisterPassenger(Passenger passenger, AccountInfoDto accountInfoDto)
         {
             if (_whooberContext.Passengers.FirstOrDefault(x => x.PhoneNumber == passenger.PhoneNumber) != null)
-            {
-                throw new ArgumentException("Client with this phone number already registered", nameof(passenger));
-            }
+                throw new PersonException($"Passenger with {passenger.PhoneNumber} phone number already registered");
 
             _whooberContext.Passengers.Add(passenger);
+            accountInfoDto.ClientIdInDb = passenger.Id;
+            _whooberContext.Accounts.Add(accountInfoDto);
             _whooberContext.SaveChanges();
         }
 

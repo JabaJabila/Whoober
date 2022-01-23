@@ -21,7 +21,8 @@ namespace WhooberCore.Algorithms
 
         public double CountLocationsDistance(Location start, Location finish)
         {
-            return Math.Sqrt(Math.Pow(start.Latitude - finish.Latitude, 2) + Math.Pow(start.Longitude - finish.Longitude, 2));
+            return Math.Sqrt(
+                Math.Pow(start.Latitude - finish.Latitude, 2) + Math.Pow(start.Longitude - finish.Longitude, 2));
         }
     }
 }

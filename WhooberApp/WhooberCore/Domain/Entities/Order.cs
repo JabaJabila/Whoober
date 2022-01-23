@@ -1,6 +1,6 @@
 ﻿using System;
 using WhooberCore.Domain.Enums;
-using WhooberCore.Domain.Tools;
+using WhooberCore.Domain.Exceptions;
 
 namespace WhooberCore.Domain.Entities
 {

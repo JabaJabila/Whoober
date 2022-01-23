@@ -1,14 +1,11 @@
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using WhooberCore.Algorithms;
 using WhooberCore.Builders;
-using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
+using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Payment;
-using WhooberInfrastructure.Data;
-using WhooberInfrastructure.Services;
+
 
 namespace WhooberServiceTests
 {
@@ -24,17 +21,22 @@ namespace WhooberServiceTests
         {
             var initialization = new TestsInitialization();
             _driverService = initialization.DriverService;
-            _testDriver = new Driver("amogus", "88005553535")
+            var dto = new AccountInfoDto()
+            {
+                PhoneNumber = "88005553537",
+                Password = "123",
+            };
+            _testDriver = new Driver("amogus", dto.PhoneNumber)
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
-            _driverService.RegisterDriver(_testDriver);
+            _driverService.RegisterDriver(_testDriver, dto);
             _driverService.SetDriverStateToWaiting(_testDriver);
             _tripService = initialization.TripService;
             _orderService = initialization.OrderService;
 
             var passenger = new Passenger("abobus", "88005553535");
-            passenger.PaymentMethod = new CardMethod(new DummyCard("2286661488"));
+            passenger.PaymentMethod = new CardMethod(new DummyCard("2286661500"));
             var builder = new OrderRequestBuilder();
             builder.SetPassenger(passenger)
                 .AddLocation(new Location(0, 0))
