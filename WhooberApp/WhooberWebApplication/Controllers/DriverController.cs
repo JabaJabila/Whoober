@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WhooberCore.InfrastructureAbstractions;
 
@@ -15,6 +16,7 @@ namespace Whoober_WebApplication.Controllers
             _driverService = driverService;
         }
 
+        [Authorize(Policy = "Driver")]
         public IActionResult Index()
         {
             return View();

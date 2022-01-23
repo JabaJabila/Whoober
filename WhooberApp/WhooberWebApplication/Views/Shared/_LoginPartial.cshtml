@@ -1,0 +1,15 @@
+<ul class="navbar-nav">
+    @foreach (var claimsIdentity in User.Identities)
+    {
+        <li class="nav-item">
+            <p>@claimsIdentity.Name</p>
+            <p></p>
+        </li>
+        <li class="nav-item">
+            <p>@claimsIdentity.AuthenticationType</p>
+        </li>
+        <li class="nav-item">
+            <p>@claimsIdentity.IsAuthenticated</p>
+        </li>
+    }
+</ul>
