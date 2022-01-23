@@ -32,7 +32,7 @@ namespace WhooberInfrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DummyCard>().Property(x => x.Balance);
+            modelBuilder.Entity<DummyCard>();
             modelBuilder.Entity<Passenger>().HasOne(p => p.SavedCard);
             modelBuilder.Entity<Passenger>().Ignore(p => p.PaymentMethod);
             modelBuilder.Entity<Passenger>().OwnsOne(p => p.Location);

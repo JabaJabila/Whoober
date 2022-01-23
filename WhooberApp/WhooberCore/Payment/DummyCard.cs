@@ -5,18 +5,13 @@ namespace WhooberCore.Payment
 {
     public class DummyCard : BaseCard
     {
-        public DummyCard(string cardNumber, decimal initialBalance = 0)
+        public DummyCard(string cardNumber)
             : base(cardNumber)
         {
-            Balance = initialBalance;
+            Balance = 0;
         }
 
-        public DummyCard()
-            : base(null)
-        {
-        }
-
-        public decimal Balance { get; private set; }
+        public decimal Balance { get; set; }
         public override void Pay(decimal sumToPay)
         {
             Balance -= sumToPay;

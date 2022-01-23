@@ -28,7 +28,7 @@ namespace WhooberServiceTests
         [Test]
         public void TestGetTripHistory()
         {
-            var passenger = new Passenger("pAssnger", "89996661488");
+            var passenger = new Passenger("pAssnger", "89996661489");
             _clientService.RegisterPassenger(passenger);
             Assert.AreEqual(_clientService.GetTripHistory(_clientService.FindPassengerById(passenger.Id)).Count, 0);
         }
