@@ -1,18 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.PaymentAbstraction;
 using WhooberCore.Dto;
 using WhooberCore.Payment;
+using WhooberInfrastructure.Data.Seeding;
 
 namespace WhooberInfrastructure.Data
 {
     public sealed class WhooberContext : DbContext
     {
-        public WhooberContext(DbContextOptions<WhooberContext> options)
+        private readonly IDataSeeder _seeder;
+
+        public WhooberContext(DbContextOptions<WhooberContext> options, IDataSeeder dataSeeder)
             : base(options)
         {
+            _seeder = dataSeeder ?? throw new ArgumentNullException(nameof(dataSeeder));
             Database.EnsureDeleted();
             Database.EnsureCreated();
         }
@@ -27,6 +32,13 @@ namespace WhooberInfrastructure.Data
         public DbSet<BaseCard> Cards { get; set; }
 
         public DbSet<AccountInfoDto> Accounts { get; set; }
+
+        public void SeedData(int countPassengers, int countDrivers)
+        {
+            Passengers.AddRange(_seeder.GeneratePassengers(countPassengers));
+            Drivers.AddRange(_seeder.GenerateDrivers(countDrivers));
+            SaveChanges();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

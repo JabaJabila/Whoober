@@ -18,7 +18,7 @@ namespace WhooberCore.Domain.Entities
         {
         }
 
-        public Guid Id { get; init; }
+        public Guid Id { get; private init; }
         public string Name { get; set; }
         public Rating Rating { get; private init; }
         public Location Location { get; set; }

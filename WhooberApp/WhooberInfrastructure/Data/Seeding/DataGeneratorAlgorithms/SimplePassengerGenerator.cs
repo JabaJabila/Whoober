@@ -6,6 +6,8 @@ namespace WhooberInfrastructure.Data.Seeding.DataGeneratorAlgorithms
 {
     public class SimplePassengerGenerator : IPassengerGenerator
     {
+        private const int MinCoord = -1000;
+        private const int MaxCoord = 1000;
         private static readonly string[] Names =
         {
             "Артём", "Даня", "Гоша", "Вика", "Миша", "Ваня", "Максим", "Сергей",
@@ -16,7 +18,10 @@ namespace WhooberInfrastructure.Data.Seeding.DataGeneratorAlgorithms
 
         public Passenger Generate()
         {
-            return new Passenger(Names[Rnd.Next(0, Names.Length)], $"{_curNum++ :D11}");
+            return new Passenger(Names[Rnd.Next(0, Names.Length)], $"{_curNum++ :D11}")
+            {
+                Location = new Location(Rnd.Next(MinCoord, MaxCoord), Rnd.Next(MinCoord, MaxCoord)),
+            };
         }
     }
 }
