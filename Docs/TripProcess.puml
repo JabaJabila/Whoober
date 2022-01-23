@@ -1,0 +1,11 @@
+﻿@startuml
+
+actor Driver
+
+usecase TripService
+usecase DriverCommandHandler
+
+Driver -> DriverCommandHandler : "Driver start trip"
+DriverCommandHandler -> TripService : "Set trip state on the way"
+
+@enduml
