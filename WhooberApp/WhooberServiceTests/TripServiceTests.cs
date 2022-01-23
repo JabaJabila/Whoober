@@ -34,8 +34,8 @@ namespace WhooberServiceTests
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
-            _driverService.RegisterDriver(_testDriver, dto);
-            _driverService.SetDriverStateToWaiting(_testDriver);
+            _driverService.RegisterDriver(_testDriver);
+            _driverService.SetDriverStateToWaiting(_testDriver.Id);
             _tripService = initialization.TripService;
             _orderService = initialization.OrderService;
 
@@ -51,21 +51,21 @@ namespace WhooberServiceTests
             decimal price = _orderService.RequestTripCost(builder.ToOrderRequest());
             var order = new Order(request, price);
             _testTrip = _orderService.ApproveOrder(order);
-            _driverService.AcceptOrder(_testDriver, order);
+            _driverService.AcceptOrder(_testDriver.Id, order);
         }
 
         [Test]
         public void ChangeTripState()
         {
-            _driverService.ChangeTripStateToAwaitClient(_testDriver);
+            _driverService.ChangeTripStateToAwaitClient(_testDriver.Id);
             Assert.AreEqual(_tripService.GetTripStateById(_testTrip.Id), TripState.AwaitClient);
             Assert.AreEqual(_testDriver.State, DriverState.Driving);
 
-            _driverService.ChangeTripStateToOnTheWay(_testDriver);
+            _driverService.ChangeTripStateToOnTheWay(_testDriver.Id);
             Assert.AreEqual(_tripService.GetTripStateById(_testTrip.Id), TripState.OnTheWay);
             Assert.AreEqual(_testDriver.State, DriverState.Driving);
 
-            _driverService.ChangeTripStateToFinished(_testDriver);
+            _driverService.ChangeTripStateToFinished(_testDriver.Id);
             Assert.AreEqual(_tripService.GetTripStateById(_testTrip.Id), TripState.FinishedUnpaid);
             Assert.AreEqual(_testDriver.State, DriverState.Waiting);
         }

@@ -30,5 +30,10 @@ namespace WhooberCore.Payment
             Card.Receive(sumToReceive);
             return true;
         }
+
+        public override string ToString()
+        {
+            return "Card";
+        }
     }
 }

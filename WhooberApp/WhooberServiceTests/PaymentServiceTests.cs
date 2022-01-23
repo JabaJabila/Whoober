@@ -45,8 +45,8 @@ namespace WhooberServiceTests
             };
             driver1.State = DriverState.Waiting;
             driver2.State = DriverState.Waiting;
-            initialization.DriverService.RegisterDriver(driver1, dto1);
-            initialization.DriverService.RegisterDriver(driver2, dto2);
+            initialization.DriverService.RegisterDriver(driver1);
+            initialization.DriverService.RegisterDriver(driver2);
             dto1 = new AccountInfoDto()
             {
                 PhoneNumber = "89996661489",
@@ -94,8 +94,8 @@ namespace WhooberServiceTests
             var order2 = new Order(request2, _price2);
             _trip1 = initialization.OrderService.ApproveOrder(order1);
             _trip2 = initialization.OrderService.ApproveOrder(order2);
-            initialization.DriverService.AcceptOrder(driver1, order1);
-            initialization.DriverService.AcceptOrder(driver2, order2);
+            initialization.DriverService.AcceptOrder(driver1.Id, order1);
+            initialization.DriverService.AcceptOrder(driver2.Id, order2);
         }
 
         [Test]

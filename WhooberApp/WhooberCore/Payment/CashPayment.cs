@@ -13,5 +13,10 @@ namespace WhooberCore.Payment
         {
             return true;
         }
+
+        public override string ToString()
+        {
+            return "Cash";
+        }
     }
 }

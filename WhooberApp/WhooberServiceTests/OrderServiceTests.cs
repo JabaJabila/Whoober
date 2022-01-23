@@ -27,8 +27,8 @@ namespace WhooberServiceTests
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
             _driverService = initialization.DriverService;
-            _driverService.RegisterDriver(driver, dto);
-            _driverService.SetDriverStateToWaiting(driver);
+            _driverService.RegisterDriver(driver);
+            _driverService.SetDriverStateToWaiting(driver.Id);
             _tripService = initialization.TripService;
             _orderService = initialization.OrderService;
             _clientService = initialization.ClientService;

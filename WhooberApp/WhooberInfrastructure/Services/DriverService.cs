@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.Exceptions;
@@ -18,63 +20,66 @@ namespace WhooberInfrastructure.Services
             _whooberContext = whooberContext;
         }
 
-        public void RegisterDriver(Driver driver, AccountInfoDto accountInfoDto)
+        public void RegisterDriver(Driver driver)
         {
             if (_whooberContext.Drivers.FirstOrDefault(x => x.PhoneNumber == driver.PhoneNumber) != null)
                 throw new PersonException($"Driver with {driver.PhoneNumber} phone number already registered");
 
             _whooberContext.Drivers.Add(driver);
-            accountInfoDto.ClientIdInDb = driver.Id;
-            _whooberContext.Accounts.Add(accountInfoDto);
             _whooberContext.SaveChanges();
         }
 
-        public void SetDriverStateToWorking(Driver driver)
+        public Driver FindDriverById(Guid id)
         {
-            driver.State = DriverState.Driving;
+            return _whooberContext.Drivers.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void SetDriverStateToWorking(Guid id)
+        {
+            FindDriverById(id).State = DriverState.Driving;
             _whooberContext.SaveChanges();
         }
 
-        public void SetDriverStateToInactive(Driver driver)
+        public void SetDriverStateToInactive(Guid id)
         {
-            driver.State = DriverState.Inactive;
+            FindDriverById(id).State = DriverState.Inactive;
             _whooberContext.SaveChanges();
         }
 
-        public void SetDriverStateToWaiting(Driver driver)
+        public void SetDriverStateToWaiting(Guid id)
         {
-            driver.State = DriverState.Waiting;
+            FindDriverById(id).State = DriverState.Waiting;
             _whooberContext.SaveChanges();
         }
 
-        public void AcceptOrder(Driver driver, Order order)
+        public void AcceptOrder(Guid id, Order order)
         {
-            driver.State = DriverState.Driving;
+            FindDriverById(id).State = DriverState.Driving;
         }
 
-        public void ChangeTripStateToAwaitDriver(Driver driver)
+        public void ChangeTripStateToAwaitDriver(Guid id)
         {
-            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
+            Trip trip = _serviceMediator.FindActiveTripByDriver(FindDriverById(id));
             _serviceMediator.ChangeTripStateToAwaitDriver(trip);
         }
 
-        public void ChangeTripStateToAwaitClient(Driver driver)
+        public void ChangeTripStateToAwaitClient(Guid id)
         {
-            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
+            Trip trip = _serviceMediator.FindActiveTripByDriver(FindDriverById(id));
             _serviceMediator.ChangeTripStateToAwaitClient(trip);
         }
 
-        public void ChangeTripStateToOnTheWay(Driver driver)
+        public void ChangeTripStateToOnTheWay(Guid id)
         {
-            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
+            Trip trip = _serviceMediator.FindActiveTripByDriver(FindDriverById(id));
             _serviceMediator.ChangeTripStateToOnTheWay(trip);
         }
 
-        public void ChangeTripStateToFinished(Driver driver)
+        public void ChangeTripStateToFinished(Guid id)
         {
-            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
+            Trip trip = _serviceMediator.FindActiveTripByDriver(FindDriverById(id));
             _serviceMediator.ChangeTripStateToFinished(trip);
-            SetDriverStateToWaiting(driver);
+            SetDriverStateToWaiting(id);
         }
 
         public IReadOnlyCollection<Driver> GetActiveDrivers()
