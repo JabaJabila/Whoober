@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
+using WhooberCore.Domain.Exceptions;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
 
@@ -10,8 +11,9 @@ namespace WhooberInfrastructure.Services
 {
     public class TripService : ITripService
     {
+        private readonly WhooberContext _whooberContext;
         private IServiceMediator _serviceMediator;
-        private WhooberContext _whooberContext;
+
         public TripService(WhooberContext whooberContext)
         {
             _whooberContext = whooberContext;
@@ -56,7 +58,8 @@ namespace WhooberInfrastructure.Services
 
         public TripState GetTripStateById(Guid id)
         {
-            Trip trip = _whooberContext.Trips.FirstOrDefault(x => x.Id == id) ?? throw new KeyNotFoundException();
+            Trip trip = _whooberContext.Trips.FirstOrDefault(x => x.Id == id)
+                        ?? throw new TripException($"Trip {id} not found");
             return trip.State;
         }
 

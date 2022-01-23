@@ -23,7 +23,9 @@ namespace WhooberCore.Algorithms
 
         private void SortDriversByLocation(Location start, List<Driver> activeDrivers)
         {
-            activeDrivers.Sort((x, y) => (int)(_distanceDeterminer.CountLocationsDistance(start, x.Location) - _distanceDeterminer.CountLocationsDistance(start, y.Location)));
+            activeDrivers.Sort((x, y) =>
+                (int)(_distanceDeterminer.CountLocationsDistance(start, x.Location)
+                      - _distanceDeterminer.CountLocationsDistance(start, y.Location)));
         }
     }
 }

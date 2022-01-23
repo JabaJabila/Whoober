@@ -1,13 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using WhooberCore.Algorithms;
 using WhooberCore.Builders;
-using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.InfrastructureAbstractions;
-using WhooberInfrastructure.Data;
-using WhooberInfrastructure.Services;
 
 namespace WhooberServiceTests
 {
@@ -21,7 +16,7 @@ namespace WhooberServiceTests
         public void SetUp()
         {
             var initialization = new TestsInitialization();
-            var driver = new Driver("amogus", "88005553535")
+            var driver = new Driver("amogus", "88007770202")
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };

@@ -3,7 +3,7 @@ using WhooberCore.Domain.Entities;
 using WhooberCore.Dto;
 using WhooberCore.Models;
 
-namespace WhooberCore.InfrastructureAbstractions
+namespace Whoober_WebApplication.Authentification.Services
 {
     public interface IAuthorizeService
     {

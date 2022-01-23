@@ -1,14 +1,10 @@
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using WhooberCore.Algorithms;
 using WhooberCore.Builders;
-using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Payment;
-using WhooberInfrastructure.Data;
-using WhooberInfrastructure.Services;
+
 
 namespace WhooberServiceTests
 {
@@ -24,7 +20,7 @@ namespace WhooberServiceTests
         {
             var initialization = new TestsInitialization();
             _driverService = initialization.DriverService;
-            _testDriver = new Driver("amogus", "88005553535")
+            _testDriver = new Driver("amogus", "88005553537")
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
@@ -34,7 +30,7 @@ namespace WhooberServiceTests
             _orderService = initialization.OrderService;
 
             var passenger = new Passenger("abobus", "88005553535");
-            passenger.PaymentMethod = new CardMethod(new DummyCard("2286661488"));
+            passenger.PaymentMethod = new CardMethod(new DummyCard("2286661500"));
             var builder = new OrderRequestBuilder();
             builder.SetPassenger(passenger)
                 .AddLocation(new Location(0, 0))

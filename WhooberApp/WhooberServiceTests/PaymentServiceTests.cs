@@ -1,4 +1,3 @@
-using Microsoft.VisualBasic;
 using NUnit.Framework;
 using WhooberCore.Builders;
 using WhooberCore.Domain.Entities;
@@ -41,7 +40,7 @@ namespace WhooberServiceTests
             {
                 PaymentMethod = new CardMethod(new DummyCard("111111111111111")),
             };
-            _passenger2 = new Passenger("pAssnger2", "89996661488") {
+            _passenger2 = new Passenger("pAssnger2", "89996661477") {
                 PaymentMethod = new CardMethod(new DummyCard("111111111111112")),
             };
             initialization.ClientService.RegisterPassenger(_passenger1);

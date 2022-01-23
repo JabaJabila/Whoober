@@ -1,4 +1,4 @@
-﻿namespace WhooberCore.Domain.Tools
+﻿namespace WhooberCore.Domain.Exceptions
 {
     public class TripException : WhooberAppException
     {

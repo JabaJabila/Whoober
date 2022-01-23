@@ -13,7 +13,11 @@ namespace WhooberInfrastructure.Services
         private readonly ITripService _tripService;
         private readonly IOrderService _orderService;
         private readonly IPaymentConfirmationService _paymentConfirmationService;
-        public ServiceMediator(IDriverService driverService, ITripService tripService, IOrderService orderService, IPaymentConfirmationService paymentConfirmationService)
+        public ServiceMediator(
+            IDriverService driverService,
+            ITripService tripService,
+            IOrderService orderService,
+            IPaymentConfirmationService paymentConfirmationService)
         {
             _driverService = driverService;
             _driverService.SetServiceMediator(this);

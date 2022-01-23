@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WhooberCore.Domain.Tools
+namespace WhooberCore.Domain.Exceptions
 {
     public class WhooberAppException : Exception
     {
