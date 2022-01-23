@@ -41,8 +41,8 @@ namespace Whoober_WebApplication.Controllers
         public async Task<IActionResult> LoginClient(LoginModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            ClientDto clientDto = await _authorizeService.LoginClient(model);
-            if (clientDto != null)
+            AccountInfoDto accountInfoDto = await _authorizeService.LoginClient(model);
+            if (accountInfoDto != null)
             {
                 await Authenticate(model.PhoneNumber);
  
@@ -59,8 +59,8 @@ namespace Whoober_WebApplication.Controllers
         public async Task<IActionResult> LoginDriver(LoginModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            ClientDto clientDto = await _authorizeService.LoginDriver(model);
-            if (clientDto != null)
+            AccountInfoDto accountInfoDto = await _authorizeService.LoginDriver(model);
+            if (accountInfoDto != null)
             {
                 await Authenticate(model.PhoneNumber);
  
@@ -91,8 +91,13 @@ namespace Whoober_WebApplication.Controllers
             if (!ModelState.IsValid) return View(model);
             if (_authorizeService.ClientPhoneNumberIsValid(model.PhoneNumber))
             {
-                var client = await _authorizeService.RegisterClient(model);
-                _clientService.RegisterPassenger(client);
+                var client = new Passenger(model.Name, model.PhoneNumber);
+                var accountDto = new AccountInfoDto()
+                {
+                    PhoneNumber = model.PhoneNumber,
+                    Password = model.Password,
+                };
+                _clientService.RegisterPassenger(client, accountDto);
                 await Authenticate(model.PhoneNumber);
 
                 return RedirectToAction("Index", "Home");
@@ -110,8 +115,13 @@ namespace Whoober_WebApplication.Controllers
             if (!ModelState.IsValid) return View(model);
             if (_authorizeService.DriverPhoneNumberIsValid(model.PhoneNumber))
             {
-                Driver driver = await _authorizeService.RegisterDriver(model);
-                _driverService.RegisterDriver(driver);
+                var driver = new Driver(model.Name, model.PhoneNumber);
+                var accountDto = new AccountInfoDto()
+                {
+                    PhoneNumber = model.PhoneNumber,
+                    Password = model.Password,
+                };
+                _driverService.RegisterDriver(driver, accountDto);
                 await Authenticate(model.PhoneNumber);
 
                 return RedirectToAction("Index", "Home");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Exceptions;
+using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
 
@@ -16,12 +17,14 @@ namespace WhooberInfrastructure.Services
             _whooberContext = whooberContext;
         }
 
-        public void RegisterPassenger(Passenger passenger)
+        public void RegisterPassenger(Passenger passenger, AccountInfoDto accountInfoDto)
         {
             if (_whooberContext.Passengers.FirstOrDefault(x => x.PhoneNumber == passenger.PhoneNumber) != null)
                 throw new PersonException($"Passenger with {passenger.PhoneNumber} phone number already registered");
 
             _whooberContext.Passengers.Add(passenger);
+            accountInfoDto.ClientIdInDb = passenger.Id;
+            _whooberContext.Accounts.Add(accountInfoDto);
             _whooberContext.SaveChanges();
         }
 

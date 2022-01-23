@@ -2,6 +2,7 @@ using NUnit.Framework;
 using WhooberCore.Builders;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
+using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Payment;
 
@@ -20,11 +21,16 @@ namespace WhooberServiceTests
         {
             var initialization = new TestsInitialization();
             _driverService = initialization.DriverService;
-            _testDriver = new Driver("amogus", "88005553537")
+            var dto = new AccountInfoDto()
+            {
+                PhoneNumber = "88005553537",
+                Password = "123",
+            };
+            _testDriver = new Driver("amogus", dto.PhoneNumber)
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
-            _driverService.RegisterDriver(_testDriver);
+            _driverService.RegisterDriver(_testDriver, dto);
             _driverService.SetDriverStateToWaiting(_testDriver);
             _tripService = initialization.TripService;
             _orderService = initialization.OrderService;

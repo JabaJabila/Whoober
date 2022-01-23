@@ -2,6 +2,7 @@ using NUnit.Framework;
 using WhooberCore.Builders;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
+using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Payment;
 
@@ -24,27 +25,47 @@ namespace WhooberServiceTests
         {
             var initialization = new TestsInitialization();
             _tripService = initialization.TripService;
-            var driver1 = new Driver("amogus1", "88005553535")
+            var dto1 = new AccountInfoDto()
+            {
+                PhoneNumber = "88005553535",
+                Password = "123",
+            };
+            var driver1 = new Driver("amogus1", dto1.PhoneNumber)
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
-            var driver2 = new Driver("amogus2", "88005553536")
+            var dto2 = new AccountInfoDto()
+            {
+                PhoneNumber = "88005553536",
+                Password = "123",
+            };
+            var driver2 = new Driver("amogus2", dto2.PhoneNumber)
             {
                 Car = new Car("kok", "blue", "s229as", CarLevel.Elite),
             };
             driver1.State = DriverState.Waiting;
             driver2.State = DriverState.Waiting;
-            initialization.DriverService.RegisterDriver(driver1);
-            initialization.DriverService.RegisterDriver(driver2);
-            _passenger1 = new Passenger("pAssnger1", "89996661489")
+            initialization.DriverService.RegisterDriver(driver1, dto1);
+            initialization.DriverService.RegisterDriver(driver2, dto2);
+            dto1 = new AccountInfoDto()
+            {
+                PhoneNumber = "89996661489",
+                Password = "123",
+            };
+            _passenger1 = new Passenger("pAssnger1", dto1.PhoneNumber)
             {
                 PaymentMethod = new CardMethod(new DummyCard("111111111111111")),
             };
-            _passenger2 = new Passenger("pAssnger2", "89996661477") {
+            dto2 = new AccountInfoDto()
+            {
+                PhoneNumber = "89996661477",
+                Password = "123",
+            };
+            _passenger2 = new Passenger("pAssnger2", dto2.PhoneNumber) {
                 PaymentMethod = new CardMethod(new DummyCard("111111111111112")),
             };
-            initialization.ClientService.RegisterPassenger(_passenger1);
-            initialization.ClientService.RegisterPassenger(_passenger2);
+            initialization.ClientService.RegisterPassenger(_passenger1, dto1);
+            initialization.ClientService.RegisterPassenger(_passenger2, dto2);
 
             // Create orders
             var builder = new OrderRequestBuilder();

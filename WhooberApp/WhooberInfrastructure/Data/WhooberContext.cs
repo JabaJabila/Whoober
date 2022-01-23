@@ -13,6 +13,7 @@ namespace WhooberInfrastructure.Data
         public WhooberContext(DbContextOptions<WhooberContext> options)
             : base(options)
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -28,7 +29,7 @@ namespace WhooberInfrastructure.Data
         // TODO remove cringe
         public DbSet<BaseCard> WhooberCard { get; set; }
 
-        public DbSet<ClientDto> Accounts { get; set; }
+        public DbSet<AccountInfoDto> Accounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

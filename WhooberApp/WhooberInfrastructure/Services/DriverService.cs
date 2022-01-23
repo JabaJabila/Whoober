@@ -3,6 +3,7 @@ using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.Exceptions;
+using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
 
@@ -17,12 +18,14 @@ namespace WhooberInfrastructure.Services
             _whooberContext = whooberContext;
         }
 
-        public void RegisterDriver(Driver driver)
+        public void RegisterDriver(Driver driver, AccountInfoDto accountInfoDto)
         {
             if (_whooberContext.Drivers.FirstOrDefault(x => x.PhoneNumber == driver.PhoneNumber) != null)
                 throw new PersonException($"Driver with {driver.PhoneNumber} phone number already registered");
 
             _whooberContext.Drivers.Add(driver);
+            accountInfoDto.ClientIdInDb = driver.Id;
+            _whooberContext.Accounts.Add(accountInfoDto);
             _whooberContext.SaveChanges();
         }
 

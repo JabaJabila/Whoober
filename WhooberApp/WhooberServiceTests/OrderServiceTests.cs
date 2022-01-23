@@ -2,6 +2,7 @@ using NUnit.Framework;
 using WhooberCore.Builders;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
+using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 
 namespace WhooberServiceTests
@@ -16,12 +17,17 @@ namespace WhooberServiceTests
         public void SetUp()
         {
             var initialization = new TestsInitialization();
-            var driver = new Driver("amogus", "88007770202")
+            var dto = new AccountInfoDto()
+            {
+                PhoneNumber = "88007770202",
+                Password = "123",
+            };
+            var driver = new Driver("amogus", dto.PhoneNumber)
             {
                 Car = new Car("kok", "red", "s228as", CarLevel.Economy),
             };
             _driverService = initialization.DriverService;
-            _driverService.RegisterDriver(driver);
+            _driverService.RegisterDriver(driver, dto);
             _driverService.SetDriverStateToWaiting(driver);
             _tripService = initialization.TripService;
             _orderService = initialization.OrderService;
@@ -31,8 +37,13 @@ namespace WhooberServiceTests
         [Test]
         public void TestCreateAndConfirmOrder()
         {
-            var passenger = new Passenger("abobus", "88005553535");
-            _clientService.RegisterPassenger(passenger);
+            var dto = new AccountInfoDto()
+            {
+                PhoneNumber = "88005553535",
+                Password = "123",
+            };
+            var passenger = new Passenger("abobus", dto.PhoneNumber);
+            _clientService.RegisterPassenger(passenger, dto);
             var builder = new OrderRequestBuilder();
             builder.SetPassenger(passenger)
                 .AddLocation(new Location(0, 0))
