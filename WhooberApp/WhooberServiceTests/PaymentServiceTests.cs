@@ -16,10 +16,8 @@ namespace WhooberServiceTests
         private Passenger _passenger2;
         private decimal _price1;
         private decimal _price2;
-        private IOrderService _orderService;
-        private IDriverService _driverService;
         private ITripService _tripService;
-        private IClientService _clientService;
+
         [SetUp]
         public void SetUp()
         {
@@ -61,7 +59,8 @@ namespace WhooberServiceTests
                 PhoneNumber = "89996661477",
                 Password = "123",
             };
-            _passenger2 = new Passenger("pAssnger2", dto2.PhoneNumber) {
+            _passenger2 = new Passenger("pAssnger2", dto2.PhoneNumber)
+            {
                 PaymentMethod = new CardMethod(new DummyCard("111111111111112")),
             };
             initialization.ClientService.RegisterPassenger(_passenger1, dto1);

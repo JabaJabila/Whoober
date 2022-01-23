@@ -8,7 +8,6 @@ using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Payment;
 using WhooberInfrastructure.Data;
 
-
 namespace WhooberServiceTests
 {
     public class TripServiceTests
@@ -19,7 +18,6 @@ namespace WhooberServiceTests
         private Driver _testDriver;
         private Trip _testTrip;
         private Location[] _routeCreated;
-        private WhooberContext _context;
         [SetUp]
         public void SetUp()
         {
@@ -73,7 +71,7 @@ namespace WhooberServiceTests
         [Test]
         public void TestSaveAndLoadRoad()
         {
-            var route = _tripService.GetActiveTripByDriver(_testDriver).Order.Route.Locations.ToArray();
+            Location[] route = _tripService.GetActiveTripByDriver(_testDriver).Order.Route.Locations.ToArray();
             for (int i = 0; i < route.Length; i++)
             {
                 Assert.AreEqual(route[i].Latitude, _routeCreated[i].Latitude);
