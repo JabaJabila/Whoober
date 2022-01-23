@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using WhooberCore.Dto;
 
 namespace WhooberCore.Models
 {
@@ -10,5 +11,7 @@ namespace WhooberCore.Models
         [Required(ErrorMessage = "Password is not stated")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public Role Role { get; set; }
     }
 }

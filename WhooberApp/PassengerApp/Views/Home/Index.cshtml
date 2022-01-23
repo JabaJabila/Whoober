@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h4 class="display-4">@User.Identity?.Name</h4>
+    <h4 class="display-4">@User.Identity?.AuthenticationType</h4>
+    <h4 class="display-4">@User.Identity?.IsAuthenticated</h4>
+
+    @foreach (var claimsIdentity in User.Identities)
+    {
+        <h4 class="display-4">@claimsIdentity.Name</h4>
+        <h4 class="display-4">@claimsIdentity.AuthenticationType</h4>
+        <h4 class="display-4">@claimsIdentity.IsAuthenticated</h4>
+    }
+
+</div>

@@ -17,6 +17,15 @@ namespace WhooberInfrastructure.Services
             _whooberContext = whooberContext;
         }
 
+        public void RegisterPassenger(Passenger passenger)
+        {
+            if (_whooberContext.Passengers.FirstOrDefault(x => x.PhoneNumber == passenger.PhoneNumber) != null)
+                throw new PersonException($"Passenger with {passenger.PhoneNumber} phone number already registered");
+
+            _whooberContext.Passengers.Add(passenger);
+            _whooberContext.SaveChanges();
+        }
+
         public void RegisterPassenger(Passenger passenger, AccountInfoDto accountInfoDto)
         {
             if (_whooberContext.Passengers.FirstOrDefault(x => x.PhoneNumber == passenger.PhoneNumber) != null)
