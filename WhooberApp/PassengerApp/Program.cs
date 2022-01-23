@@ -25,6 +25,7 @@ namespace PassengerApp
             try
             {
                 WhooberContext context = services.GetRequiredService<WhooberContext>();
+                context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 context.SaveChanges();
             }

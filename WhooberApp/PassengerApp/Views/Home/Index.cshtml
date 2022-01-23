@@ -1,18 +1,232 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
+    Layout = null;
+
+    string imageAddress = "/map.jpg";
+    float mapWidth = 1500;
+    float mapHeight = 897;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h4 class="display-4">@User.Identity?.Name</h4>
-    <h4 class="display-4">@User.Identity?.AuthenticationType</h4>
-    <h4 class="display-4">@User.Identity?.IsAuthenticated</h4>
+@* <div class="text-center"> *@
+@*     $1$ <h1 class="display-4">Welcome</h1> #1# *@
+@*     $1$ <h4 class="display-4">@User.Identity?.Name</h4> #1# *@
+@*     $1$ <h4 class="display-4">@User.Identity?.AuthenticationType</h4> #1# *@
+@*     $1$ <h4 class="display-4">@User.Identity?.IsAuthenticated</h4> #1# *@
+@*     $1$ #1# *@
+@*     $1$ @foreach (var claimsIdentity in User.Identities) #1# *@
+@*     $1$ { #1# *@
+@*     $1$     <h4 class="display-4">@claimsIdentity.Name</h4> #1# *@
+@*     $1$     <h4 class="display-4">@claimsIdentity.AuthenticationType</h4> #1# *@
+@*     $1$     <h4 class="display-4">@claimsIdentity.IsAuthenticated</h4> #1# *@
+@*     $1$ } #1# *@
+@* </div> *@
 
-    @foreach (var claimsIdentity in User.Identities)
-    {
-        <h4 class="display-4">@claimsIdentity.Name</h4>
-        <h4 class="display-4">@claimsIdentity.AuthenticationType</h4>
-        <h4 class="display-4">@claimsIdentity.IsAuthenticated</h4>
+<!DOCTYPE html>
+<html lang="en" class="fullscreen">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="~/js/map.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+        .fullscreen {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        #img{
+            background: url(@imageAddress) no-repeat #222;
+        }
+        .side-menu{
+            position: absolute;
+            top: 10%;
+            height: 80%;
+            width: 10cm;
+            background-color: white;
+            border-bottom-right-radius: 2em;
+            border-top-right-radius: 2em;
+        }
+        #pointsContainer {
+            padding:  0.75cm;
+            text-align: center;
+        }
+        .point {
+            font-size: 0.8cm;
+            font-family: Segoe UI;
+        }
+    </style>
+</head>
+<body class="fullscreen">
+<div id="img" class="fullscreen"></div>
+<canvas id="overlay" width="@mapWidth" height="@mapHeight" class="fullscreen"></canvas>
+<div class="side-menu">
+    <div id="pointsContainer">
+    </div>
+</div>
+<script>
+    let imageWidth = @mapWidth;
+    let imageHeight = @mapHeight;
+    
+    pointsContainer = document.getElementById("pointsContainer");
+    canvas = document.getElementById("overlay");
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+    renderContext = canvas.getContext("2d");
+    
+    let points = [];
+    
+    function tryPutPoint(x, y) {
+        if (x < 0 || x > imageWidth || y < 0 || y > imageHeight)
+            return;
+        if (points.length >= 10) {
+            alert("The max path length is ten points");
+            return;
+        }
+        let pointString = Math.floor(x) + ", " + Math.floor(y);
+        let pointEl = document.createElement("p");
+        
+        pointEl.innerText = pointString;
+        pointEl.className = "point";
+        pointsContainer.append(pointEl);
+        
+        pointEl.onclick = function (mouseEvent) {
+            mouseEvent.target.remove();
+            recollectPoints();
+        }
+        
+        points[points.length] = [x * 1, y * 1];
+        redrawCanvas();
+    }
+    
+    function recollectPoints() {
+        points = [];
+        var pointElements = pointsContainer.children;
+        for (let i = 0; i < pointElements.length; i++) {
+            let parts = pointElements[i].innerText.split(", "); 
+            points[points.length] = [parts[0].trim()*1, parts[1].trim()*1];
+        }
+        redrawCanvas();
+    }
+    
+    function redrawCanvas() {
+        renderContext.setTransform(1, 0, 0, 1, 0, 0);
+        renderContext.clearRect(0, 0, renderContext.canvas.width, renderContext.canvas.height);
+        let prevX;
+        let prevY;
+        renderContext.fillStyle = 'pink';
+        renderContext.outlineColor = 'pink';
+        renderContext.lineWidth = 4;
+        for (let i = 0; i < points.length; i++) {
+            let x = points[i][0] * scale + dx;
+            let y = points[i][1] * scale + dy;
+            if (prevX !== undefined) {
+                renderContext.moveTo(prevX, prevY);
+                renderContext.lineTo(x, y);
+                renderContext.stroke();
+            }
+            renderContext.beginPath();
+            renderContext.arc( x, y, 12, 0, 2 * Math.PI, false);
+            renderContext.fill();
+            renderContext.stroke();
+            prevX = x;
+            prevY = y; 
+        }
+    }
+    
+    document.oncontextmenu = function(e){
+        stopEvent(e);
+    }
+    
+    function stopEvent(event){
+        if(event.preventDefault !== undefined)
+            event.preventDefault();
+        if(event.stopPropagation !== undefined)
+            event.stopPropagation();
+    }
+    
+    let img = document.getElementById("img");
+
+    let dx = -imageWidth/2 + img.clientWidth/2;
+    let dy = 0;
+    let scale = 1;
+    let wheelState = 10;
+
+    let mouseIsDown = false;
+    let downX;
+    let downY;
+
+    img.style.backgroundSize = imageWidth + "px"
+
+    canvas.addEventListener("mousewheel",onmousewheel, false);
+    canvas.addEventListener("DOMMouseScroll",onDOMMouseScroll, false);
+
+    canvas.addEventListener("mousedown",onmousedown);
+    canvas.addEventListener("mouseup",onmouseup);
+    canvas.addEventListener("mousemove",onmousemove);
+    canvas.addEventListener("contextmenu", oncontextmenu);
+
+    function onmousewheel(e) {
+        wheel(e.detail/360, e.x, e.y);
     }
 
-</div>
+    function onDOMMouseScroll(e) {
+        wheel(e.detail/3, e.x, e.y);
+    }
+
+    function wheel(size, x, y) {
+        let newWheelState = wheelState - size;
+        if (newWheelState > 20)
+            newWheelState = 20;
+        if (newWheelState < 1)
+            newWheelState = 1;
+
+        let tmpX = (-dx + x) / scale;
+        let tmpY = (-dy + y) / scale;
+        scale = Math.pow(newWheelState/10, 2);
+        dx = x - tmpX * scale;
+        dy = y - tmpY * scale;
+
+        img.style.backgroundSize = imageWidth * scale + "px"
+        img.style.backgroundPositionX = dx + "px";
+        img.style.backgroundPositionY = dy + "px";
+        redrawCanvas();
+
+        wheelState = newWheelState;
+    }
+
+    function onmousedown(e) {
+        mouseIsDown = true;
+        downX = e.layerX - dx;
+        downY = e.layerY - dy;
+    }
+
+    function onmouseup(e) {
+        mouseIsDown = false;
+    }
+
+    function onmousemove(e) {
+        if (mouseIsDown) {
+            dx = (e.x - downX);
+            dy = (e.y - downY);
+            img.style.backgroundPositionX = dx + "px";
+            img.style.backgroundPositionY = dy + "px";
+            redrawCanvas();
+        }
+    }
+
+    img.style.backgroundPositionX = dx + "px";
+    img.style.backgroundPositionY = dy + "px";
+    redrawCanvas();
+
+    function oncontextmenu(e) {
+        tryPutPoint((e.x - dx)/scale, (e.y - dy)/scale);
+    }
+</script>
+</body>
+</html>

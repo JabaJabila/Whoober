@@ -46,5 +46,10 @@ namespace WhooberInfrastructure.Services
         {
             return _whooberContext.Passengers.FirstOrDefault(x => x.Id == id);
         }
+
+        public Trip GetActiveTrip(Guid passengerId)
+        {
+            return _whooberContext.Trips.FirstOrDefault(trip => trip.Order.Passenger.Id == passengerId);
+        }
     }
 }

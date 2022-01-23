@@ -11,5 +11,7 @@ namespace WhooberCore.InfrastructureAbstractions
         void RegisterPassenger(Passenger passenger, AccountInfoDto accountInfoDto);
         IReadOnlyCollection<Trip> GetTripHistory(Passenger passenger);
         Passenger FindPassengerById(Guid id);
+        
+        Trip GetActiveTrip(Guid passengerId);
     }
 }
