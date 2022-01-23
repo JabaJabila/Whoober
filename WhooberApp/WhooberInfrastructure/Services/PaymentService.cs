@@ -21,7 +21,7 @@ namespace WhooberInfrastructure.Services
             {
                 // TODO remove more cringe
                 whooberCard = new DummyCard("0000000000000000");
-                _context.WhooberCard.Add(whooberCard);
+                _context.Cards.Add(whooberCard);
                 _context.SaveChanges();
             }
 
