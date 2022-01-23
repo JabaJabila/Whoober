@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberServiceTests", "Whoo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberInfrastructure", "WhooberInfrastructure\WhooberInfrastructure.csproj", "{EDB79A12-E7CF-4138-A671-89D8BD43230C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whoober WebApplication", "Whoober WebApplication\Whoober WebApplication.csproj", "{F1865D90-C35B-4C04-A470-310EAE65F6D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberWebApplication", "WhooberWebApplication\WhooberWebApplication.csproj", "{F1865D90-C35B-4C04-A470-310EAE65F6D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
