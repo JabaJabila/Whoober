@@ -20,7 +20,7 @@ namespace WhooberCore.Domain.Entities
         {
         }
 
-        public Guid Id { get; private init; }
+        public Guid Id { get; init; }
         public string Name { get; private init; }
         public Rating Rating { get; private init; }
         public Car Car { get; set; }

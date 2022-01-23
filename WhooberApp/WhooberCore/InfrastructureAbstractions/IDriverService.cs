@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Dto;
@@ -6,15 +7,16 @@ namespace WhooberCore.InfrastructureAbstractions
 {
     public interface IDriverService : IBaseService
     {
-        void RegisterDriver(Driver driver, AccountInfoDto accountInfoDto);
-        void SetDriverStateToWorking(Driver driver);
-        void SetDriverStateToInactive(Driver driver);
-        void SetDriverStateToWaiting(Driver driver);
-        void AcceptOrder(Driver driver, Order order);
-        void ChangeTripStateToAwaitDriver(Driver driver);
-        void ChangeTripStateToAwaitClient(Driver driver);
-        void ChangeTripStateToOnTheWay(Driver driver);
-        void ChangeTripStateToFinished(Driver driver);
+        void RegisterDriver(Driver driver);
+        Driver FindDriverById(Guid id);
+        void SetDriverStateToWorking(Guid id);
+        void SetDriverStateToInactive(Guid id);
+        void SetDriverStateToWaiting(Guid id);
+        void AcceptOrder(Guid id, Order order);
+        void ChangeTripStateToAwaitDriver(Guid id);
+        void ChangeTripStateToAwaitClient(Guid id);
+        void ChangeTripStateToOnTheWay(Guid id);
+        void ChangeTripStateToFinished(Guid id);
         IReadOnlyCollection<Driver> GetActiveDrivers();
     }
 }

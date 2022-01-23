@@ -18,6 +18,7 @@ namespace WhooberInfrastructure.Data
             : base(options)
         {
             _seeder = dataSeeder ?? throw new ArgumentNullException(nameof(dataSeeder));
+            // Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

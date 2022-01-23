@@ -22,5 +22,10 @@ namespace WhooberCore.Domain.Entities
         public string Model { get; private init; }
         public string Color { get; private init; }
         public string Number { get; private init; }
+
+        public override string ToString()
+        {
+            return $"{Color} {Model} {Number}, class {Level}";
+        }
     }
 }
