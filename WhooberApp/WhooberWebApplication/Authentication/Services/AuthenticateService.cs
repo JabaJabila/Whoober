@@ -27,10 +27,7 @@ namespace Whoober_WebApplication.Authentication.Services
 
         public async Task<Passenger> RegisterClient(RegisterModel registerModel)
         {
-            var passenger = new Passenger(registerModel.Name, registerModel.PhoneNumber)
-            {
-                Id = Guid.NewGuid(),
-            };
+            var passenger = new Passenger(registerModel.Name, registerModel.PhoneNumber);
             var accountInfoDto = new AccountInfoDto()
             {
                 ClientIdInDb = passenger.Id,
