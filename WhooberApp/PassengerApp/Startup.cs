@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
+using WhooberInfrastructure.Data.Seeding;
+using WhooberInfrastructure.Data.Seeding.DataGeneratorAbstractions;
+using WhooberInfrastructure.Data.Seeding.DataGeneratorAlgorithms;
 using WhooberInfrastructure.Services;
 
 namespace PassengerApp
@@ -27,6 +30,12 @@ namespace PassengerApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPassengerGenerator, SimplePassengerGenerator>();
+            services.AddScoped<IDriverGenerator, SimpleDriverGenerator>();
+            services.AddScoped<ICarGenerator, SimpleCarGenerator>();
+            services.AddScoped<ICardGenerator, SimpleCardGenerator>();
+            services.AddScoped<IDataSeeder, SimpleDataSeeder>();
+            
             services.AddDbContext<WhooberContext>(
             options => options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
             services.AddScoped<IClientService, ClientService>();
