@@ -4,6 +4,7 @@ using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
+using WhooberInfrastructure.Data.Seeding;
 using WhooberInfrastructure.Services;
 
 namespace WhooberServiceTests
@@ -27,8 +28,9 @@ namespace WhooberServiceTests
             DbContextOptions<WhooberContext> options = new DbContextOptionsBuilder<WhooberContext>()
                 .UseInMemoryDatabase(databaseName: "Test")
                 .Options;
-            var context = new WhooberContext(options);
+            var context = new WhooberContext(options, new EmptySeeder());
 
+            context.Database.EnsureDeleted();
             ICostDeterminer costDeterminer = new FixedFairCostDeterminer(new EuclidDistanceCount());
             IDriverFinder driverFinder = new DriverFinder(new EuclidDistanceCount());
 

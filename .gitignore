@@ -42,6 +42,7 @@ bld/
 .idea/
 
 # Databases
+.bd
 .db
 
 # Visual Studio 2017 auto generated files
