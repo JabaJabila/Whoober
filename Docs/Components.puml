@@ -1,34 +1,78 @@
 ﻿@startuml
-'https://plantuml.com/component-diagram
 
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
+package "PassengerApp" {
+  [PassengerAuthentication] -- [PassengerControllers]
+  [PassengerControllers] .up. [PassengerView]
+  [PassengerAuthentication] .left. [PassengerView]
+  [PassengerAuthentication]
+  [PassengerControllers] -down- Core
 }
 
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
+package "DriverApp" {
+  [DriverAuthentication]
+  [DriverControllers] .up. [DriverViews]
+  [DriverAuthentication] .left. [DriverViews]
+  [DriverAuthentication] - [DriverControllers]
+  [DriverControllers] -down- Core
 }
 
-cloud {
-  [Example 1]
-}
-
-
-database "Whoober db" {
-  folder "This is my folder" {
-    [Folder 3]
+node "Core" {
+  folder "Domain" {
+    [Entities]
+    [Enums]
+    [Algorithms Abstractions]
   }
-  frame "Foo" {
-    [Frame 4]
+  
+  [Hubs]
+  
+  folder "Algorithms" {
+    [Concrete Algorithms] .down.> [Algorithms Abstractions]
+    }
+  
+  [Models]
+  [Infrastructure Services Interfaces] --> Domain
+}
+
+node "Infrastructure" {
+  folder "Services" {
+  [Concrete Services] .up..> [Infrastructure Services Interfaces]
+  [Concrete Services] -down-> [Db Context]
+  }
+  
+  folder "Data" {
+     EF_Core -up- [Db Context]
+     [Db Context] -> [Seeder Interfaces]
+     [Seeder Interfaces] <.. [Seeder Algorithms]
+     folder "Seeding" {
+        [Seeding Interfaces] <.. [Seeding Algorithms]
+     }
+     [Seeder Interface] <.. [Seeding Interfaces]
   }
 }
 
+database "Whoober_db" {
+    frame "Drivers"
+    frame "Passengers"
+    frame "Cars"
+    frame "Cards"
+    frame "Rating"
+    frame "Orders"
+    frame "Trips"
+    frame "Accounts"
+    Drivers -down-> Cars
+    Drivers -left-> Rating
+    Drivers -up-> Cards
+    Passengers -> Cards
+    Passengers -up-> Rating
+    Orders -up-> Passengers
+    Trips -> Orders
+    Trips -> Drivers
+    Trips -> Cars
+}
 
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
+EF_Core -down- Whoober_db
 
+Services --right-> Algorithms
+PassengerApp -- AspNet
+DriverApp -- AspNet
 @enduml
