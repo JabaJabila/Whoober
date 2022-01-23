@@ -63,8 +63,8 @@ namespace WhooberServiceTests
             {
                 PaymentMethod = new CardMethod(new DummyCard("111111111111112")),
             };
-            initialization.ClientService.RegisterPassenger(_passenger1, dto1);
-            initialization.ClientService.RegisterPassenger(_passenger2, dto2);
+            initialization.ClientService.RegisterPassenger(_passenger1);
+            initialization.ClientService.RegisterPassenger(_passenger2);
 
             // Create orders
             var builder = new OrderRequestBuilder();

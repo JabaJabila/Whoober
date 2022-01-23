@@ -1,22 +1,40 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WhooberCore.Domain.Entities;
+using WhooberCore.InfrastructureAbstractions;
 
 namespace Whoober_WebApplication.Controllers
 {
+    [ApiController]
+    [Route("/driversController")]
     public class PassengerController : Controller
     {
-        private readonly ILogger<PassengerController> _logger;
+        private readonly IClientService _clientService;
 
-        public PassengerController(ILogger<PassengerController> logger)
+        public PassengerController(IClientService clientService)
         {
-            _logger = logger;
+            _clientService = clientService;
         }
 
-        [Authorize(Policy = "Client")]
-        public IActionResult Index()
+        [HttpPost("register-passenger")]
+        public IActionResult RegisterPassenger([FromQuery] string name, [FromQuery] string number)
         {
-            return View();
+            var passenger = new Passenger(name, number);
+            return Ok(_clientService.RegisterPassenger(passenger));
+        }
+
+        [HttpGet("get-history")]
+        public IActionResult GetTripHistory([FromQuery] Guid id)
+        {
+            return Ok(_clientService.GetTripHistory(id));
+        }
+
+        [HttpGet("find-passenger")]
+        public IActionResult FindPassenger([FromQuery] Guid id)
+        {
+            return Ok(_clientService.FindPassengerById(id));
         }
     }
 }

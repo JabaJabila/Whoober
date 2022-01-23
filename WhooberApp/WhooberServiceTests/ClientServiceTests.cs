@@ -24,7 +24,7 @@ namespace WhooberServiceTests
                 Password = "123",
             };
             var passenger = new Passenger("pAssnger", dto.PhoneNumber);
-            _clientService.RegisterPassenger(passenger, dto);
+            _clientService.RegisterPassenger(passenger);
             Assert.AreNotEqual(_clientService.FindPassengerById(passenger.Id), null);
         }
 
@@ -37,8 +37,8 @@ namespace WhooberServiceTests
                 Password = "123",
             };
             var passenger = new Passenger("pAssnger", dto.PhoneNumber);
-            _clientService.RegisterPassenger(passenger, dto);
-            Assert.AreEqual(_clientService.GetTripHistory(_clientService.FindPassengerById(passenger.Id)).Count, 0);
+            _clientService.RegisterPassenger(passenger);
+            Assert.AreEqual(_clientService.GetTripHistory(passenger.Id).Count, 0);
         }
     }
 }

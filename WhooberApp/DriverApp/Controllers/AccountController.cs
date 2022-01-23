@@ -31,5 +31,11 @@ namespace DriverApp.Controllers
             var model = new DriverModel(driver);
             return View(model);
         }
+
+        [Authorize]
+        public IActionResult EditCar()
+        {
+            return View();
+        }
     }
 }

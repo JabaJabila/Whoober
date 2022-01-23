@@ -12,7 +12,6 @@ namespace PassengerApp
         public static void Main(string[] args)
         {
             IHost host = CreateHostBuilder(args).Build();
-
             CreateDbIfNotExists(host);
 
             host.Run();

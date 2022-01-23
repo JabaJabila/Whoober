@@ -17,29 +17,18 @@ namespace WhooberInfrastructure.Services
             _whooberContext = whooberContext;
         }
 
-        public void RegisterPassenger(Passenger passenger)
+        public Passenger RegisterPassenger(Passenger passenger)
         {
             if (_whooberContext.Passengers.FirstOrDefault(x => x.PhoneNumber == passenger.PhoneNumber) != null)
                 throw new PersonException($"Passenger with {passenger.PhoneNumber} phone number already registered");
 
             _whooberContext.Passengers.Add(passenger);
             _whooberContext.SaveChanges();
+            return passenger;
         }
-
-        public void RegisterPassenger(Passenger passenger, AccountInfoDto accountInfoDto)
+        public IReadOnlyCollection<Trip> GetTripHistory(Guid id)
         {
-            if (_whooberContext.Passengers.FirstOrDefault(x => x.PhoneNumber == passenger.PhoneNumber) != null)
-                throw new PersonException($"Passenger with {passenger.PhoneNumber} phone number already registered");
-
-            _whooberContext.Passengers.Add(passenger);
-            accountInfoDto.ClientIdInDb = passenger.Id;
-            _whooberContext.Accounts.Add(accountInfoDto);
-            _whooberContext.SaveChanges();
-        }
-
-        public IReadOnlyCollection<Trip> GetTripHistory(Passenger passenger)
-        {
-            return _whooberContext.Trips.Where(x => x.Order.Passenger == passenger).ToList();
+            return _whooberContext.Trips.Where(x => x.Order.Passenger == FindPassengerById(id)).ToList();
         }
 
         public Passenger FindPassengerById(Guid id)

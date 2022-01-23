@@ -1,12 +1,11 @@
 using System;
-using DriverApp;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WhooberInfrastructure.Data;
 
-namespace PassengerApp
+namespace DriverApp
 {
     public class Program
     {
