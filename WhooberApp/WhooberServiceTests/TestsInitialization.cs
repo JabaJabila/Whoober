@@ -29,6 +29,7 @@ namespace WhooberServiceTests
                 .Options;
             var context = new WhooberContext(options);
 
+            context.Database.EnsureDeleted();
             ICostDeterminer costDeterminer = new FixedFairCostDeterminer(new EuclidDistanceCount());
             IDriverFinder driverFinder = new DriverFinder(new EuclidDistanceCount());
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using NUnit.Framework;
 using WhooberCore.Builders;
 using WhooberCore.Domain.Entities;
@@ -5,6 +6,7 @@ using WhooberCore.Domain.Enums;
 using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Payment;
+using WhooberInfrastructure.Data;
 
 
 namespace WhooberServiceTests
@@ -16,6 +18,8 @@ namespace WhooberServiceTests
         private ITripService _tripService;
         private Driver _testDriver;
         private Trip _testTrip;
+        private Location[] _routeCreated;
+        private WhooberContext _context;
         [SetUp]
         public void SetUp()
         {
@@ -43,6 +47,7 @@ namespace WhooberServiceTests
                 .AddLocation(new Location(1, 1))
                 .SetCarLevel(CarLevel.Economy);
             var request = builder.ToOrderRequest();
+            _routeCreated = request.Route.Locations.ToArray();
             decimal price = _orderService.RequestTripCost(builder.ToOrderRequest());
             var order = new Order(request, price);
             _testTrip = _orderService.ApproveOrder(order);
@@ -63,6 +68,17 @@ namespace WhooberServiceTests
             _driverService.ChangeTripStateToFinished(_testDriver);
             Assert.AreEqual(_tripService.GetTripStateById(_testTrip.Id), TripState.FinishedUnpaid);
             Assert.AreEqual(_testDriver.State, DriverState.Waiting);
+        }
+
+        [Test]
+        public void TestSaveAndLoadRoad()
+        {
+            var route = _tripService.GetActiveTripByDriver(_testDriver).Order.Route.Locations.ToArray();
+            for (int i = 0; i < route.Length; i++)
+            {
+                Assert.AreEqual(route[i].Latitude, _routeCreated[i].Latitude);
+                Assert.AreEqual(route[i].Longitude, _routeCreated[i].Longitude);
+            }
         }
     }
 }
