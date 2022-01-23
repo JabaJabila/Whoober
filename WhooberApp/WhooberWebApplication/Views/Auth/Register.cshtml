@@ -1,0 +1,62 @@
+@model WhooberCore.Models.RegisterModel
+
+@{
+    var errors = (List<string>) ViewData["errors"];
+    if (errors is not null)
+    {
+        foreach (var error in errors)
+        {
+            <h6 style="color: indianred;">
+                @error
+            </h6>
+        }
+    }
+}
+<h3>Sign Up</h3>
+@* <ul class="nav nav-tabs mb-2" id="ex1" role="tablist"> *@
+@*     <li class="nav-item" role="presentation"> *@
+@*         <a *@
+@*             class="nav-link active" *@
+@*             id="ex1-tab-1" *@
+@*             data-mdb-toggle="tab" *@
+@*             href="#ex1-tabs-1" *@
+@*             role="tab" *@
+@*             aria-controls="ex1-tabs-1" *@
+@*             aria-selected="true"> *@
+@*             As a Passenger *@
+@*         </a> *@
+@*     </li> *@
+@*     <li class="nav-item" role="presentation"> *@
+@*         <a *@
+@*             class="nav-link" *@
+@*             id="ex1-tab-2" *@
+@*             data-mdb-toggle="tab" *@
+@*             href="#ex1-tabs-2" *@
+@*             role="tab" *@
+@*             aria-controls="ex1-tabs-2" *@
+@*             aria-selected="false"> *@
+@*             As a Driver *@
+@*         </a> *@
+@*     </li> *@
+@* </ul> *@
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="tab-content" id="ex1-content">
+            <div
+                class="tab-pane active"
+                id="ex1-tabs-1"
+                role="tabpanel"
+                aria-labelledby="ex1-tab-1">
+                <h6>As a Client</h6>
+                <partial name="_RegisterClientForm"/>
+            </div>
+            <div class="tab-pane active" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                <h6>As a Driver</h6>
+                <partial name="_RegisterDriverForm"/>
+            </div>
+        </div>
+        
+        <a asp-action="Login" asp-controller="Auth">or Sign In?</a>
+    </div>
+</div>

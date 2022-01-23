@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Whoober_WebApplication.Controllers
@@ -12,6 +13,7 @@ namespace Whoober_WebApplication.Controllers
             _logger = logger;
         }
 
+        [Authorize(Policy = "Client")]
         public IActionResult Index()
         {
             return View();

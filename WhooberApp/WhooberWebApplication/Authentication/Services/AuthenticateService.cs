@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace Whoober_WebApplication.Authentication.Services
 {
     public class AuthenticateService : IAuthenticateService
     {
-        private WhooberContext _context;
+        private readonly WhooberContext _context;
         public AuthenticateService(WhooberContext context)
         {
             _context = context;
@@ -62,12 +63,25 @@ namespace Whoober_WebApplication.Authentication.Services
             return driver;
         }
 
-        public bool ClientPhoneNumberIsValid(string number)
+        public List<string> ValidateLoginModel(LoginModel loginModel)
         {
-            return _context.Accounts.All(x => x.PhoneNumber != number);
+            var errors = new List<string>();
+            if (!IsPhoneNumberValid(loginModel.PhoneNumber))
+                errors.Add("Invalid phone number");
+
+            return errors;
         }
 
-        public bool DriverPhoneNumberIsValid(string number)
+        public List<string> ValidateRegisterModel(RegisterModel registerModel)
+        {
+            var errors = new List<string>();
+            if (!IsPhoneNumberValid(registerModel.PhoneNumber))
+                errors.Add("Invalid phone number");
+
+            return errors;
+        }
+
+        private bool IsPhoneNumberValid(string number)
         {
             return _context.Accounts.All(x => x.PhoneNumber != number);
         }

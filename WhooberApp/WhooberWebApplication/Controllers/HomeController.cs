@@ -15,13 +15,14 @@ namespace Whoober_WebApplication.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
         [Authorize]
-        public IActionResult CheckAuth()
+        public IActionResult IsAuthorized()
         {
             return View();
         }
