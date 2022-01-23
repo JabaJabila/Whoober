@@ -27,7 +27,7 @@ namespace WhooberInfrastructure.Data
         public DbSet<BaseCard> Cards { get; set; }
 
         // TODO remove cringe
-        public DbSet<BaseCard> WhooberCard { get; set; }
+        // public DbSet<BaseCard> WhooberCard { get; set; }
 
         public DbSet<AccountInfoDto> Accounts { get; set; }
 
