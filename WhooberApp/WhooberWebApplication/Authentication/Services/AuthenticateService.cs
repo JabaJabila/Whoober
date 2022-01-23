@@ -8,12 +8,12 @@ using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Models;
 using WhooberInfrastructure.Data;
 
-namespace Whoober_WebApplication.Authentification.Services
+namespace Whoober_WebApplication.Authentication.Services
 {
-    public class AuthorizeService : IAuthorizeService
+    public class AuthenticateService : IAuthenticateService
     {
         private WhooberContext _context;
-        public AuthorizeService(WhooberContext context)
+        public AuthenticateService(WhooberContext context)
         {
             _context = context;
         }

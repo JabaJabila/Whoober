@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Whoober_WebApplication.Authentification.Services;
+using Whoober_WebApplication.Authentication.Services;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
 using WhooberInfrastructure.Services;
@@ -32,7 +32,7 @@ namespace Whoober_WebApplication
             options => options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IDriverService, DriverService>();
-            services.AddScoped<IAuthorizeService, AuthorizeService>();
+            services.AddScoped<IAuthenticateService, AuthenticateService>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {

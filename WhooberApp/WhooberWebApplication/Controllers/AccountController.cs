@@ -13,12 +13,12 @@ namespace Whoober_WebApplication.Controllers
 {
     public class AccountController : Controller
     {
-        private IAuthorizeService _authorizeService;
+        private IAuthenticateService _authenticateService;
         private IDriverService _driverService;
         private IClientService _clientService;
-        public AccountController(IAuthorizeService authorizeService, IClientService clientService, IDriverService driverService)
+        public AccountController(IAuthenticateService authenticateService, IClientService clientService, IDriverService driverService)
         {
-            _authorizeService = authorizeService;
+            _authenticateService = authenticateService;
             _clientService = clientService;
             _driverService = driverService;
         }
@@ -40,7 +40,7 @@ namespace Whoober_WebApplication.Controllers
         public async Task<IActionResult> LoginClient(LoginModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            ClientDto clientDto = await _authorizeService.LoginClient(model);
+            ClientDto clientDto = await _authenticateService.LoginClient(model);
             if (clientDto != null)
             {
                 await Authenticate(model.PhoneNumber);
@@ -58,7 +58,7 @@ namespace Whoober_WebApplication.Controllers
         public async Task<IActionResult> LoginDriver(LoginModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            ClientDto clientDto = await _authorizeService.LoginDriver(model);
+            ClientDto clientDto = await _authenticateService.LoginDriver(model);
             if (clientDto != null)
             {
                 await Authenticate(model.PhoneNumber);
@@ -88,9 +88,9 @@ namespace Whoober_WebApplication.Controllers
         public async Task<IActionResult> RegisterClient(RegisterModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            if (_authorizeService.ClientPhoneNumberIsValid(model.PhoneNumber))
+            if (_authenticateService.ClientPhoneNumberIsValid(model.PhoneNumber))
             {
-                var client = await _authorizeService.RegisterClient(model);
+                var client = await _authenticateService.RegisterClient(model);
                 _clientService.RegisterPassenger(client);
                 await Authenticate(model.PhoneNumber);
 
@@ -107,9 +107,9 @@ namespace Whoober_WebApplication.Controllers
         public async Task<IActionResult> RegisterDriver(RegisterModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            if (_authorizeService.DriverPhoneNumberIsValid(model.PhoneNumber))
+            if (_authenticateService.DriverPhoneNumberIsValid(model.PhoneNumber))
             {
-                Driver driver = await _authorizeService.RegisterDriver(model);
+                Driver driver = await _authenticateService.RegisterDriver(model);
                 _driverService.RegisterDriver(driver);
                 await Authenticate(model.PhoneNumber);
 

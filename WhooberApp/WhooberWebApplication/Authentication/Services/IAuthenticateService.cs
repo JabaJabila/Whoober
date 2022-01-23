@@ -5,7 +5,7 @@ using WhooberCore.Models;
 
 namespace WhooberCore.InfrastructureAbstractions
 {
-    public interface IAuthorizeService
+    public interface IAuthenticateService
     {
         Task<ClientDto> LoginClient(LoginModel loginModel);
         Task<Passenger> RegisterClient(RegisterModel registerModel);
