@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Whoober_WebApplication.Authentication;
 using Whoober_WebApplication.Authentication.Services;
+using WhooberCore.Domain.Entities;
 using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Models;
@@ -52,8 +53,8 @@ namespace Whoober_WebApplication.Controllers
                 return View("Login");
             }
 
-            ClientDto clientDto = await _authenticateService.LoginClient(model);
-            if (clientDto != null)
+            AccountInfoDto accountInfoDto = await _authenticateService.LoginClient(model);
+            if (accountInfoDto != null)
             {
                 await Authenticate(model.PhoneNumber, Role.Client.Name);
 
@@ -76,8 +77,8 @@ namespace Whoober_WebApplication.Controllers
                 return View("Login");
             }
 
-            ClientDto clientDto = await _authenticateService.LoginDriver(model);
-            if (clientDto != null)
+            AccountInfoDto accountInfoDto = await _authenticateService.LoginDriver(model);
+            if (accountInfoDto != null)
             {
                 await Authenticate(model.PhoneNumber, Role.Driver.Name);
                 return RedirectToAction("Index", "Driver");
@@ -102,8 +103,14 @@ namespace Whoober_WebApplication.Controllers
             List<string> errors = _authenticateService.ValidateRegisterModel(model);
             if (errors.Count == 0)
             {
-                var client = await _authenticateService.RegisterClient(model);
-                _clientService.RegisterPassenger(client);
+                var passenger = new Passenger(model.Name, model.PhoneNumber);
+                var accountDto = new AccountInfoDto()
+                {
+                    PhoneNumber = model.PhoneNumber,
+                    Password = model.Password,
+                };
+
+                _clientService.RegisterPassenger(passenger, accountDto);
                 await Authenticate(model.PhoneNumber, Role.Client.Name);
 
                 return RedirectToAction("Index", "Home");
@@ -131,8 +138,13 @@ namespace Whoober_WebApplication.Controllers
             List<string> errors = _authenticateService.ValidateRegisterModel(model);
             if (errors.Count == 0)
             {
-                var driver = await _authenticateService.RegisterDriver(model);
-                _driverService.RegisterDriver(driver);
+                var driver = new Driver(model.Name, model.PhoneNumber);
+                var accountDto = new AccountInfoDto()
+                {
+                    PhoneNumber = model.PhoneNumber,
+                    Password = model.Password,
+                };
+                _driverService.RegisterDriver(driver, accountDto);
                 await Authenticate(model.PhoneNumber, Role.Driver.Name);
 
                 return RedirectToAction("Index", "Driver");

@@ -8,9 +8,9 @@ namespace Whoober_WebApplication.Authentication.Services
 {
     public interface IAuthenticateService
     {
-        Task<ClientDto> LoginClient(LoginModel loginModel);
+        Task<AccountInfoDto> LoginClient(LoginModel loginModel);
         Task<Passenger> RegisterClient(RegisterModel registerModel);
-        Task<ClientDto> LoginDriver(LoginModel loginModel);
+        Task<AccountInfoDto> LoginDriver(LoginModel loginModel);
         Task<Driver> RegisterDriver(RegisterModel registerModel);
 
         List<string> ValidateLoginModel(LoginModel loginModel);

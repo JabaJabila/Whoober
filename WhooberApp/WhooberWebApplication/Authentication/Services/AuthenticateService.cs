@@ -19,7 +19,7 @@ namespace Whoober_WebApplication.Authentication.Services
             _context = context;
         }
 
-        public Task<ClientDto> LoginClient(LoginModel loginModel)
+        public Task<AccountInfoDto> LoginClient(LoginModel loginModel)
         {
             return _context.Accounts.FirstOrDefaultAsync(x =>
                 x.PhoneNumber == loginModel.PhoneNumber && x.Password == loginModel.Password);
@@ -31,18 +31,18 @@ namespace Whoober_WebApplication.Authentication.Services
             {
                 Id = Guid.NewGuid(),
             };
-            var clientDto = new ClientDto()
+            var accountInfoDto = new AccountInfoDto()
             {
                 ClientIdInDb = passenger.Id,
                 PhoneNumber = registerModel.PhoneNumber,
                 Password = registerModel.Password,
             };
-            _context.Accounts.Add(clientDto);
+            _context.Accounts.Add(accountInfoDto);
             await _context.SaveChangesAsync();
             return passenger;
         }
 
-        public Task<ClientDto> LoginDriver(LoginModel loginModel)
+        public Task<AccountInfoDto> LoginDriver(LoginModel loginModel)
         {
             return _context.Accounts.FirstOrDefaultAsync(x =>
                 x.PhoneNumber == loginModel.PhoneNumber && x.Password == loginModel.Password);
@@ -51,14 +51,14 @@ namespace Whoober_WebApplication.Authentication.Services
         public async Task<Driver> RegisterDriver(RegisterModel registerModel)
         {
             var driver = new Driver(registerModel.Name, registerModel.PhoneNumber);
-            var clientDto = new ClientDto()
+            var accountInfoDto = new AccountInfoDto()
             {
                 ClientIdInDb = driver.Id,
                 PhoneNumber = registerModel.PhoneNumber,
                 Password = registerModel.Password,
             };
 
-            _context.Accounts.Add(clientDto);
+            _context.Accounts.Add(accountInfoDto);
             await _context.SaveChangesAsync();
             return driver;
         }
