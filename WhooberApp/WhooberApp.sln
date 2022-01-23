@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberApp", "WhooberApp\WhooberApp.csproj", "{69F64F91-EDD1-4513-A583-638D8F7A3E8C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{1FC5899F-C23C-4AFC-84B9-817BC607E6B9}"
 ProjectSection(SolutionItems) = preProject
 	.editorconfig = .editorconfig
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Release|Any CPU.ActiveCfg = Release|Any CPU
