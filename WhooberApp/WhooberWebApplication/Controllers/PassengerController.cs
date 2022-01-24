@@ -1,7 +1,5 @@
 ﻿using System;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using WhooberCore.Domain.Entities;
 using WhooberCore.InfrastructureAbstractions;
 

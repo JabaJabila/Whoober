@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using WhooberCore.Domain.Entities;
-using WhooberCore.Dto;
-using WhooberCore.Models;
 
 namespace WhooberCore.InfrastructureAbstractions
 {

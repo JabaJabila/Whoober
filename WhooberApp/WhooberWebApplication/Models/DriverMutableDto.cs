@@ -1,7 +1,5 @@
-using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.PaymentAbstraction;
-using WhooberCore.Payment;
 
 namespace Whoober_WebApplication.Models
 {
@@ -12,6 +10,5 @@ namespace Whoober_WebApplication.Models
         public string Color { get; set; }
         public string CarNumber { get; set; }
         public BaseCard SavedCard { get; set; }
-
     }
 }

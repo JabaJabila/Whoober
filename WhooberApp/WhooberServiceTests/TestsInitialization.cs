@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WhooberCore.Algorithms;
 using WhooberCore.Domain.AlgorithmsAbstractions;
-using WhooberCore.Domain.Entities;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
 using WhooberInfrastructure.Data.Seeding;
