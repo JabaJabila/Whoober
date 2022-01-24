@@ -7,9 +7,8 @@ namespace WhooberCore.InfrastructureAbstractions
 {
     public interface IClientService
     {
-        void RegisterPassenger(Passenger passenger);
-        void RegisterPassenger(Passenger passenger, AccountInfoDto accountInfoDto);
-        IReadOnlyCollection<Trip> GetTripHistory(Passenger passenger);
+        Passenger RegisterPassenger(Passenger passenger);
+        IReadOnlyCollection<Trip> GetTripHistory(Guid id);
         Passenger FindPassengerById(Guid id);
         
         Trip GetActiveTrip(Guid passengerId);

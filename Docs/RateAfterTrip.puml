@@ -1,0 +1,22 @@
+﻿@startuml
+
+actor Passenger
+actor Driver
+
+usecase RatingService
+usecase TripService
+usecase DriverCommandHandler
+usecase PassengerCommandHandler
+usecase DriverNotifier
+usecase PassengerNotifier
+
+TripService -down-> PassengerNotifier : "notify rate driver"
+TripService -down-> DriverNotifier : "notify rate passenger"
+PassengerNotifier -left-> Passenger : "send request to rate"
+DriverNotifier -right-> Driver : "send request to rate"
+Driver -down--> DriverCommandHandler : "rate client"
+Passenger -down--> PassengerCommandHandler : "rate driver"
+PassengerCommandHandler -down-> RatingService : "update diver rating"
+DriverCommandHandler -down-> RatingService : "update passenger rating"
+
+@enduml

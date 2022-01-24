@@ -1,0 +1,19 @@
+﻿@startuml
+actor Driver
+actor Passenger
+
+usecase PassengerNotifier
+usecase PassengerCommandHandler
+usecase TripService
+usecase DriverCommandHandler
+usecase PaymentService
+
+Driver .up.> DriverCommandHandler : "end route"
+DriverCommandHandler -> TripService : "finish trip unpaid"
+TripService -> PassengerNotifier : "notify to pay"
+PassengerNotifier -> Passenger : "send request to pay"
+Passenger -up-> PassengerCommandHandler : "pay"
+PassengerCommandHandler -left-> PaymentService : "ask confirmation"
+PaymentService --> TripService : "confirm payment"
+
+@enduml

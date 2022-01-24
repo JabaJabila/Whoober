@@ -18,7 +18,7 @@ namespace WhooberCore.Domain.Entities
         }
 
         public Guid Id { get; private init; }
-        public CarLevel Level { get; private init; }
+        public CarLevel Level { get; init; }
         public string Model { get; private init; }
         public string Color { get; private init; }
         public string Number { get; private init; }

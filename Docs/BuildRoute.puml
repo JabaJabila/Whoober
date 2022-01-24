@@ -1,0 +1,17 @@
+﻿@startuml
+actor Passenger
+
+usecase RouteRequestBuilder
+usecase OrderService
+usecase CostDeterminer
+usecase PassengerNotifier
+
+
+Passenger -> RouteRequestBuilder : "create path and choose taxi type"
+RouteRequestBuilder -right-> OrderService : "request to make order"
+OrderService -right-> CostDeterminer : "estimate price"
+CostDeterminer -left-> OrderService : "return price"
+OrderService -down-> PassengerNotifier : "return price of trip"
+PassengerNotifier -up-> Passenger : "show price" 
+
+@enduml

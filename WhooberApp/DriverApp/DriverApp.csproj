@@ -5,7 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WhooberCore\WhooberCore.csproj" />
       <ProjectReference Include="..\WhooberInfrastructure\WhooberInfrastructure.csproj" />
     </ItemGroup>
 

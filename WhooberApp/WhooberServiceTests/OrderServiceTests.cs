@@ -43,7 +43,7 @@ namespace WhooberServiceTests
                 Password = "123",
             };
             var passenger = new Passenger("abobus", dto.PhoneNumber);
-            _clientService.RegisterPassenger(passenger, dto);
+            _clientService.RegisterPassenger(passenger);
             var builder = new OrderRequestBuilder();
             builder.SetPassenger(passenger)
                 .AddLocation(new Location(0, 0))

@@ -42,11 +42,6 @@ namespace DriverApp
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IDriverService, DriverService>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();
-            
-            // services.AddSignalR().AddHubOptions<DriverNotificationHub>(options =>
-            // {
-            //     options.ClientTimeoutInterval = 
-            // })
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => {
@@ -83,7 +78,6 @@ namespace DriverApp
                 endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-                // endpoints.MapHub<DriverNotificationHub>("/driverNotification");
             });
         }
     }

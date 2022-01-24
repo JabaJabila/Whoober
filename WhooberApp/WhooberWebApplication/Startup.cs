@@ -7,10 +7,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Whoober_WebApplication.Authentication;
 using Whoober_WebApplication.Authentication.Services;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
+using WhooberInfrastructure.Data.Seeding;
+using WhooberInfrastructure.Data.Seeding.DataGeneratorAbstractions;
+using WhooberInfrastructure.Data.Seeding.DataGeneratorAlgorithms;
 using WhooberInfrastructure.Services;
 using AuthenticateService=Whoober_WebApplication.Authentication.Services.AuthenticateService;
 using IAuthenticateService=Whoober_WebApplication.Authentication.Services.IAuthenticateService;
@@ -32,64 +36,32 @@ namespace Whoober_WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Whoober.Server", Version = "v1" });
+            });
+            services.AddScoped<IPassengerGenerator, SimplePassengerGenerator>();
+            services.AddScoped<IDriverGenerator, SimpleDriverGenerator>();
+            services.AddScoped<ICarGenerator, SimpleCarGenerator>();
+            services.AddScoped<ICardGenerator, SimpleCardGenerator>();
+            services.AddScoped<IDataSeeder, SimpleDataSeeder>();
+
             services.AddDbContext<WhooberContext>(
             options => options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IDriverService, DriverService>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => {
-                    options.LoginPath = new PathString("/Auth/Login");
-                });
-            services.AddAuthorization(options => {
-                options.AddPolicy(
-                Role.Client.Name,
-                policy => {
-                    policy.RequireClaim(Role.Client.Name);
-                    policy.RequireAuthenticatedUser();
-                });
-                options.AddPolicy(
-                Role.Driver.Name,
-                policy => {
-                    policy.RequireClaim(Role.Driver.Name);
-                    policy.RequireAuthenticatedUser();
-                });
-            });
-
-            // services.AddAuthentication(Role.Client.Name)
-            //     .AddCookie(options =>
-            //     {
-            //         options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Auth/LoginClient");
-            //     });
-            // services.AddAuthentication(Role.Driver.Name)
-            //     .AddCookie(options =>
-            //     {
-            //         options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Auth/LoginDriver");
-            //     });
-            // services.AddAuthorization(options =>
-            // {
-            //     options.AddPolicy("Passenger", policy => policy.RequireClaim(Role.Client.Name));
-            //     options.AddPolicy("Driver", policy => {
-            //         policy.
-            //         policy.RequireClaim(Role.Driver.Name).AuthenticationSchemes = new List<string>();
-            //     });
-            // });
-            services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Whoober.Server v1"));
             }
 
             app.UseHttpsRedirection();
@@ -97,28 +69,9 @@ namespace Whoober_WebApplication
 
             app.UseRouting();
 
-            app.UseAuthentication();// аутентификация
-            app.UseAuthorization();// авторизация
-
-            app.UseEndpoints(endpoints => {
-                endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
-        }
-
-        private void AddAuthenticationScheme(IServiceCollection services, string name, string loginPath)
-        {
-            services.AddAuthentication(name)
-                .AddCookie(options => {
-                    options.LoginPath = new PathString(loginPath);
-                });
-            services.AddAuthorization(options => {
-                options.AddPolicy(name,
-                policy => {
-                    policy.AuthenticationSchemes = new List<string> {name};
-                    policy.RequireClaim(name);
-                });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
             });
         }
     }

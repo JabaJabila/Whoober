@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.Exceptions;
-using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
 
@@ -20,13 +18,22 @@ namespace WhooberInfrastructure.Services
             _whooberContext = whooberContext;
         }
 
-        public void RegisterDriver(Driver driver)
+        public Driver RegisterDriver(Driver driver)
         {
             if (_whooberContext.Drivers.FirstOrDefault(x => x.PhoneNumber == driver.PhoneNumber) != null)
                 throw new PersonException($"Driver with {driver.PhoneNumber} phone number already registered");
 
             _whooberContext.Drivers.Add(driver);
             _whooberContext.SaveChanges();
+            return driver;
+        }
+
+        public bool UpdateLocation(Guid id, Location newLocation)
+        {
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            driver.Location = newLocation;
+            _whooberContext.SaveChanges();
+            return true;
         }
 
         public Driver FindDriverById(Guid id)
@@ -34,52 +41,81 @@ namespace WhooberInfrastructure.Services
             return _whooberContext.Drivers.FirstOrDefault(x => x.Id == id);
         }
 
-        public void SetDriverStateToWorking(Guid id)
+        public bool SetDriverStateToWorking(Guid id)
         {
-            FindDriverById(id).State = DriverState.Driving;
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            driver.State = DriverState.Driving;
             _whooberContext.SaveChanges();
+            return true;
         }
 
-        public void SetDriverStateToInactive(Guid id)
+        public bool SetDriverStateToInactive(Guid id)
         {
-            FindDriverById(id).State = DriverState.Inactive;
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            driver.State = DriverState.Inactive;
             _whooberContext.SaveChanges();
+            return true;
         }
 
-        public void SetDriverStateToWaiting(Guid id)
+        public bool SetDriverStateToWaiting(Guid id)
         {
-            FindDriverById(id).State = DriverState.Waiting;
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            driver.State = DriverState.Waiting;
             _whooberContext.SaveChanges();
+            return true;
         }
 
-        public void AcceptOrder(Guid id, Order order)
+        public bool AcceptOrder(Guid id, Order order)
         {
-            FindDriverById(id).State = DriverState.Driving;
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            driver.State = DriverState.Driving;
+            return true;
         }
 
-        public void ChangeTripStateToAwaitDriver(Guid id)
+        public bool DenyOrder(Guid id, Order order)
         {
-            Trip trip = _serviceMediator.FindActiveTripByDriver(FindDriverById(id));
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            return true;
+        }
+
+        public bool ChangeTripStateToAwaitDriver(Guid id)
+        {
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
             _serviceMediator.ChangeTripStateToAwaitDriver(trip);
+            return true;
         }
 
-        public void ChangeTripStateToAwaitClient(Guid id)
+        public bool ChangeTripStateToAwaitClient(Guid id)
         {
-            Trip trip = _serviceMediator.FindActiveTripByDriver(FindDriverById(id));
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
             _serviceMediator.ChangeTripStateToAwaitClient(trip);
+            return true;
         }
 
-        public void ChangeTripStateToOnTheWay(Guid id)
+        public bool ChangeTripStateToOnTheWay(Guid id)
         {
-            Trip trip = _serviceMediator.FindActiveTripByDriver(FindDriverById(id));
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
             _serviceMediator.ChangeTripStateToOnTheWay(trip);
+            return true;
         }
 
-        public void ChangeTripStateToFinished(Guid id)
+        public bool ChangeTripStateToFinished(Guid id)
         {
-            Trip trip = _serviceMediator.FindActiveTripByDriver(FindDriverById(id));
+            Driver driver = FindDriverById(id) ?? throw new ArgumentException($"Driver with id {id} not found", nameof(id));
+            Trip trip = _serviceMediator.FindActiveTripByDriver(driver);
             _serviceMediator.ChangeTripStateToFinished(trip);
             SetDriverStateToWaiting(id);
+            return true;
+        }
+
+        public Driver UpdateDriver(Guid id)
+        {
+            Driver driver = FindDriverById(id);
+            _whooberContext.SaveChanges();
+            return driver;
         }
 
         public IReadOnlyCollection<Driver> GetActiveDrivers()

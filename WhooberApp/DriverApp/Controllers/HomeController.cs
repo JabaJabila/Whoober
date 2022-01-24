@@ -1,10 +1,12 @@
 using System;
 using System.Diagnostics;
+using System.Net;
 using System.Security.Authentication;
 using DriverApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WhooberCore.Domain.Entities;
 using WhooberCore.InfrastructureAbstractions;
 
 namespace DriverApp.Controllers
@@ -59,7 +61,7 @@ namespace DriverApp.Controllers
         }
         
         [Authorize]
-        public IActionResult AcceptOrder()
+        public IActionResult AcceptOrder(Order order)
         {
             if (!(User is {Identity: {Name: {}}}))
             {
@@ -67,7 +69,33 @@ namespace DriverApp.Controllers
             }
 
             var driverId = Guid.Parse(User.Identity.Name);
-            _driverService.SetDriverStateToWaiting(driverId);
+            _driverService.SetDriverStateToWorking(driverId);
+            return Ok(true);
+        }
+        
+        [Authorize]
+        public IActionResult DenyOrder(Order order)
+        {
+            if (!(User is {Identity: {Name: {}}}))
+            {
+                throw new AuthenticationException();
+            }
+
+            var driverId = Guid.Parse(User.Identity.Name);
+            _driverService.DenyOrder(driverId, order);
+            return Ok(true);
+        }
+
+        [Authorize]
+        public IActionResult UpdateLocation(Location newLocation)
+        {
+            if (!(User is {Identity: {Name: {}}}))
+            {
+                throw new AuthenticationException();
+            }
+
+            var driverId = Guid.Parse(User.Identity.Name);
+            _driverService.UpdateLocation(driverId, newLocation);
             return Ok(true);
         }
     }
