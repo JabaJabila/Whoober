@@ -29,25 +29,22 @@ namespace WhooberCore.Domain.Entities
             set => _locations = value.ToList();
         }
 
-        public string LocationString
-        {
-            get
-            {
-                IEnumerable<string> listString = Locations.Select(l => $"{l.Latitude}:{l.Longitude}");
-                return string.Join(' ', listString);
-            }
-            set
-            {
-                var locationStrings = value.Split(' ').ToList();
-                Locations = locationStrings.Select(s =>
-                {
-                    string[] coords = s.Split(':');
-                    return new Location(Convert.ToDouble(coords.First()), Convert.ToDouble(coords.Last()));
-                }).ToList();
-            }
-        }
-
-        public Location Start => Locations.FirstOrDefault();
-        public Location Finish => Locations.LastOrDefault();
+        // public string LocationString
+        // {
+        //     get
+        //     {
+        //         IEnumerable<string> listString = Locations.Select(l => $"{l.Latitude}:{l.Longitude}");
+        //         return string.Join(' ', listString);
+        //     }
+        //     set
+        //     {
+        //         var locationStrings = value.Split(' ').ToList();
+        //         Locations = locationStrings.Select(s =>
+        //         {
+        //             string[] coords = s.Split(':');
+        //             return new Location(Convert.ToDouble(coords.First()), Convert.ToDouble(coords.Last()));
+        //         }).ToList();
+        //     }
+        // }
     }
 }

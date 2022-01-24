@@ -11,6 +11,7 @@ using WhooberInfrastructure.Data;
 using WhooberInfrastructure.Data.Seeding;
 using WhooberInfrastructure.Data.Seeding.DataGeneratorAbstractions;
 using WhooberInfrastructure.Data.Seeding.DataGeneratorAlgorithms;
+using WhooberInfrastructure.Hubs;
 using WhooberInfrastructure.Services;
 
 namespace DriverApp
@@ -51,6 +52,7 @@ namespace DriverApp
                 options.AddPolicy("Authorized", policy => policy.RequireAuthenticatedUser());
             });
             services.AddControllersWithViews();
+            services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -78,6 +80,7 @@ namespace DriverApp
                 endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<DriverNotificationHub>("/signalHub");
             });
         }
     }
