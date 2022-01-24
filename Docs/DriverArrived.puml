@@ -7,6 +7,6 @@ usecase DriverCommandHandler
 
 Driver -> DriverCommandHandler : "Driver arrived"
 DriverCommandHandler -> PassengerNotifier : "Notify driver arrived"
-PassengerNotifier -> Passenger : "Sit in car"
+PassengerNotifier -> Passenger : "'Driver is waiting for you'"
 
 @enduml
