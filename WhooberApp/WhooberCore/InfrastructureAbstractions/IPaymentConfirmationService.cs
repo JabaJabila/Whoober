@@ -1,5 +1,4 @@
 using WhooberCore.Domain.PaymentAbstraction;
-using WhooberCore.Payment;
 
 namespace WhooberCore.InfrastructureAbstractions
 {

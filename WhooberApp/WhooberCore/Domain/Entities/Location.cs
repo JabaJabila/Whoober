@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WhooberCore.Domain.Entities
+﻿namespace WhooberCore.Domain.Entities
 {
     public class Location
     {

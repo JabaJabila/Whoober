@@ -4,7 +4,6 @@ using Whoober_WebApplication.Models;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Enums;
 using WhooberCore.InfrastructureAbstractions;
-using WhooberCore.Payment;
 
 namespace Whoober_WebApplication.Controllers
 {

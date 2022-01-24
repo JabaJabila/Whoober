@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WhooberCore.Domain.Entities;
 using WhooberCore.Domain.Exceptions;
-using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
 
@@ -26,6 +25,7 @@ namespace WhooberInfrastructure.Services
             _whooberContext.SaveChanges();
             return passenger;
         }
+
         public IReadOnlyCollection<Trip> GetTripHistory(Guid id)
         {
             return _whooberContext.Trips.Where(x => x.Order.Passenger == FindPassengerById(id)).ToList();

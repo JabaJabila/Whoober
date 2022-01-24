@@ -1,5 +1,4 @@
-﻿using System;
-using WhooberCore.Domain.PaymentAbstraction;
+﻿using WhooberCore.Domain.PaymentAbstraction;
 
 namespace WhooberCore.Payment
 {
