@@ -35,7 +35,8 @@ namespace DriverApp.Controllers
         [Authorize]
         public IActionResult EditCar()
         {
-            return View();
+            // return View();
+            return RedirectToAction("Index");
         }
     }
 }
