@@ -36,8 +36,9 @@ namespace DriverApp
             services.AddScoped<ICardGenerator, SimpleCardGenerator>();
             services.AddScoped<IDataSeeder, EmptySeeder>();
             
-            services.AddDbContext<WhooberContext>(
-            options => options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
+            string dbConnectionString = Configuration.GetConnectionString("MySql");
+            services.AddDbContext<WhooberContext>(options => options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
+            
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IDriverService, DriverService>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();

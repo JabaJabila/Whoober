@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.Domain.Entities;
 
@@ -9,7 +10,7 @@ namespace WhooberCore.Algorithms
         public double CountLength(Route route)
         {
             double length = 0;
-            Location previous = route.Start;
+            Location previous = route.Locations.FirstOrDefault();
             foreach (Location routeLocation in route.Locations)
             {
                 length += CountLocationsDistance(previous, routeLocation);

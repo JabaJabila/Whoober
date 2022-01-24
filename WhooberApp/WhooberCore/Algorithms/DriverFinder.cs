@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using WhooberCore.Domain.AlgorithmsAbstractions;
@@ -17,7 +16,7 @@ namespace WhooberCore.Algorithms
         public Driver FindDriver(Order order, IReadOnlyCollection<Driver> activeDrivers)
         {
             // TODO find
-            SortDriversByLocation(order.Route.Start, activeDrivers.ToList());
+            SortDriversByLocation(order.Route.Locations.FirstOrDefault(), activeDrivers.ToList());
             return activeDrivers.FirstOrDefault();
         }
 

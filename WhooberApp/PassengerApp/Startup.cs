@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using WhooberCore.Algorithms;
+using WhooberCore.Domain.AlgorithmsAbstractions;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberInfrastructure.Data;
 using WhooberInfrastructure.Data.Seeding;
@@ -29,12 +32,17 @@ namespace PassengerApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IDataSeeder, EmptySeeder>();
+
+            string dbConnectionString = Configuration.GetConnectionString("MySql");
+            services.AddDbContext<WhooberContext>(options => options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
             
-            services.AddDbContext<WhooberContext>(
-            options => options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IDriverService, DriverService>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICostDeterminer, FixedFairCostDeterminer>();
+            services.AddScoped<IDistanceDeterminer, EuclidDistanceCount>();
+            services.AddScoped<IDriverFinder, DriverFinder>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => {
@@ -43,6 +51,11 @@ namespace PassengerApp
             services.AddAuthorization(options => { 
                 options.AddPolicy("Authorized", policy => policy.RequireAuthenticatedUser());
             });
+            
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo() {Title = "WebApplication", Version = "v1"});
+            });
+            
             services.AddControllersWithViews();
         }
 
@@ -52,6 +65,8 @@ namespace PassengerApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication v1"));
             }
             else
             {
