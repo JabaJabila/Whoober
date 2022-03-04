@@ -1,0 +1,11 @@
+﻿@{
+    string imageAddress = "/map.jpg";
+    float mapWidth = 1500;
+    float mapHeight = 897;
+}
+<div id="map" style="background: url(@imageAddress) no-repeat #222" class="fullscreen"></div>
+<canvas id="overlay" width="@mapWidth" height="@mapHeight" class="fullscreen"></canvas>
+<script src="~/js/map.js"></script>
+<script>
+    map(@mapWidth, @mapHeight);
+</script>

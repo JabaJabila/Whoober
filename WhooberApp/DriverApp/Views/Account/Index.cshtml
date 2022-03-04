@@ -1,0 +1,17 @@
+@using WhooberCore.Domain.Enums
+@model DriverApp.Models.DriverModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<title>My profile</title>
+<div class="text-center">
+    <p>Name: @Model.Name</p>
+    <p>Rating: @Model.Rating</p>
+    <p>Phone number: @Model.PhoneNumber</p>
+    Car: @Html.Editor("Car")
+    @Html.DropDownListFor(m => m.State, 
+                new SelectList(new Enum[] {DriverState.Inactive, DriverState.Waiting}))
+    Saved card number: @Html.Editor("")
+</div>

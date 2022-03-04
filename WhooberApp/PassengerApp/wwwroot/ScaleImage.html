@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="fullscreen">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+        .fullscreen {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        #img{
+            background: url(map.jpg) no-repeat #444;
+        }
+        .side-menu{
+            position: absolute;
+            top: 10%;
+            height: 80%;
+            width: 10cm;
+            background-color: white;
+            border-bottom-right-radius: 2em;
+            border-top-right-radius: 2em;
+        }
+        .pointsContainer{
+            
+        }
+        .point {
+            font-size: 0.8cm;
+            font-family: Segoe UI;
+            line-height: 0.625;
+            display: flex;
+        }
+    </style>
+</head>
+<body class="fullscreen">
+<div id="img" class="fullscreen">
+</div>
+<div class="side-menu">
+    <div id="pointsContainer">
+    </div>
+</div>
+<script>
+    document.oncontextmenu = function(e){
+        stopEvent(e);
+    }
+    function stopEvent(event){
+        if(event.preventDefault !== undefined)
+            event.preventDefault();
+        if(event.stopPropagation !== undefined)
+            event.stopPropagation();
+    }
+    
+    img = document.getElementById("img");
+    pointsContainer = document.getElementById("pointsContainer");
+    
+    let imageWidth = 1500;
+    let imageHeight = 897;
+    
+    let dx = -imageWidth/2 + img.clientWidth/2;
+    let dy = 0;
+    let scale = 1;
+    let wheelState = 10;
+    
+    let mouseIsDown = false;
+    let downX;
+    let downY;
+    
+    img.style.backgroundSize = imageWidth + "px"
+    
+    img.addEventListener("mousewheel",onmousewheel, false);
+    img.addEventListener("DOMMouseScroll",onDOMMouseScroll, false);
+    
+    img.addEventListener("mousedown",onmousedown);
+    img.addEventListener("mouseup",onmouseup);
+    img.addEventListener("mousemove",onmousemove);
+    img.addEventListener("contextmenu", oncontextmenu);
+    
+    function onmousewheel(e) {
+        wheel(e.detail/360, e.x, e.y);
+    }
+    
+    function onDOMMouseScroll(e) {
+        wheel(e.detail/3, e.x, e.y);
+    }
+    
+    function wheel(size, x, y) {
+        let newWheelState = wheelState - size;
+        if (newWheelState > 20)
+            newWheelState = 20;
+        if (newWheelState < 1)
+            newWheelState = 1;
+        
+        let tmpX = (-dx + x) / scale;
+        let tmpY = (-dy + y) / scale;
+        scale = Math.pow(newWheelState/10, 2);
+        dx = x - tmpX * scale;
+        dy = y - tmpY * scale;
+        
+        img.style.backgroundSize = imageWidth * scale + "px"
+        img.style.backgroundPositionX = dx + "px";
+        img.style.backgroundPositionY = dy + "px";
+        
+        wheelState = newWheelState;
+    }
+
+    function onmousedown(e) {
+        mouseIsDown = true;
+        downX = e.layerX - dx;
+        downY = e.layerY - dy;
+    }
+
+    function onmouseup(e) {
+        mouseIsDown = false;
+    }
+    
+    function onmousemove(e) {
+        if (mouseIsDown) {
+            dx = (e.x - downX);
+            dy = (e.y - downY);
+            img.style.backgroundPositionX = dx + "px";
+            img.style.backgroundPositionY = dy + "px";
+        }
+    }
+
+    img.style.backgroundPositionX = dx + "px";
+    img.style.backgroundPositionY = dy + "px";
+    
+    function oncontextmenu(e) {
+        tryPutPoint((e.x - dx)/scale, (e.y - dy)/scale);
+    }
+    
+    function tryPutPoint(x, y) {
+        if (x < 0 || x > imageWidth || y < 0 || y > imageHeight)
+            return;
+        x = Math.floor(x);
+        y = Math.floor(y);
+        p = document.createElement("p");
+        p.innerText = x + ", " + y;
+        p.className = "point";
+        pointsContainer.append(p);
+    }
+</script>
+</body>
+</html>

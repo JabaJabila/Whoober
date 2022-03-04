@@ -1,0 +1,128 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" class="fullscreen">
+<head>
+    <meta charset="UTF-8">
+    <title>Whoober</title>
+    <script src="~/js/site.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+        .side-menu{
+            position: absolute;
+            top: 10%;
+            height: 80%;
+            width: 10cm;
+            background-color: white;
+            border-bottom-right-radius: 2em;
+            border-top-right-radius: 2em;
+        }
+        #pointsContainer {
+            padding:  0.75cm;
+            text-align: center;
+        }
+        .point {
+            font-size: 0.8cm;
+            font-family: Segoe UI;
+        }
+    </style>
+</head>
+<body class="fullscreen">
+<partial name="_ViewMap"/>
+<div class="side-menu">
+</div>
+<script>
+    let driverId = @User.Identity!.Name;
+    
+    const v = 400;
+    const dt = 0.03;
+    
+    let renderContext = document.getElementById("overlay").getContext("2d");
+    
+    let point;
+    let goal;
+    let interval;
+    
+    setOnContextMenuListener(function setOnContextMenuListener(x, y) {
+        if (point === undefined) {
+            point = [x, y];
+            pointUpdated();
+        } else {
+            goal = [x, y];
+            if (interval === undefined)
+                interval = setInterval(moveToGoal, dt * 1000);
+        }
+    });
+    
+    setOnUpdateMapViewListener(function (dx, dy, scale) {
+        clearCanvas(renderContext);
+        renderContext.fillStyle = 'pink';
+        if (point === undefined)
+            drawCircle(renderContext, translateX(point[0]), translateY(point[1]), 12);
+        for (let key in guests) {
+            if (guests[key] === undefined) {
+                continue;
+            }
+            drawCircle(renderContext, translateX(guests[key][0]), translateY(guests[key][1]), 12);
+        }
+    })
+    
+    function moveToGoal() {
+        let vector = [goal[0] - point[0], goal[1] - point[1]];
+        let vectorLength = Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2));
+        
+        if (vectorLength < 1) {
+            stopMovingInterval();
+            return;
+        }
+        
+        let scale = v * dt / vectorLength;
+        if (scale > 1) {
+            scale = 1;
+        }
+        point[0] += vector[0] * scale;
+        point[1] += vector[1] * scale;
+        pointUpdated();
+    }
+    
+    function stopMovingInterval() {
+        clearInterval(interval);
+        interval = undefined;
+    }
+    
+    function pointUpdated() {
+        mapCalls.invalidate();
+        DriverPingMessage(point[0], point[1], 0);
+    }
+    
+    let guests = [];
+    
+    let connection = new signalR.HubConnectionBuilder().withUrl("/signalHub").build();
+    
+    connection.on("DriverPing", function (id, latitude, longitude, state) {
+        guests[id] = [latitude, longitude];
+        mapCalls.invalidate();
+    });
+    
+    connection.start().then(function () {
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+    
+    function DriverPingMessage(latitude, longitude, state) {
+        connection.invoke("DriverPingMessage", driverId, latitude, longitude, state).catch(function (err) {
+            return console.error(err.toString());
+        });
+    }
+</script>
+<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/js/driver_hub.js"></script>
+</body>
+</html>

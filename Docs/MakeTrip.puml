@@ -1,0 +1,22 @@
+﻿@startuml
+actor Passenger
+actor Driver
+
+usecase PassengerNotifier
+usecase PassengerOrderCommandHandler
+usecase TripService
+usecase DriverFounder
+usecase DriverNotifier
+usecase DriverCommandHandler
+
+Passenger -left-> PassengerOrderCommandHandler : "send approve"
+PassengerOrderCommandHandler -down-> TripService : "start trip request"
+TripService -> DriverFounder : "find driver"
+DriverFounder -> DriverNotifier : "notify nearest drivers"
+DriverNotifier -> Driver : "show trip request"
+Driver -down-> DriverCommandHandler : "send confirmation"
+DriverCommandHandler -left-> TripService : "starting trip"
+TripService -up-> PassengerNotifier : "notify trip started"
+PassengerNotifier -up-> Passenger : "notify driver found"
+
+@enduml

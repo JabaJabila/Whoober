@@ -1,0 +1,12 @@
+﻿@startuml
+actor Passenger
+actor Driver
+
+usecase PassengerNotifier
+usecase DriverCommandHandler
+
+Driver -> DriverCommandHandler : "Driver arrived"
+DriverCommandHandler -> PassengerNotifier : "Notify driver arrived"
+PassengerNotifier -> Passenger : "'Driver is waiting for you'"
+
+@enduml

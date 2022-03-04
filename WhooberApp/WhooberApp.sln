@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberApp", "WhooberApp\WhooberApp.csproj", "{69F64F91-EDD1-4513-A583-638D8F7A3E8C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{1FC5899F-C23C-4AFC-84B9-817BC607E6B9}"
 ProjectSection(SolutionItems) = preProject
 	.editorconfig = .editorconfig
@@ -9,19 +7,45 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberCore", "WhooberCore\WhooberCore.csproj", "{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberServiceTests", "WhooberServiceTests\WhooberServiceTests.csproj", "{698484DF-B11C-4D7B-A1A7-4A224B52A4B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberInfrastructure", "WhooberInfrastructure\WhooberInfrastructure.csproj", "{EDB79A12-E7CF-4138-A671-89D8BD43230C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhooberWebApplication", "WhooberWebApplication\WhooberWebApplication.csproj", "{F1865D90-C35B-4C04-A470-310EAE65F6D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PassengerApp", "PassengerApp\PassengerApp.csproj", "{DA51CD56-4F41-4E71-AAB2-725FC4CE9DFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverApp", "DriverApp\DriverApp.csproj", "{97CCD452-1512-4A23-ABD6-13E23F88B3A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69F64F91-EDD1-4513-A583-638D8F7A3E8C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D36F4DB1-2F04-4A97-A9D9-3EA0B324929E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{698484DF-B11C-4D7B-A1A7-4A224B52A4B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{698484DF-B11C-4D7B-A1A7-4A224B52A4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{698484DF-B11C-4D7B-A1A7-4A224B52A4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{698484DF-B11C-4D7B-A1A7-4A224B52A4B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDB79A12-E7CF-4138-A671-89D8BD43230C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDB79A12-E7CF-4138-A671-89D8BD43230C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDB79A12-E7CF-4138-A671-89D8BD43230C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDB79A12-E7CF-4138-A671-89D8BD43230C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1865D90-C35B-4C04-A470-310EAE65F6D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1865D90-C35B-4C04-A470-310EAE65F6D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1865D90-C35B-4C04-A470-310EAE65F6D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1865D90-C35B-4C04-A470-310EAE65F6D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA51CD56-4F41-4E71-AAB2-725FC4CE9DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA51CD56-4F41-4E71-AAB2-725FC4CE9DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA51CD56-4F41-4E71-AAB2-725FC4CE9DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA51CD56-4F41-4E71-AAB2-725FC4CE9DFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97CCD452-1512-4A23-ABD6-13E23F88B3A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97CCD452-1512-4A23-ABD6-13E23F88B3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97CCD452-1512-4A23-ABD6-13E23F88B3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97CCD452-1512-4A23-ABD6-13E23F88B3A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
