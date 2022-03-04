@@ -37,8 +37,9 @@ namespace DriverApp
             services.AddScoped<ICardGenerator, SimpleCardGenerator>();
             services.AddScoped<IDataSeeder, EmptySeeder>();
             
-            string dbConnectionString = Configuration.GetConnectionString("MySql");
-            services.AddDbContext<WhooberContext>(options => options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
+            string dbConnectionString = Configuration.GetConnectionString("Sqlite");
+            services.AddDbContext<WhooberContext>(options =>
+                options.UseSqlite(dbConnectionString));
             
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IDriverService, DriverService>();
@@ -64,7 +65,6 @@ namespace DriverApp
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
