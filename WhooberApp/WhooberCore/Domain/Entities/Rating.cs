@@ -13,14 +13,6 @@ namespace WhooberCore.Domain.Entities
             Rates = new List<Rate>();
         }
 
-        public void AddRate(Rate rate)
-        {
-            if (rate == null) throw new ArgumentNullException(nameof(rate));
-            SumScores += rate.RateValue;
-            _rates.Add(rate);
-            rate.FromRating = this;
-        }
-
         public Guid Id { get; private init; }
         public IReadOnlyCollection<Rate> Rates
         {
@@ -31,5 +23,12 @@ namespace WhooberCore.Domain.Entities
         public double AverageScore => CountScores == 0 ? 0 : SumScores / CountScores;
         private int SumScores { get; set; }
         private int CountScores => _rates.Count;
+        public void AddRate(Rate rate)
+        {
+            if (rate == null) throw new ArgumentNullException(nameof(rate));
+            SumScores += rate.RateValue;
+            _rates.Add(rate);
+            rate.FromRating = this;
+        }
     }
 }

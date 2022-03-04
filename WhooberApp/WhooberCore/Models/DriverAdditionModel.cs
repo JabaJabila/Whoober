@@ -1,5 +1,4 @@
 using WhooberCore.Domain.Entities;
-using WhooberCore.Domain.Enums;
 using WhooberCore.Domain.PaymentAbstraction;
 
 namespace WhooberCore.Models

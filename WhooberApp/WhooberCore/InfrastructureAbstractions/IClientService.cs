@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using WhooberCore.Domain.Entities;
-using WhooberCore.Dto;
 
 namespace WhooberCore.InfrastructureAbstractions
 {
@@ -10,7 +9,6 @@ namespace WhooberCore.InfrastructureAbstractions
         Passenger RegisterPassenger(Passenger passenger);
         IReadOnlyCollection<Trip> GetTripHistory(Guid id);
         Passenger FindPassengerById(Guid id);
-        
         Trip GetActiveTrip(Guid passengerId);
     }
 }

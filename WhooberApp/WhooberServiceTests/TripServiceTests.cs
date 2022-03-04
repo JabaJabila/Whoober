@@ -6,7 +6,6 @@ using WhooberCore.Domain.Enums;
 using WhooberCore.Dto;
 using WhooberCore.InfrastructureAbstractions;
 using WhooberCore.Payment;
-using WhooberInfrastructure.Data;
 
 namespace WhooberServiceTests
 {
